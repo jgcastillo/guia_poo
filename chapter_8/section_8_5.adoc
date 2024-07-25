@@ -1,0 +1,121 @@
+= Principio de Sustitución de Liskov (LSP)
+
+El Principio de Sustitución de Liskov (LSP) es uno de los cinco principios fundamentales de diseño SOLID y lleva el nombre de la científica informática Barbara Liskov. Barbara Liskov es una pionera en el campo de la informática, conocida por sus contribuciones en la teoría de tipos, los sistemas de programación y la investigación sobre lenguajes de programación. En 2008, recibió el prestigioso premio Turing, el equivalente al Nobel en informática, en reconocimiento a su trabajo.
+
+== En Qué Consiste el Principio de Sustitución de Liskov
+
+El LSP establece que los objetos de una clase derivada deben poder sustituir a los objetos de su clase base sin alterar el funcionamiento del programa. Este principio garantiza que una clase hija puede reemplazar a su clase padre sin que el sistema falle, asegurando la integridad y coherencia del comportamiento del sistema.
+
+La existencia del LSP es crucial para mantener la coherencia en los sistemas de herencia. Permite que las clases derivadas extiendan las clases base sin romper la funcionalidad existente. La aplicación del LSP asegura que cualquier función que use una clase base también pueda usar una clase derivada sin conocer las diferencias específicas entre ellas. Esto facilita la reutilización y la extensibilidad del código.
+
+Aplicar el LSP implica garantizar que las clases derivadas puedan sustituir a sus clases base sin cambiar el comportamiento esperado. Para ello, las clases derivadas deben cumplir con las expectativas establecidas por las clases base, incluyendo métodos y comportamientos coherentes. Este principio se puede aplicar mediante pruebas rigurosas y una correcta implementación de la herencia.
+
+== Ejemplo de Uso
+
+A continuación se presenta un ejemplo donde no se aplica el LSP. En este ejemplo, tenemos una clase `Rectangle` y una clase derivada `Square` que no cumple con el LSP.
+
+[source, java]
+----
+class Rectangle {
+    private int width;
+    private int height;
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getArea() {
+        return width * height;
+    }
+}
+
+class Square extends Rectangle {
+    @Override
+    public void setWidth(int width) {
+        super.setWidth(width);
+        super.setHeight(width);
+    }
+
+    @Override
+    public void setHeight(int height) {
+        super.setHeight(height);
+        super.setWidth(height);
+    }
+}
+
+public class RectangleTest {
+    public static void main(String[] args) {
+        Rectangle rect = new Rectangle();
+        rect.setWidth(4);
+        rect.setHeight(5);
+        System.out.println("Rectangle area: " + rect.getArea());
+
+        Rectangle square = new Square();
+        square.setWidth(4);
+        square.setHeight(5);
+        System.out.println("Square area: " + square.getArea());
+    }
+}
+----
+
+En este ejemplo, la clase `Square` no cumple con el LSP porque cambia el comportamiento de los métodos `setWidth` y `setHeight`. Cuando intentamos intercambiar `Rectangle` y `Square`, el comportamiento del área calculada se altera inesperadamente. Este problema surge porque `Square` no se comporta de manera consistente con `Rectangle`, violando el principio de sustitución.
+
+Ahora, refactorizaremos el ejemplo anterior para que cumpla con el LSP, separando la lógica de `Rectangle` y `Square` en interfaces distintas.
+
+[source, java]
+----
+interface Shape {
+    int getArea();
+}
+
+class Rectangle implements Shape {
+    private int width;
+    private int height;
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    @Override
+    public int getArea() {
+        return width * height;
+    }
+}
+
+class Square implements Shape {
+    private int side;
+
+    public void setSide(int side) {
+        this.side = side;
+    }
+
+    @Override
+    public int getArea() {
+        return side * side;
+    }
+}
+
+public class ShapeTest {
+    public static void main(String[] args) {
+        Shape rect = new Rectangle();
+        ((Rectangle) rect).setWidth(4);
+        ((Rectangle) rect).setHeight(5);
+        System.out.println("Rectangle area: " + rect.getArea());
+
+        Shape square = new Square();
+        ((Square) square).setSide(4);
+        System.out.println("Square area: " + square.getArea());
+    }
+}
+----
+
+En esta refactorización, hemos creado una interfaz `Shape` que es implementada tanto por `Rectangle` como por `Square`. Ahora, cada clase implementa su propia lógica sin interferir con la otra, cumpliendo con el LSP.
+

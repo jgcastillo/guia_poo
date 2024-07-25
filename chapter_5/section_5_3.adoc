@@ -1,0 +1,175 @@
+= Diagrama de Clases en UML
+
+En esta oportunidad abordaremos el diagrama de clases, uno de los diagramas estructurales más importantes en UML. Un diagrama de clases proporciona una representación estática de las clases dentro de un sistema, sus atributos, métodos, y las relaciones entre ellas. Exploraremos los artefactos, la visibilidad, los tipos de relaciones entre clases y la cardinalidad.
+
+El diagrama de clases es un diagrama *puramente orientado al modelo de programación orientado a objetos*, ya que define las clases que se utilizarán cuando se pase a la fase de construcción y la manera en que se relacionan las mismas. Se podría equiparar, salvando las distancias, al famoso diagrama de modelo Entidad-Relación (E/R), no recogido en UML, tiene una utilidad similar: la representación de datos y su interacción. Ambos diagramas muestran el modelo lógico de los datos de un sistema.
+
+== Artefactos
+
+En UML, un artefacto es cualquier pieza de información producida durante el desarrollo del software. En el contexto de un diagrama de clases, los artefactos principales son las clases, interfaces y otros elementos que componen el sistema.
+
+- **Clase**: Representa una entidad con atributos y métodos.
+- **Interfaz**: Define un contrato que las clases pueden implementar.
+- **Paquete**: Agrupa clases relacionadas para organizar el modelo.
+
+=== Clase: 
+
+Las clases son el componente principal de un diagrama de clases y representan una clase en el paradigma de la orientación a objetos. Estos elementos se utilizan típicamente para modelar conceptos o entidades del dominio del negocio. Una clase define un *conjunto de objetos* que comparten características, condiciones y significado. La manera más efectiva de identificar clases en un enunciado, una idea de negocio o un tema específico es buscar los *sustantivos* presentes. Por ejemplo, algunas clases pueden ser: Animal, Persona, Mensaje, Expediente. Es *crucial identificar estas clases correctamente*, ya que no hacerlo puede generar problemas en etapas posteriores, requiriendo rehacer el análisis y causando pérdida de tiempo y esfuerzo.
+
+A un nivel más detallado, una clase se compone de tres elementos: *nombre de la clase*, *atributos* y *métodos*. Estos elementos pueden ser incluidos en la representación de la clase, dependiendo del nivel de detalle requerido en el análisis.
+
+Para representar una clase con estos elementos, se utiliza un rectángulo dividido en tres secciones horizontales:
+
+La primera sección se usa para el nombre de la clase. Si la clase es abstracta, su nombre se escribe en cursiva.
+
+La segunda sección se destina a los atributos de la clase, escritos uno por línea con el siguiente formato:
+
+[source,java]
+----
+visibilidad nombre_atributo : tipo = valor_inicial { propiedades }
+----
+
+Aunque esta es la forma estándar de escribirlos, es común simplificarlos mostrando solo el nombre y el tipo o únicamente el nombre.
+
+La tercera sección contiene cada uno de los métodos que ofrece la clase. Al igual que los atributos, los métodos se escriben siguiendo este formato:
+
+[source,java]
+----
+visibilidad nombre_metodo ( parametros ) : tipo_devuelto { propiedades }
+----
+
+Similar a los atributos, es común simplificar los métodos indicando solo el nombre y, ocasionalmente, el tipo devuelto.
+
+Un ejemplo de clase podría ser el siguiente:
+
+image::ejemplo_clase.png[Clase]
+
+En caso de que un atributo o función sea estático, se representa en el diagrama subrayando su nombre.
+
+=== Visibilidad
+
+La visibilidad determina cómo y dónde se puede acceder a un atributo o método de una clase. En UML, la visibilidad se denota mediante símbolos:
+
+- **Pública (+)**: Accesible desde cualquier lugar.
+- **Protegida (#)**: Accesible dentro de la clase y sus subclases.
+- **Privada (-)**: Accesible solo dentro de la clase.
+- **Paquete (~)**: Accesible solo dentro del mismo paquete.
+
+=== Tipos de Relaciones entre Clases
+
+Las relaciones entre clases son fundamentales para representar la estructura y comportamiento de un sistema. Los principales tipos de relaciones en UML son la *asociación*, *agregación*, *composición*, *generalización (herencia)* y *dependencia*.
+
+==== Asociación
+
+La asociación representa una relación entre dos clases que permite a los objetos de una clase interactuar con los objetos de otra. Se denota mediante una línea simple entre dos clases. La asociación puede ser unidireccional o bidireccional.
+
+[source,java]
+----
+class A {
+    B b;
+}
+class B {
+}
+----
+
+Un ejemplo de asociación de clase es tal como se muestra en la figura:
+
+image::clase_asociacion.png[]
+
+==== Agregación
+
+La agregación es un tipo especial de asociación que representa una relación "todo/parte" entre las clases. Indica que una clase está compuesta por una o más instancias de otra clase. Se denota mediante un rombo vacío en el extremo de la clase "todo".
+
+[source,java]
+----
+class Departamento {
+    List<Empleado> empleados;
+}
+class Empleado {
+}
+----
+
+Un ejemplo de agregación de clase es tal como se muestra en la figura:
+
+image::clase_agregacion.png[]
+
+==== Composición
+
+La composición es una forma más fuerte de agregación que implica que la vida de los objetos "parte" depende de la vida del objeto "todo". Se denota mediante un rombo relleno en el extremo de la clase "todo".
+
+[source,java]
+----
+class Casa {
+    private List<Habitacion> habitaciones = new ArrayList<>();
+}
+class Habitacion {
+}
+----
+
+Un ejemplo de composición de clase es tal como se muestra en la figura:
+
+image::clase_composicion.png[]
+
+==== Generalización (Herencia)
+
+La generalización, también conocida como herencia, es una relación jerárquica entre una clase base (superclase) y una clase derivada (subclase). La subclase hereda atributos y métodos de la superclase. Se denota mediante una línea con un triángulo vacío apuntando hacia la superclase.
+
+[source,java]
+----
+class Animal {
+    void hacerSonido() {
+        System.out.println("Sonido de animal");
+    }
+}
+class Perro extends Animal {
+    @Override
+    void hacerSonido() {
+        System.out.println("Guau");
+    }
+}
+----
+
+Un ejemplo de una relación de generalización es tal como se muestra en la figura:
+
+image::clase_generalizacion.png[]
+
+==== Dependencia
+
+La dependencia es una relación en la que un cambio en una clase puede afectar a otra clase. Se denota mediante una línea discontinua con una flecha apuntando hacia la clase de la que depende.
+
+[source,java]
+----
+class Cliente {
+    void realizarPedido(Pedido pedido) {
+        // Implementación
+    }
+}
+class Pedido {
+}
+----
+
+Un ejemplo de una relación dependencia es tal como se muestra en la figura:
+
+image::clase_dependencia.png[]
+
+=== Cardinalidad
+
+La cardinalidad define el número de instancias de una clase que pueden estar asociadas con una instancia de otra clase. Se denota mediante números o intervalos en los extremos de la línea de asociación.
+
+- **1**: Uno.
+- **0..1**: Cero o uno.
+- **0..* o ***: Cero o muchos.
+- **1..* o 1..n**: Uno o muchos.
+
+[source,java]
+----
+class Pedido {
+    List<Producto> productos; // 1..* productos
+}
+class Producto {
+}
+----
+
+En el ejemplo anterior, un `Pedido` puede tener uno o muchos `Productos`. Y su diagrama se podría expresar como en la figura siguiente:
+
+image::clase_cardinalidad.png[]

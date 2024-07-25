@@ -1,0 +1,79 @@
+= Java
+
+Java es un lenguaje de programación de propósito general, orientado a objetos y diseñado para tener la menor cantidad de dependencias de implementación posibles. Su filosofía "escribe una vez, ejecuta en cualquier lugar" (WORA) permite que el código Java sea ejecutado en cualquier dispositivo que tenga una Máquina Virtual de Java (JVM), lo que lo hace altamente portátil y versátil.
+
+Una de las principales características de Java es su orientación a objetos. Este paradigma permite una organización modular del código, facilitando la reutilización y el mantenimiento del mismo. La POO en Java se basa en la creación de clases y objetos, donde las clases actúan como plantillas que definen los atributos y comportamientos de los objetos. Este enfoque ayuda a los desarrolladores a modelar problemas del mundo real de manera intuitiva y estructurada.
+
+La portabilidad es otra característica destacada de Java. La capacidad de Java para ejecutarse en cualquier plataforma con una JVM lo convierte en uno de los lenguajes más portátiles disponibles. El bytecode de Java es independiente de la plataforma, lo que facilita la migración de aplicaciones entre diferentes entornos sin necesidad de modificar el código fuente. Esta independencia de la plataforma es crucial para las empresas que operan en múltiples sistemas y dispositivos.
+
+La seguridad es una preocupación fundamental en el desarrollo de aplicaciones Java. Java proporciona un alto nivel de seguridad mediante características como la gestión de memoria automática y el control de acceso a clases. La gestión automática de memoria, manejada por el recolector de basura (garbage collector), previene errores comunes como las fugas de memoria y asegura una utilización eficiente de los recursos. El control de acceso a clases restringe el acceso a métodos y datos, protegiendo así las aplicaciones de posibles amenazas y ataques.
+
+Aunque Java es un lenguaje interpretado, su compilador Just-In-Time (JIT) optimiza la ejecución del bytecode en tiempo real, mejorando significativamente el rendimiento. El JIT compila partes del bytecode en código máquina nativo durante la ejecución, permitiendo que las aplicaciones Java alcancen un rendimiento cercano al de los lenguajes compilados. Esta característica es vital para aplicaciones que requieren un procesamiento rápido y eficiente.
+
+Java también soporta la programación multihilo, permitiendo la ejecución concurrente de múltiples hilos de ejecución. Esta capacidad es esencial para aplicaciones que necesitan realizar varias tareas al mismo tiempo, como servidores web y aplicaciones de procesamiento en tiempo real. La multithreading en Java permite a los desarrolladores crear aplicaciones más eficientes y receptivas.
+
+El lenguaje Java cuenta con una extensa colección de bibliotecas estándar que facilitan el desarrollo de aplicaciones complejas sin necesidad de implementar todo desde cero. Estas bibliotecas incluyen funcionalidades para la manipulación de cadenas, colecciones, entrada/salida, redes, y muchas otras áreas. La rica API de Java reduce el tiempo de desarrollo y permite a los programadores enfocarse en resolver problemas específicos del negocio en lugar de reinventar soluciones comunes.
+
+Java es conocido por su robustez, minimizando errores de programación comunes mediante características como la gestión automática de memoria y el manejo de excepciones. El manejo de excepciones en Java permite a los desarrolladores capturar y gestionar errores de manera eficiente, mejorando la estabilidad y confiabilidad de las aplicaciones.
+
+El soporte y la comunidad de Java son incomparables. Java tiene una comunidad de usuarios y desarrolladores muy activa, así como un extenso soporte de documentación, foros y recursos en línea. Esta comunidad proporciona un valioso apoyo para la resolución de problemas y la mejora continua del lenguaje.
+
+Java es especialmente popular en el sector financiero y bancario por varias razones. La seguridad es una preocupación principal en este sector, y Java ofrece múltiples características de seguridad que ayudan a proteger aplicaciones contra amenazas y vulnerabilidades. La gestión de memoria automática y el control de acceso a clases son vitales para proteger datos sensibles. Además, las aplicaciones financieras y bancarias requieren un alto grado de estabilidad y la capacidad de manejar grandes volúmenes de transacciones. Java es conocido por su robustez y capacidad para escalar, lo que lo hace ideal para aplicaciones de misión crítica.
+
+El rendimiento es otra razón por la cual Java es preferido en el sector financiero. A través de la compilación JIT y la optimización en tiempo de ejecución, Java puede ofrecer un rendimiento cercano al de los lenguajes compilados nativos, lo que es crucial para aplicaciones que requieren procesamiento rápido y eficiente. La portabilidad de Java permite que las aplicaciones desarrolladas en un entorno sean fácilmente trasladables a otro sin necesidad de modificaciones significativas. Esto es esencial para instituciones financieras globales que operan en múltiples regiones y plataformas.
+
+La comunidad y el soporte empresarial de Java aseguran que las instituciones financieras tengan acceso a recursos y actualizaciones constantes. Varias instituciones financieras y bancarias líderes utilizan Java para desarrollar sus aplicaciones y sistemas. Por ejemplo, JPMorgan Chase utiliza Java para construir sistemas de trading y aplicaciones de banca en línea, mientras que Goldman Sachs emplea Java en sus plataformas de análisis y gestión de riesgos.
+
+
+== La Máquina Virtual de Java (JVM)
+
+La Máquina Virtual de Java (JVM) es una pieza clave de la plataforma Java que permite la ejecución de aplicaciones Java en cualquier dispositivo o sistema operativo que tenga instalada una JVM. La JVM es responsable de convertir el bytecode, un formato de código intermedio generado por el compilador de Java, en instrucciones de máquina que pueden ser ejecutadas por el hardware del sistema anfitrión.
+
+=== Arquitectura de la JVM
+
+image::jvm_architecture.jpg["Arquitectura de la JVM", reftext="Figura {figure}", title="Arquitectura de la JVM (fuente: https://beginnersbook.com/2013/05/jvm/)", align=center, title-align=center]
+
+La JVM está compuesta por varios componentes principales que trabajan juntos para ejecutar aplicaciones Java:
+
+1. **Class Loader:** Es el componente responsable de cargar las clases Java en la JVM. El Class Loader encuentra y carga las clases necesarias para la ejecución del programa desde el sistema de archivos o una red.
+2. **Runtime Data Areas:** La JVM organiza la memoria en varias áreas de datos en tiempo de ejecución, que incluyen la Heap, el Stack, el Method Area, y la Program Counter (PC) Register.
+    * **Heap:** Es donde se almacenan todos los objetos creados en tiempo de ejecución.
+    * **Stack:** Contiene los marcos de pila (stack frames) de los métodos invocados. Cada marco de pila contiene información local, operandos y resultados parciales.
+    * **Method Area:** Almacena datos de clase, incluyendo metadatos, información de método y constantes.
+    * **Program Counter (PC) Register:** Mantiene la dirección de la instrucción de bytecode que se está ejecutando actualmente.
+3. **Execution Engine:** La ejecución real del bytecode es manejada por el Execution Engine. Incluye un intérprete, un compilador Just-In-Time (JIT) y un recolector de basura (garbage collector).
+    * **Intérprete:** Convierte el bytecode en instrucciones de máquina una por una.
+    * **JIT Compiler:** Convierte bloques enteros de bytecode en código máquina para mejorar el rendimiento.
+    * **Garbage Collector:** Maneja la memoria automáticamente, liberando espacio que ya no es necesario.
+
+==== Bytecode y Portabilidad
+
+El bytecode es un formato de código binario que es independiente de la arquitectura de hardware y del sistema operativo. Cuando se compila un programa Java, el compilador transforma el código fuente en bytecode, que se almacena en archivos `.class`. Este bytecode puede ser interpretado por cualquier JVM, independientemente de la plataforma en la que se ejecute, lo que proporciona una alta portabilidad. Esta capacidad se conoce comúnmente como "escribe una vez, ejecuta en cualquier lugar".
+
+==== Funcionamiento de la JVM
+
+El funcionamiento de la JVM se puede describir en los siguientes pasos:
+
+1. **Carga del Bytecode:** La JVM carga los archivos `.class` que contienen el bytecode. El cargador de clases organiza y verifica las clases antes de su uso.
+2. **Verificación:** La JVM verifica el bytecode para asegurar que no viola las restricciones de seguridad y que es válido. Esto previene la ejecución de código potencialmente dañino.
+3. **Interpretación o Compilación JIT:** La JVM interpreta el bytecode o lo compila dinámicamente a código máquina utilizando la compilación JIT para mejorar el rendimiento. La compilación JIT convierte partes del bytecode en código máquina en tiempo de ejecución, optimizando la ejecución.
+4. **Ejecución:** La JVM ejecuta el código máquina generado en el hardware del sistema anfitrión. Durante la ejecución, maneja la gestión de memoria y otras tareas críticas, asegurando un funcionamiento eficiente y seguro de la aplicación.
+
+==== Diferencias entre JDK, JRE y JVM
+
+Para comprender mejor el ecosistema Java, es esencial diferenciar entre JDK, JRE y JVM:
+
+* **JVM (Java Virtual Machine):** La JVM es la parte de la plataforma Java que ejecuta el bytecode. Proporciona el entorno de ejecución en el que se ejecutan los programas Java, manejando la interpretación o compilación JIT del bytecode, la gestión de memoria y la seguridad. La JVM es específica de la plataforma, es decir, hay diferentes implementaciones de JVM para diferentes sistemas operativos y hardware.
+
+* **JRE (Java Runtime Environment):** El JRE incluye la JVM y las bibliotecas y otros componentes necesarios para ejecutar aplicaciones Java. Es el entorno de ejecución completo necesario para ejecutar aplicaciones Java, pero no incluye herramientas de desarrollo como el compilador. Si solo se desea ejecutar aplicaciones Java, instalar el JRE es suficiente.
+
+* **JDK (Java Development Kit):** El JDK es un paquete de desarrollo completo que incluye el JRE y las herramientas necesarias para desarrollar, compilar, depurar y ejecutar aplicaciones Java. Entre estas herramientas se encuentran el compilador (`javac`), el depurador (`jdb`) y otras utilidades. El JDK es necesario para los desarrolladores que desean crear y compilar programas Java.
+
+==== Relación con el Sistema Operativo y Hardware
+
+La JVM actúa como una capa intermedia entre las aplicaciones Java y el sistema operativo/hardware subyacente. Al convertir el bytecode en instrucciones de máquina específicas de la plataforma, la JVM permite que las aplicaciones Java se ejecuten en cualquier sistema que tenga una JVM compatible. Esta relación puede visualizarse de la siguiente manera:
+
+1. **Aplicaciones Java:** Escritas y compiladas en bytecode.
+2. **JVM:** Interpreta o compila JIT el bytecode y lo ejecuta en la máquina anfitriona.
+3. **Sistema Operativo:** Proporciona recursos y servicios que la JVM utiliza para ejecutar el bytecode.
+4. **Hardware:** La capa física que ejecuta las instrucciones de máquina generadas por la JVM.

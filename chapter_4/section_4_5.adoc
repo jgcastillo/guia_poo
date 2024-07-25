@@ -1,0 +1,25 @@
+= Interfaces
+
+Una interfaz en Java es una referencia que se utiliza para especificar un comportamiento que las clases deben implementar. Una interfaz define un contrato en forma de métodos abstractos que las clases concretas deben cumplir. Formalmente, **una interfaz es un tipo de referencia que es similar a una clase, pero que solo puede contener constantes, métodos abstractos, métodos estáticos y métodos predeterminados.**
+
+Las interfaces son fundamentales en la Programación Orientada a Objetos (POO) ya que permiten definir un conjunto de métodos que las clases deben implementar. Esto fomenta la interoperabilidad y la reutilización del código, ya que diferentes clases pueden implementar la misma interfaz, garantizando así que todas sigan el mismo contrato.
+
+**Reglas para crear una interfaz en Java:**
+
+1. **Declaración:** Una interfaz se declara utilizando la palabra clave `interface`.
+2. **Métodos abstractos:** Todos los métodos de una interface son implícitamente abstractos y públicos. No tienen cuerpo y deben ser implementados por las clases que la implementan.
+3. **Variables estáticas finales:** Una interfaz puede contener variables estáticas finales, que son esencialmente constantes. Estas variables deben ser inicializadas en el momento de su declaración.
+4. **Métodos estáticos y predeterminados:** Desde Java 8, las interfaces pueden contener métodos estáticos y métodos predeterminados. Los métodos estáticos pueden ser llamados directamente en la interfaz, mientras que los métodos predeterminados proporcionan una implementación predeterminada que las clases pueden usar o sobrescribir.
+
+En los ejemplos que mostraremos más adelante podras comprender el significado y uso de los miembros finales de las interfaces.
+
+Desde la óptica del polimorfismo, las interfaces permiten a los desarrolladores escribir código más flexible y reutilizable. Una interfaz define un contrato que múltiples clases pueden implementar, lo que permite tratar instancias de diferentes clases de manera uniforme. Por ejemplo, si varias clases implementan una interfaz `Vehiculo`, se puede escribir código que trabaje con cualquier `Vehiculo`, sin importar la clase específica de cada instancia.
+
+Las interfaces también abordan la limitación de la herencia simple en Java. **Java no permite la herencia múltiple de clases, pero permite que una clase implemente múltiples interfaces**. Esto permite a los desarrolladores combinar comportamientos de múltiples fuentes en una sola clase. Por ejemplo, una clase `Robot` podría implementar tanto la interfaz `Movible` como la interfaz `Operable`, combinando así los comportamientos definidos en ambas interfaces.
+
+Las interfaces son esenciales para el diseño de sistemas de software robustos y escalables. Proporcionan una forma de definir contratos claros y separados del código de implementación, lo que facilita la extensión y la modificación del sistema. Las interfaces permiten a los desarrolladores definir roles que los objetos pueden cumplir, independientemente de su implementación concreta, fomentando así un diseño más modular y flexible.
+
+Las interfaces también juegan un papel crucial en la creación de APIs. Una API bien diseñada utiliza interfaces para definir claramente qué métodos están disponibles para los usuarios de la API, sin exponer detalles de implementación. Esto no solo mejora la seguridad y la fiabilidad del sistema, sino que también facilita la evolución de la API sin romper el código existente.
+
+
+

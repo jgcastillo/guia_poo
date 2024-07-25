@@ -1,0 +1,296 @@
+= Ejemplos y Ejercicios de Práctica
+
+A continuación se te presenta una serie de ejemplos explicados para que te guíes en el manejo de clases en Java. Luego tienes una serie de ejercicios para que practiques los conocimientos, al final están las soluciones a los mismos, pero es mejor que trates de acerlos y luego verifiques las respuestas, de esta manera podrás afianzar mejor el tema.
+
+== Ejemplos Resueltos
+
+=== Ejemplo 1: Clase `CuentaBancaria`
+
+En este ejemplo, vamos a crear una clase `CuentaBancaria` que represente una cuenta bancaria con atributos como `titular`, `saldo` y `numeroCuenta`. La clase tendrá métodos para `depositar` y `retirar` dinero, así como para mostrar la información de la cuenta.
+
+[source,java]
+----
+public class CuentaBancaria {
+    private String titular;
+    private double saldo;
+    private String numeroCuenta;
+
+    // Constructor
+    public CuentaBancaria(String titular, double saldo, String numeroCuenta) {
+        this.titular = titular;
+        this.saldo = saldo;
+        this.numeroCuenta = numeroCuenta;
+    }
+
+    // Método para depositar dinero
+    public void depositar(double cantidad) {
+        saldo += cantidad;
+    }
+
+    // Método para retirar dinero
+    public void retirar(double cantidad) {
+        if (cantidad <= saldo) {
+            saldo -= cantidad;
+        } else {
+            System.out.println("Fondos insuficientes.");
+        }
+    }
+
+    // Método para mostrar información
+    public void mostrarInformacion() {
+        System.out.println("Titular: " + titular);
+        System.out.println("Número de Cuenta: " + numeroCuenta);
+        System.out.println("Saldo: " + saldo);
+    }
+
+    // Método main para probar la clase
+    public static void main(String[] args) {
+        CuentaBancaria cuenta1 = new CuentaBancaria("Juan Perez", 1000.0, "123456789");
+        cuenta1.mostrarInformacion();
+        cuenta1.depositar(500.0);
+        cuenta1.mostrarInformacion();
+        cuenta1.retirar(200.0);
+        cuenta1.mostrarInformacion();
+        cuenta1.retirar(1500.0);
+    }
+}
+----
+
+La clase **`CuentaBancaria`** tiene tres atributos: `titular`, `saldo` y `numeroCuenta`. Estos atributos se declaran como `private` para **encapsular** los datos y protegerlos de accesos directos desde fuera de la clase. Esta práctica asegura que los datos solo puedan ser modificados mediante los métodos definidos en la clase, garantizando así la integridad de los datos y el control sobre cómo se manipulan.
+
+El **constructor** de la clase **`CuentaBancaria`** se utiliza para inicializar los atributos cuando se crea un nuevo objeto de la clase. El constructor recibe tres parámetros: `titular`, `saldo` y `numeroCuenta`. Estos parámetros permiten que los valores iniciales sean proporcionados al crear una nueva instancia de **`CuentaBancaria`**. La palabra clave **`this`** se usa dentro del constructor para referirse a los atributos de la instancia actual de la clase. Esto es necesario cuando los nombres de los parámetros del constructor son iguales a los nombres de los atributos de la clase. Por ejemplo, `this.titular = titular;`` asigna el valor del parámetro titular al atributo titular del objeto. Es importante notar que los parámetros del constructor deben tener una declaración de tipo, ya que Java es un lenguaje fuertemente tipado. Esto significa que cada variable y parámetro debe ser declarado con un tipo específico, asegurando la consistencia y seguridad del código.
+
+La clase **`CuentaBancaria`** incluye tres métodos: `depositar`, `retirar` y `mostrarInformacion`. El método `depositar` recibe un parámetro `cantidad` que representa la cantidad de dinero a depositar en la cuenta. Este método agrega el valor de cantidad al `saldo` actual de la cuenta. El método `retirar` también recibe un parámetro `cantidad`, que representa la cantidad de dinero a retirar de la cuenta. Este método verifica si la cantidad a retirar es menor o igual al saldo actual antes de proceder con la retirada, evitando así que la cuenta quede en descubierto. Si la cantidad es mayor que el saldo, se imprime un mensaje indicando que los fondos son insuficientes. La palabra `void` en la declaración de los métodos indica que estos no devuelven ningún valor.  Al igual que en el constructor, los parámetros de los métodos también deben tener una declaración de tipo debido a la naturaleza fuertemente tipada de Java.
+
+El método `mostrarInformacion` imprime la información de la cuenta bancaria, incluyendo el titular, el número de cuenta y el saldo. Este método no recibe parámetros y también tiene el tipo de retorno `void`, ya que su propósito es realizar una acción (imprimir información) en lugar de devolver un valor.
+
+El método `main` es el punto de entrada de cualquier aplicación Java, haciendo que esta clase sea ejecutable. En esta clase, el método `main`` crea un objeto `CuentaBancaria` llamado `cuenta1` utilizando el constructor y pasando los valores iniciales para los atributos. Luego, se llaman los métodos `mostrarInformacion`, `depositar` y `retirar` en el objeto `cuenta1` para realizar diversas operaciones y mostrar los resultados. El método `main` permite probar y demostrar la funcionalidad de la clase **`CuentaBancaria`**.
+
+=== Ejemplo 2: Clase `Libro`
+
+En este ejemplo, vamos a crear una clase `Libro` que represente un libro con atributos como `titulo`, `autor`, `paginas` y `prestado`. La clase tendrá métodos para prestar y devolver el libro, así como para mostrar la información del libro.
+
+[source,java]
+----
+public class Libro {
+    private String titulo;
+    private String autor;
+    private int paginas;
+    private boolean prestado;
+
+    // Constructor
+    public Libro(String titulo, String autor, int paginas) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.paginas = paginas;
+        this.prestado = false;
+    }
+
+    // Método para prestar el libro
+    public void prestar() {
+        if (!prestado) {
+            prestado = true;
+            System.out.println("El libro ha sido prestado.");
+        } else {
+            System.out.println("El libro ya está prestado.");
+        }
+    }
+
+    // Método para devolver el libro
+    public void devolver() {
+        if (prestado) {
+            prestado = false;
+            System.out.println("El libro ha sido devuelto.");
+        } else {
+            System.out.println("El libro no estaba prestado.");
+        }
+    }
+
+    // Método para mostrar información
+    public void mostrarInformacion() {
+        System.out.println("Título: " + titulo);
+        System.out.println("Autor: " + autor);
+        System.out.println("Páginas: " + paginas);
+        System.out.println("Prestado: " + (prestado ? "Sí" : "No"));
+    }
+
+    // Método main para probar la clase
+    public static void main(String[] args) {
+        Libro libro1 = new Libro("Cien Años de Soledad", "Gabriel García Márquez", 417);
+        libro1.mostrarInformacion();
+        libro1.prestar();
+        libro1.mostrarInformacion();
+        libro1.devolver();
+        libro1.mostrarInformacion();
+    }
+}
+----
+
+== Ejercicios de Práctica
+
+=== Ejercicio 1: Clase `Empleado`
+
+Crea una clase `Empleado` con los siguientes atributos: `nombre`, `id` y `salario`. La clase debe tener métodos para incrementar el salario en un porcentaje dado y para mostrar la información del empleado.
+
+=== Ejercicio 2: Clase `Producto`
+
+Crea una clase `Producto` con los siguientes atributos: `nombre`, `precio` y `cantidadEnStock`. La clase debe tener métodos para vender el producto, actualizar el stock y mostrar la información del producto.
+
+=== Ejercicio 3: Clase `Estudiante`
+
+Crea una clase `Estudiante` con los siguientes atributos: `nombre`, `matricula`, `carrera` y `promedio`. La clase debe tener métodos para actualizar el promedio y mostrar la información del estudiante.
+
+=== Ejercicio 4: Clase `Vehiculo`
+
+Crea una clase `Vehiculo` con los siguientes atributos: `marca`, `modelo`, `año` y `kilometraje`. La clase debe tener métodos para actualizar el kilometraje y mostrar la información del vehículo.
+
+=== Ejercicio 5: Clase `OrdenCompra`
+
+Crea una clase `OrdenCompra` con los siguientes atributos: `numeroOrden`, `fecha`, `total` y `estado`. La clase debe tener métodos para actualizar el estado de la orden y mostrar la información de la orden.
+
+=== Ejercicio 6: Clase `Juego`
+
+Crea una clase `Juego` con los siguientes atributos: `titulo`, `genero`, `plataforma` y `precio`. La clase debe tener métodos para actualizar el precio y mostrar la información del juego.
+
+=== Ejercicio 7: Clase `Paciente`
+
+Crea una clase `Paciente` con los siguientes atributos: `nombre`, `edad`, `diagnostico` y `tratamiento`. La clase debe tener métodos para actualizar el tratamiento y mostrar la información del paciente.
+
+=== Ejercicio 8: Clase `ReservaHotel`
+
+Crea una clase `ReservaHotel` con los siguientes atributos: `numeroReserva`, `nombreCliente`, `fechaIngreso`, `fechaSalida` y `estadoReserva`. La clase debe tener métodos para actualizar el estado de la reserva y mostrar la información de la reserva.
+
+== Soluciones
+
+=== Solución Ejercicio 1: Clase `Empleado`
+
+[source,java]
+----
+public class Empleado {
+    private String nombre;
+    private int id;
+    private double salario;
+
+    // Constructor
+    public Empleado(String nombre, int id, double salario) {
+        this.nombre = nombre;
+        this.id = id;
+        this.salario = salario;
+    }
+
+    // Método para incrementar el salario
+    public void incrementarSalario(double porcentaje) {
+        salario += salario * porcentaje / 100;
+    }
+
+    // Método para mostrar información
+    public void mostrarInformacion() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("ID: " + id);
+        System.out.println("Salario: " + salario);
+    }
+}
+----
+
+=== Solución Ejercicio 2: Clase `Producto`
+
+[source,java]
+----
+public class Producto {
+    private String nombre;
+    private double precio;
+    private int cantidadEnStock;
+
+    // Constructor
+    public Producto(String nombre, double precio, int cantidadEnStock) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.cantidadEnStock = cantidadEnStock;
+    }
+
+    // Método para vender el producto
+    public void vender(int cantidad) {
+        if (cantidad <= cantidadEnStock) {
+            cantidadEnStock -= cantidad;
+        } else {
+            System.out.println("Stock insuficiente.");
+        }
+    }
+
+    // Método para actualizar el stock
+    public void actualizarStock(int cantidad) {
+        cantidadEnStock += cantidad;
+    }
+
+    // Método para mostrar información
+    public void mostrarInformacion() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Precio: " + precio);
+        System.out.println("Cantidad en stock: " + cantidadEnStock);
+    }
+}
+----
+
+=== Solución Ejercicio 3: Clase `Estudiante`
+
+[source,java]
+----
+public class Estudiante {
+    private String nombre;
+    private String matricula;
+    private String carrera;
+    private double promedio;
+
+    // Constructor
+    public Estudiante(String nombre, String matricula, String carrera, double promedio) {
+        this.nombre = nombre;
+        this.matricula = matricula;
+        this.carrera = carrera;
+        this.promedio = promedio;
+    }
+
+    // Método para actualizar el promedio
+    public void actualizarPromedio(double nuevoPromedio) {
+        promedio = nuevoPromedio;
+    }
+
+    // Método para mostrar información
+    public void mostrarInformacion() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Matrícula: " + matricula);
+        System.out.println("Carrera: " + carrera);
+        System.out.println("Promedio: " + promedio);
+    }
+}
+----
+
+=== Solución Ejercicio 4: Clase `Vehiculo`
+
+[source,java]
+----
+public class Vehiculo {
+    private String marca;
+    private String modelo;
+    private int año;
+    private int kilometraje;
+
+    // Constructor
+    public Vehiculo(String marca, String modelo, int año, int kilometraje) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.año = año;
+        this.kilometraje = kilometraje;
+    }
+
+    // Método para actualizar el kilometraje
+    public void actualizarKilometraje(int nuevoKilometraje) {
+        kilometraje = nuevoKilometraje;
+    }
+
+    // Método para mostrar información
+    public void mostrarInformacion() {
+        System.out.println("Marca: " + marca);
+        System.out.println("Modelo: " + modelo);
+        System.out.println("Año: " + año);
+        System.out.println
+----

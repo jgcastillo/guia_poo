@@ -1,0 +1,365 @@
+= Ciclo de Vida de un Hilo
+
+image::Life_cycle_of_a_Thread_in_Java.jpg[]
+
+El ciclo de vida de un hilo en Java es un concepto fundamental para entender cómo funcionan los hilos dentro de un programa concurrente. Un hilo pasa por varios estados desde su creación hasta su terminación. Estos estados incluyen:
+
+
+* **NEW (NUEVO)** - un hilo recién creado que aún no ha iniciado la ejecución
+* **RUNNABLE (EJECUTABLE)** - en ejecución o listo para la ejecución, pero a la espera de la asignación de recursos
+* **BLOCKED (BLOQUEADO)** - esperando adquirir un bloqueo de monitor para entrar o volver a entrar en un bloque/método sincronizado
+* **WAITING (EN ESPERA)** - esperando a que otro hilo realice una acción concreta sin límite de tiempo
+* **TIMED_WAITING(EN ESPERA CON TIEMPO)** - esperando a que otro subproceso realice una acción específica durante un periodo de tiempo especificado
+* **TERMINATED (TERMINADO)** - ha completado su ejecución
+
+Todos estos estados están cubiertos en el diagrama anterior; ahora vamos a discutir cada uno de ellos en detalle.
+
+== NEW
+*Un hilo en estado NEW (también conocido como _Born Thread_, o Hilo Nacido) es un hilo que ha sido creado pero aún no se ha iniciado*. Permanecerá en este estado hasta que se llame al método `start()` para comenzar su ejecución.
+
+El siguiente fragmento de código muestra un hilo recién creado que se encuentra en el estado NEW:
+
+[souce, java]
+----
+Runnable runnable = new NewState();
+Thread t = new Thread(runnable);
+System.out.println(t.getState());
+----
+
+Debido a que el hilo no se ha arrancado, el método `t.getState()` imprime:
+[source, bash]
+----
+NEW
+----
+
+== RUNNABLE
+Cuando se ha creado un nuevo hilo y se invoca el método `start` para ejecutarlo, el estado del hilo cambia del estado `NEW` a `RUNNABLE`. *Los hilos que se se encuentran en este estado pueden estar corriendo o listos para correr, pero están a la espera de recursos por parte del sistema*.
+
+Por ejemplo, agregemos el método `t.start()` al código anterior y tratemos de ver su estado actual:
+
+[source, java]
+----
+Runnable runnable = new NewState();
+Thread t = new Thread(runnable);
+t.start();
+System.out.println(t.getState());
+----
+
+Lo que obtendremos a la salida, *podría* ser:
+
+[source, bash]
+----
+RUNNABLE
+----
+
+Es de hacer notar en el ejemplo, que no _siempre_ se garantiza que para el momento en que nuestro control alcance `t.getState()`, continue en el estado _RUNNABLE_.
+
+Puede ocurrir que haya sido planificado (_schedule_) inmediatamente por el _Thread-Scheduler_ y termine su ejecución. En tales casos, podemos obtener una salida diferente.
+
+== BLOCKED
+
+Un hilo se encuentra en el estado _BLOCKED_ cuando no está actualmente disponible para ser ejecutado. *El hilo entra en este estado cuando está esperando por un _monitor lock_ y está tratando de tener acceso a una sección de código que está bloqueado por algún otro hilo*.
+
+Tratemos de reproducir este estado:
+
+[source, java]
+----
+public class BlockedState {
+    public static void main(String[] args) throws InterruptedException {
+        Thread t1 = new Thread(new DemoBlockedRunnable());
+        Thread t2 = new Thread(new DemoBlockedRunnable());
+        
+        t1.start();
+        t2.start();
+        
+        Thread.sleep(1000);
+        
+        System.out.println(t2.getState());
+        System.exit(0);
+    }
+}
+
+class DemoBlockedRunnable implements Runnable {
+    @Override
+    public void run() {
+        commonResource();
+    }
+    
+    public static synchronized void commonResource() {
+        while(true) {
+            // Un loop infinito para simular un proceso muy pesado
+            // 't1'  no dejará nunca este método
+            // cuando 't2' trate de entrar en él
+        }
+    }
+}
+----
+
+En este código:
+
+. Hemos creado dos hilos diferentes - `t1` y `t2`
+. `t1`` inicia y entra en el método sincronizado `_commonResource();_` esto significa que sólo un hilo puede acceder a él; todos los demás hilos posteriores que intenten acceder a este método serán bloqueados de la ejecución posterior hasta que el actual termine el procesamiento.
+. Cuando `t1` entra en este método, se mantiene en un bucle `while` infinito; esto es sólo para imitar un procesamiento pesado para que todos los demás hilos no puedan entrar en este método.
+. Ahora cuando iniciamos `t2`, intenta entrar en el método `_commonResource()_`, que ya está siendo accedido por `t1`, por lo tanto, `t2` se mantendrá en estado `BLOCKED`.
+
+Estando en este estado, llamamos a `t2.getState()` y obtenemos la salida como:
+
+[source, bash]
+----
+BLOCKED
+----
+
+
+== WAITING
+* Un hilo esta en el estado _WAITING_ cuando está esperando para que otro hilo termine de realizar una acción particular.* De acuerdo a la documentación de Java (https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Thread.State.html#WAITING[JavaDocs]), cualquier hilo puede entrar en este estado invocando cualquiera de los siguientes tres métodos:
+
+. _object.wait()_
+. _thread.join()_ o
+. _LockSupport.park()_
+
+Note que para los métodos _wait()_ y _join()_ no se ha definido ningún tiempo de expiración, ya que esto se tratará más adelante.
+
+Para conocer en detalle el uso de _wait()_, _notify()_ y _notifyAll()_, revise este artículo https://www.baeldung.com/java-wait-notify[wait and notify() Methods in Java]
+
+Ahora, se tratará de reproducir este estado:
+
+[source, java]
+----
+public class WaitingState implements Runnable {
+    public static Thread t1;
+
+    public static void main(String[] args) {
+        t1 = new Thread(new WaitingState());
+        t1.start();
+    }
+
+    public void run() {
+        Thread t2 = new Thread(new DemoWaitingStateRunnable());
+        t2.start();
+
+        try {
+            t2.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            e.printStackTrace();
+        }
+    }
+}
+
+class DemoWaitingStateRunnable implements Runnable {
+    public void run() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            e.printStackTrace();
+        }
+        
+        System.out.println(WaitingState.t1.getState());
+    }
+}
+----
+
+Examinemos que pasa aqui:
+
+. Hemos creado e iniciado el hilo `t1`
+. `t1` crea un `t2` y lo inicia
+. Mientras continúa el procesamiento de `t2`, se llama a `t2.join()`, esto pone a `t1` en estado `WAITING` hasta que `t2` haya terminado su ejecución.
+. Como `t1` está esperando a que `t2` termine, se está llamando a `t1.getState()` desde `t2`
+
+La salida esperada sera:
+
+[source, bash]
+----
+WAITING
+----
+
+== TIMED WAITING
+*Un hilo está en estado _TIMED_WAITING_ cuando está esperando a que otro hilo realice una acción concreta en un tiempo estipulado*.
+
+Según (https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Thread.State.html#TIMED_WAITING[JavaDocs]), hay cinco maneras de poner un hilo en estado TIMED_WAITING:
+
+. _thread.sleep(long millis)_
+. _wait(int timeout)_ o _wait(int timeout, int nanos)_
+. _thread.join(long millis)_
+. _LockSupport.parkNanos_
+. _LockSupport.parkUntil_
+
+Para entender mejor las diferencias entre _wait()_ y _sleep()_ en Java, revise este artículo https://www.baeldung.com/java-wait-and-sleep[Difference Between Wait and Sleep in Java]
+
+Ahora se tratará de reproducir este estado:
+
+[source, java]
+----
+public class TimedWaitingState {
+    public static void main(String[] args) throws InterruptedException {
+        DemoTimeWaitingRunnable runnable= new DemoTimeWaitingRunnable();
+        Thread t1 = new Thread(runnable);
+        t1.start();
+        
+        // EL siguiente sleep da suficiente tiempo para que ThreadScheduler
+        // comience a procesar el hilo t1
+        Thread.sleep(1000);
+        System.out.println(t1.getState());
+    }
+}
+
+class DemoTimeWaitingRunnable implements Runnable {
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            e.printStackTrace();
+        }
+    }
+}
+----
+
+== TERMINATED
+Este es el estado de un hilo muerto. *Un hilo está en el estado _TERMINATED_ cuando ha finalizado su ejecución o se ha terminado anormalmente*.
+
+En estye artículo se discute diferentes formas de detener un hilo https://www.baeldung.com/java-thread-stop[How to Kill a Java Thread].
+
+Se intenterá alcanzar este estado en el siguiente ejemplo:
+
+[source, java]
+----
+public class TerminatedState implements Runnable {
+    public static void main(String[] args) throws InterruptedException {
+        Thread t1 = new Thread(new TerminatedState());
+        t1.start();
+        // El siguiente método sleep le da suficiente tiempo al 
+        // hilo t1 para que se complete
+        Thread.sleep(1000);
+        System.out.println(t1.getState());
+    }
+    
+    @Override
+    public void run() {
+        // No se procesa nada en este bloque
+    }
+}
+----
+
+Aquí, mientras hemos iniciado el hilo `t1`, la siguiente sentencia `_Thread.sleep(1000)_` da tiempo suficiente para que `t1` se complete y así este programa nos de la salida como:
+
+[source, batch]
+----
+TERMINATED
+----
+
+Además del estado del hilo, se puede verificar con el me´todo `_isAlived()_` para determinar si el hilo está vivo o no. Por ejemplo, si invocamos el método `_isAlive()_` en este hilo de la manera siguiente:
+
+[source, java]
+----
+Assert.assertFalse(t1.isAlive());
+----
+
+Va a retornas `_false_`. De manera simple, *Un hilo está vivo solamente si ha sido comenzado y no ha esta muerto todavía*. 
+
+== Ejemplo
+A continuación se muestra un ejemplo completo que trata de mostrar todos los estado por los que pasa un hilo.
+
+[source,java]
+----
+public class CicloVidaHilo implements Runnable {
+
+    public static void main(String[] args) {
+        Thread hilo = new Thread(new CicloVidaHilo());
+        
+        System.out.println("Estado del hilo después de la creación: " + hilo.getState()); // NEW
+        
+        hilo.start();
+        System.out.println("Estado del hilo después de llamar a start(): " + hilo.getState()); // RUNNABLE
+        
+        try {
+            Thread.sleep(100);
+            System.out.println("Estado del hilo durante sleep(): " + hilo.getState()); // TIMED_WAITING
+            
+            synchronized (hilo) {
+                hilo.wait(100);
+                System.out.println("Estado del hilo durante wait(): " + hilo.getState()); // WAITING
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            hilo.join();
+            System.out.println("Estado del hilo después de completar la ejecución: " + hilo.getState()); // TERMINATED
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Hilo está en ejecución.");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Hilo ejecutando iteración " + i);
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+----
+
+**Explicación del Código**:
+
+1. **Creación del Hilo**: El hilo se crea pero no se inicia aún, por lo que está en el estado `NEW`.
+
+[source,java]
+----
+Thread hilo = new Thread(new CicloVidaHilo());
+System.out.println("Estado del hilo después de la creación: " + hilo.getState()); // NEW
+----
+
+[start=2]
+. **Inicio del Hilo**: Al llamar al método `start()`, el hilo entra en el estado `RUNNABLE`.
+
+[source,java]
+----
+hilo.start();
+System.out.println("Estado del hilo después de llamar a start(): " + hilo.getState()); // RUNNABLE
+----
+
+[start=3]
+. **Estado Timed Waiting**: Al utilizar `Thread.sleep(100)`, el hilo entra en el estado `TIMED_WAITING`.
+
+[source,java]
+----
+    Thread.sleep(100);
+    System.out.println("Estado del hilo durante sleep(): " + hilo.getState()); // TIMED_WAITING
+----
+
+[start=4]
+. **Estado Waiting**: Utilizando `synchronized` y `wait(100)`, el hilo entra en el estado `WAITING`.
+    
+[source,java]
+----
+synchronized (hilo) {
+    hilo.wait(100);
+    System.out.println("Estado del hilo durante wait(): " + hilo.getState()); // WAITING
+}
+----
+
+[start=5]
+. **Terminación del Hilo**: Después de que el hilo completa su ejecución, entra en el estado `TERMINATED`.
+
+[source,java]
+----
+hilo.join();
+System.out.println("Estado del hilo después de completar la ejecución: " + hilo.getState()); // TERMINATED
+----
+
+En el método `run()`, el hilo ejecuta un bucle simple y utiliza `Thread.sleep(50)` para simular un trabajo que lleva tiempo, mostrando cómo el hilo pasa entre los estados `RUNNABLE` y `TIMED_WAITING`.
+
+
+
+
+

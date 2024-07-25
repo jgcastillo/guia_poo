@@ -1,0 +1,390 @@
+= Ejemplos y Ejercicios de Práctica
+
+== Ejemplo 1:
+
+Vamos a crear una clase `Empleado` que encapsula atributos como `nombre`, `edad` y `salario`. Implementaremos métodos getters y setters para cada atributo y explicaremos cómo funcionan.
+
+[source,java]
+----
+public class Empleado {
+    private String nombre;
+    private int edad;
+    private double salario;
+
+    // Constructor
+    public Empleado(String nombre, int edad, double salario) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.salario = salario;
+    }
+
+    // Método de acceso para 'nombre'
+    public String getNombre() {
+        return nombre;
+    }
+
+    // Método de modificación para 'nombre'
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    // Método de acceso para 'edad'
+    public int getEdad() {
+        return edad;
+    }
+
+    // Método de modificación para 'edad'
+    public void setEdad(int edad) {
+        if (edad > 0) {
+            this.edad = edad;
+        }
+    }
+
+    // Método de acceso para 'salario'
+    public double getSalario() {
+        return salario;
+    }
+
+    // Método de modificación para 'salario'
+    public void setSalario(double salario) {
+        if (salario > 0) {
+            this.salario = salario;
+        }
+    }
+}
+----
+Revisemos el detalle de lo que se hizo:
+
+. **Definición de Atributos Privados**: Los atributos nombre, edad y salario están definidos como private, lo que significa que no pueden ser accedidos directamente desde fuera de la clase.
+
+. **Constructor**: El constructor permite inicializar los atributos cuando se crea un objeto Empleado.
+
+. **Getters**: Los métodos getNombre(), getEdad() y getSalario() permiten acceder a los valores de `nombre`, `edad` y `salario` respectivamente.
+
+. **Setters**: Los métodos `setNombre()`, `setEdad()` y `setSalario()` permiten modificar los valores de `nombre`, `edad` y `salario`. Los setters para `edad` y `salario` incluyen validaciones para asegurarse de que se asignen valores positivos.
+
+
+== Ejemplo 2:
+
+A continuación, presentamos una clase `Producto` con atributos `nombre`, `precio` y `cantidad`, utilizando getters y setters.
+
+[source,java]
+----
+public class Producto {
+    private String nombre;
+    private double precio;
+    private int cantidad;
+
+    // Constructor
+    public Producto(String nombre, double precio, int cantidad) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.cantidad = cantidad;
+    }
+
+    // Getters y Setters
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        if (precio > 0) {
+            this.precio = precio;
+        }
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        if (cantidad >= 0) {
+            this.cantidad = cantidad;
+        }
+    }
+}
+----
+
+== Ejercicios
+
+A continuación se presentan algunos ejercicios para que pongas en práctica lo aprendido:
+
+. Crear una clase `Libro` que tenga los siguientes atributos `titulo`, `autor`, `precio` y `numPaginas`. Implementar los getters y setters correspondientes.
+
+. Crear una clase `Estudiante`` que tenga los atributos `nombre`, `edad`, `grado` y `promedio`. Implementar los getters y setters correspondientes, asegurándose de validar que la edad sea positiva y que el promedio esté entre 0 y 20.
+
+. Crear una clase `CuentaBancaria` con los atributos `numeroCuenta`, `titular` y `saldo`. Implementar los getters y setters correspondientes. Asegurando que el saldo nunca sea negativo.
+
+. Crear una clase `Vehiculo` con atributos `marca`, `modelo`, `anio` y `kilometraje`. Implementar los getters y setters correspondientes, validando que el año sea positivo y que el kilometraje no disminuya.
+
+. Crear una clase `Pelicula` con atributos `titulo`, `director`, `duracion` y `genero`. Implementar los getters y setters correspondientes, asegurándose de que la duración sea positiva.
+
+== Soluciones
+
+=== Solución 1: Libro
+
+[source, java]
+----
+public class Libro {
+    private String titulo;
+    private String autor;
+    private double precio;
+    private int numPaginas;
+
+    public Libro(String titulo, String autor, double precio, int numPaginas) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.precio = precio;
+        this.numPaginas = numPaginas;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        if (precio > 0) {
+            this.precio = precio;
+        }
+    }
+
+    public int getNumPaginas() {
+        return numPaginas;
+    }
+
+    public void setNumPaginas(int numPaginas) {
+        if (numPaginas > 0) {
+            this.numPaginas = numPaginas;
+        }
+    }
+}
+----
+
+=== Solución 2: Estudiante
+
+[source, java]
+----
+public class Estudiante {
+    private String nombre;
+    private int edad;
+    private String grado;
+    private double promedio;
+
+    public Estudiante(String nombre, int edad, String grado, double promedio) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.grado = grado;
+        this.promedio = promedio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        if (edad > 0) {
+            this.edad = edad;
+        }
+    }
+
+    public String getGrado() {
+        return grado;
+    }
+
+    public void setGrado(String grado) {
+        this.grado = grado;
+    }
+
+    public double getPromedio() {
+        return promedio;
+    }
+
+    public void setPromedio(double promedio) {
+        if (promedio >= 0 && promedio <= 20) {
+            this.promedio = promedio;
+        }
+    }
+}
+----
+
+=== Solución 3: CuentaBancaria
+
+[source, java]
+----
+public class CuentaBancaria {
+    private String numeroCuenta;
+    private String titular;
+    private double saldo;
+
+    public CuentaBancaria(String numeroCuenta, String titular, double saldo) {
+        this.numeroCuenta = numeroCuenta;
+        this.titular = titular;
+        this.saldo = saldo;
+    }
+
+    public String getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public void setNumeroCuenta(String numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public void setTitular(String titular) {
+        this.titular = titular;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        if (saldo >= 0) {
+            this.saldo = saldo;
+        }
+    }
+}
+----
+=== Solución 4: Vehiculo
+
+[source, java]
+----
+public class Vehiculo {
+    private String marca;
+    private String modelo;
+    private int anio;
+    private int kilometraje;
+
+    public Vehiculo(String marca, String modelo, int anio, int kilometraje) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anio = anio;
+        this.kilometraje = kilometraje;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        if (anio > 0) {
+            this.anio = anio;
+        }
+    }
+
+    public int getKilometraje() {
+        return kilometraje;
+    }
+
+    public void setKilometraje(int kilometraje) {
+        if (kilometraje >= 0) {
+            this.kilometraje = kilometraje;
+        }
+    }
+}
+----
+
+=== Solución 5: Pelicula
+
+[source, java]
+----
+public class Pelicula {
+    private String titulo;
+    private String director;
+    private int duracion;
+    private String genero;
+
+    public Pelicula(String titulo, String director, int duracion, String genero) {
+        this.titulo = titulo;
+        this.director = director;
+        this.duracion = duracion;
+        this.genero = genero;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(int duracion) {
+        if (duracion > 0) {
+            this.duracion = duracion;
+        }
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+}
+----

@@ -1,0 +1,268 @@
+= Ejemplos y Ejercicios
+
+== Ejemplo 1:
+En este ejemplo, utilizaremos la excepción predefinida `NumberFormatException` para manejar errores que ocurren al intentar convertir una cadena de texto en un número entero.
+
+[source, java]
+----
+public class EjemploNumberFormatException {
+
+    public static void main(String[] args) {
+        String cadena = "123a"; // Cadena no válida para conversión a entero
+        try {
+            int numero = Integer.parseInt(cadena);
+            System.out.println("Número convertido: " + numero);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: La cadena no es un número válido.");
+        }
+    }
+}
+----
+
+.Explicación:
+* Definimos una cadena `cadena` que contiene un valor no válido para la conversión a un número entero.
+* Intentamos convertir la cadena en un número entero usando `Integer.parseInt(cadena)`.
+* Capturamos la `NumberFormatException` en un bloque `catch` y mostramos un mensaje de error al usuario.
+
+== Ejemplo 2
+
+En este ejemplo, crearemos una excepción propia llamada `SaldoInsuficienteException` y la utilizaremos en una clase `CuentaBancaria` para manejar la situación en la que se intenta retirar más dinero del que hay disponible en la cuenta.
+
+[source, java]
+----
+class SaldoInsuficienteException extends Exception {
+    public SaldoInsuficienteException(String mensaje) {
+        super(mensaje);
+    }
+}
+
+class CuentaBancaria {
+    private double saldo;
+
+    public CuentaBancaria(double saldoInicial) {
+        this.saldo = saldoInicial;
+    }
+
+    public void retirar(double cantidad) throws SaldoInsuficienteException {
+        if (cantidad > saldo) {
+            throw new SaldoInsuficienteException("Saldo insuficiente para realizar el retiro.");
+        }
+        saldo -= cantidad;
+        System.out.println("Retiro exitoso. Saldo restante: " + saldo);
+    }
+}
+
+public class EjemploSaldoInsuficienteException {
+
+    public static void main(String[] args) {
+        CuentaBancaria cuenta = new CuentaBancaria(1000.0);
+        try {
+            cuenta.retirar(1500.0);
+        } catch (SaldoInsuficienteException e) {
+            System.out.println("Excepción capturada: " + e.getMessage());
+        }
+    }
+}
+----
+
+.Explicación:
+* Definimos una clase de excepción personalizada `SaldoInsuficienteException` que extiende `Exception`.
+* Creamos una clase `CuentaBancaria` con un método `retirar` que lanza la excepción `SaldoInsuficienteException` si se intenta retirar más dinero del que hay disponible en la cuenta.
+* En el método `main`, intentamos retirar una cantidad mayor al saldo disponible y capturamos la excepción, mostrando un mensaje de error.
+
+== Ejercicios Prácticos
+
+A continuación, se presentan varios ejercicios para que los estudiantes practiquen el manejo de excepciones en Java. Cada ejercicio implica la creación de una solución que maneje excepciones predefinidas o propias.
+
+1. **Ejercicio 1:** Crear un programa que lea un archivo de texto. Si el archivo no se encuentra, debe lanzar y manejar una excepción `FileNotFoundException`.
+2. **Ejercicio 2:** Desarrollar una clase `Calculadora` que tenga un método `dividir` que maneje la excepción `ArithmeticException` cuando se intente dividir por cero.
+3. **Ejercicio 3:** Crear una excepción personalizada llamada `ProductoNoDisponibleException` y usarla en un programa que verifique la disponibilidad de productos en una tienda en línea.
+4. **Ejercicio 4:** Implementar una clase `RegistroUsuarios` que maneje una excepción `UsuarioNoEncontradoException` personalizada cuando se intente acceder a un usuario que no existe.
+5. **Ejercicio 5:** Desarrollar un programa que convierta una cadena de texto a un número decimal. Si la cadena no es un número válido, debe lanzar y manejar una excepción `NumberFormatException`.
+6. **Ejercicio 6:** Crear una clase `Banco` con un método `realizarPago` que maneje la excepción `PagoExcedidoException` personalizada cuando el monto del pago exceda el límite permitido.
+
+=== Solución Ejercicio 1
+
+[source, java]
+----
+import java.io.*;
+
+public class LecturaArchivo {
+
+    public static void main(String[] args) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("archivo.txt"));
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                System.out.println(linea);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: Archivo no encontrado.");
+        } catch (IOException e) {
+            System.out.println("Error: Problema de E/S.");
+        }
+    }
+}
+----
+
+=== Solución Ejercicio 2
+
+[source, java]
+----
+public class Calculadora {
+
+    public double dividir(double a, double b) {
+        try {
+            return a / b;
+        } catch (ArithmeticException e) {
+            System.out.println("Error: División por cero.");
+            return Double.NaN;
+        }
+    }
+
+    public static void main(String[] args) {
+        Calculadora calculadora = new Calculadora();
+        System.out.println("Resultado: " + calculadora.dividir(10, 0));
+    }
+}
+----
+
+=== Solución Ejercicio 3
+
+[source, java]
+----
+class ProductoNoDisponibleException extends Exception {
+    public ProductoNoDisponibleException(String mensaje) {
+        super(mensaje);
+    }
+}
+
+class TiendaEnLinea {
+    private Map<String, Integer> inventario = new HashMap<>();
+
+    public TiendaEnLinea() {
+        inventario.put("Laptop", 10);
+        inventario.put("Teléfono", 5);
+    }
+
+    public void verificarDisponibilidad(String producto, int cantidad) throws ProductoNoDisponibleException {
+        if (!inventario.containsKey(producto) || inventario.get(producto) < cantidad) {
+            throw new ProductoNoDisponibleException("Producto no disponible o cantidad insuficiente.");
+        }
+        System.out.println("Producto disponible: " + producto);
+    }
+}
+
+public class GestionTienda {
+
+    public static void main(String[] args) {
+        TiendaEnLinea tienda = new TiendaEnLinea();
+        try {
+            tienda.verificarDisponibilidad("Laptop", 15);
+        } catch (ProductoNoDisponibleException e) {
+            System.out.println("Excepción capturada: " + e.getMessage());
+        }
+    }
+}
+----
+
+=== Solución Ejercicio 4
+
+[source, java]
+----
+class UsuarioNoEncontradoException extends Exception {
+    public UsuarioNoEncontradoException(String mensaje) {
+        super(mensaje);
+    }
+}
+
+class RegistroUsuarios {
+    private Map<String, String> usuarios = new HashMap<>();
+
+    public void agregarUsuario(String usuario, String contraseña) {
+        usuarios.put(usuario, contraseña);
+    }
+
+    public String obtenerUsuario(String usuario) throws UsuarioNoEncontradoException {
+        if (!usuarios.containsKey(usuario)) {
+            throw new UsuarioNoEncontradoException("Usuario no encontrado: " + usuario);
+        }
+        return usuarios.get(usuario);
+    }
+}
+
+public class GestionUsuarios {
+
+    public static void main(String[] args) {
+        RegistroUsuarios registro = new RegistroUsuarios();
+        registro.agregarUsuario("juan", "1234");
+        try {
+            System.out.println("Contraseña de juan: " + registro.obtenerUsuario("juan"));
+            System.out.println("Contraseña de pedro: " + registro.obtenerUsuario("pedro"));
+        } catch (UsuarioNoEncontradoException e) {
+            System.out.println("Excepción capturada: " + e.getMessage());
+        }
+    }
+}
+----
+
+=== Solución Ejercicio 5
+
+[source, java]
+----
+public class ConvertirCadena {
+
+    public static void main(String[] args) {
+        String cadena = "123.45a";
+        try {
+            double numero = Double.parseDouble(cadena);
+            System.out.println("Número convertido: " + numero);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: La cadena no es un número válido.");
+        }
+    }
+}
+----
+
+=== Solución Ejercicio 6
+
+[source, java]
+----
+class PagoExcedidoException extends Exception {
+    public PagoExcedidoException(String mensaje) {
+        super(mensaje);
+    }
+}
+
+class Banco {
+    private double saldo;
+    private double limitePago;
+
+    public Banco(double saldoInicial, double limitePago) {
+        this.saldo = saldoInicial;
+        this.limitePago = limitePago;
+    }
+
+    public void realizarPago(double cantidad) throws PagoExcedidoException {
+        if (cantidad > limitePago) {
+            throw new PagoExcedidoException("El pago excede el límite permitido.");
+        }
+        saldo -= cantidad;
+        System.out.println("Pago realizado. Saldo restante: " + saldo);
+    }
+}
+
+public class GestionBanco {
+
+    public static void main(String[] args) {
+        Banco banco = new Banco(1000.0, 500.0);
+        try {
+            banco.realizarPago(600.0);
+        } catch (PagoExcedidoException e) {
+            System.out.println("Excepción capturada: " + e.getMessage());
+        }
+    }
+}
+----
+

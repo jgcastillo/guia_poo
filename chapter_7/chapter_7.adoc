@@ -1,0 +1,24 @@
+= Concurrencia e Hilos
+:imagesdir: chapter_7/images/
+ifndef::masterdoc[]
+include::../meta.adoc[]
+include::../attributes.adoc[]
+endif::masterdoc[]
+
+:leveloffset: +1
+
+include::section_7_1.adoc[]
+include::section_7_2.adoc[]
+include::section_7_3.adoc[]
+include::section_7_4.adoc[]
+include::section_7_5.adoc[]
+
+ifdef::masterdoc[]
+[bibliography]
+= Referencias del capítulo
+
+include::biblio.adoc[]
+
+endif::masterdoc[]
+
+:leveloffset: -1

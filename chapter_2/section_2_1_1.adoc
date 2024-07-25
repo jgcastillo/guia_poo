@@ -1,0 +1,15 @@
+= Introducción
+
+La **Programación Orientada a Objetos** (POO) es un paradigma de programación que se centra en el uso de "objetos" como unidades fundamentales de lógica y datos. Este paradigma fue concebido y desarrollado en gran parte por Alan Kay, quien estableció principios que han sido fundamentales en el diseño de lenguajes de programación modernos. En esta unidad, abordaremos los principios esenciales de la POO según la visión de Alan Kay, proporcionando una base teórica que guiará nuestro estudio y aplicación de estos conceptos.
+
+La **abstracción** es uno de los pilares de la POO. Se refiere al proceso de identificar los aspectos relevantes de una entidad mientras se ignoran los detalles no esenciales. Este principio permite a los programadores manejar la complejidad del software al enfocarse en la representación más significativa de los problemas.
+
+El **encapsulamiento**, estrechamente relacionado con la abstracción, es la práctica de ocultar los detalles internos de un objeto y exponer solo lo necesario a través de interfaces públicas. Esto no solo mejora la modularidad del código sino que también protege la integridad de los datos al prevenir el acceso no autorizado o no intencional.
+
+La **herencia** es otro principio clave, permitiendo que una clase herede propiedades y comportamientos de otra clase. Este mecanismo promueve la reutilización del código y facilita la creación de jerarquías de clases que reflejan relaciones naturales entre conceptos.
+
+**Cohesión** y **acoplamiento** son conceptos fundamentales en el diseño de sistemas orientados a objetos. La **cohesión** se refiere al grado en que los elementos de una clase están relacionados y trabajan juntos para cumplir una única responsabilidad. Un alto grado de cohesión es deseable porque simplifica la comprensión y mantenimiento del código. El **acoplamiento**, por el contrario, mide la interdependencia entre diferentes módulos del sistema. Un bajo acoplamiento es preferible ya que permite una mayor flexibilidad y facilidad de cambio. La **Ley de Demeter**, o el principio de "no hablar con extraños", establece que un objeto debe interactuar solo con sus amigos inmediatos y no con objetos desconocidos o distantes. Este principio ayuda a reducir el acoplamiento y aumentar la modularidad del sistema.
+
+Buenas prácticas de programación en POO incluyen mantener métodos cortos y enfocados, usar nombres descriptivos, y adherirse a principios de diseño como **SOLID**. Estos principios aseguran que el código sea legible, mantenible y escalable.
+
+Finalmente, los principios de **Código Limpio**, promovidos por Robert C. Martin, enfatizan la importancia de escribir código que sea simple y claro. Esto incluye evitar duplicaciones, utilizar comentarios de manera adecuada, y mantener el código tan directo y comprensible como sea posible.

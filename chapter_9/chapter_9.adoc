@@ -1,0 +1,29 @@
+= Patrones de Diseño de Software
+ifndef::masterdoc[]
+include::../meta.adoc[]
+include::../attributes.adoc[]
+endif::masterdoc[]
+
+:leveloffset: +1
+
+include::section_9_1.adoc[]
+include::section_9_2.adoc[]
+include::section_9_3.adoc[]
+include::section_9_4.adoc[]
+include::section_9_5.adoc[]
+include::section_9_6.adoc[]
+include::section_9_7.adoc[]
+include::section_9_8.adoc[]
+
+
+
+
+ifdef::masterdoc[]
+[bibliography]
+= Referencias del capítulo
+
+include::biblio.adoc[]
+
+endif::masterdoc[]
+
+:leveloffset: -1

@@ -1,0 +1,20 @@
+= Programación Orientada a Objetos
+:title-page:
+
+ifndef::masterdoc[]
+include::../meta.adoc[]
+
+endif::masterdoc[]
+
+:leveloffset: +1
+
+include::licencia.adoc[]
+
+
+ifdef::masterdoc[]
+[bibliography]
+
+
+endif::masterdoc[]
+
+:leveloffset: -1

@@ -1,0 +1,27 @@
+= Principios de Diseño: S.O.L.I.D.
+ifndef::masterdoc[]
+include::../meta.adoc[]
+include::../attributes.adoc[]
+endif::masterdoc[]
+
+:leveloffset: +1
+
+include::section_8_1.adoc[]
+include::section_8_2.adoc[]
+include::section_8_3.adoc[]
+include::section_8_4.adoc[]
+include::section_8_5.adoc[]
+include::section_8_6.adoc[]
+include::section_8_7.adoc[]
+include::section_8_8.adoc[]
+
+
+ifdef::masterdoc[]
+[bibliography]
+= Referencias del capítulo
+
+include::biblio.adoc[]
+
+endif::masterdoc[]
+
+:leveloffset: -1

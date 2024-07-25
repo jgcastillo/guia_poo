@@ -1,0 +1,66 @@
+= Creación de Excepciones Propias en Java
+
+Java permite a los desarrolladores crear sus propias excepciones personalizadas para manejar situaciones específicas que no están cubiertas por las excepciones estándar de Java. La capacidad de definir excepciones propias es fundamental para desarrollar aplicaciones robustas y flexibles, ya que permite representar errores y condiciones excepcionales que son únicas para el contexto de la aplicación.
+
+Las excepciones propias son importantes porque proporcionan una manera de capturar y manejar situaciones específicas de una aplicación de una manera más clara y significativa. Utilizando excepciones personalizadas, los desarrolladores pueden:
+
+* **Claridad y especificidad:** Representar errores de manera más descriptiva y específica que las excepciones genéricas.
+* **Mantenibilidad:** Facilitar el mantenimiento del código, ya que las excepciones personalizadas pueden hacer que el código sea más fácil de entender y depurar.
+* **Encapsulamiento:** Encapsular lógica de manejo de errores específica dentro de las clases de excepciones personalizadas, promoviendo un diseño más limpio y modular.
+
+== Proceso de Creación de Excepciones Propias
+
+Crear una excepción propia en Java implica extender la clase `Exception` o `RuntimeException`. Dependiendo de si se desea que la nueva excepción sea chequeada o no chequeada, se elige la clase base adecuada.
+
+=== Ejemplo de Creación de una Excepción Propia
+
+A continuación, se muestra un ejemplo paso a paso de cómo crear y utilizar una excepción propia en Java.
+
+[source, java]
+----
+public class EdadInvalidaException extends Exception {
+    public EdadInvalidaException(String mensaje) {
+        super(mensaje);
+    }
+}
+----
+
+En este ejemplo, se define una excepción personalizada `EdadInvalidaException` que extiende la clase `Exception`. El constructor acepta un mensaje que se pasa a la superclase `Exception`. Como se observa es realmente sencillo la cereación de nuestras propias excepciones.
+
+A continuación, se muestra cómo utilizar la excepción personalizada en un método que valida la edad de una persona:
+
+[source, java]
+----
+public class VerificadorEdad {
+
+    public void verificarEdad(int edad) throws EdadInvalidaException {
+        if (edad < 18) {
+            throw new EdadInvalidaException("La edad debe ser 18 o mayor.");
+        }
+        System.out.println("Edad válida: " + edad);
+    }
+
+    public static void main(String[] args) {
+        VerificadorEdad verificador = new VerificadorEdad();
+        try {
+            verificador.verificarEdad(16);
+        } catch (EdadInvalidaException e) {
+            System.out.println("Excepción capturada: " + e.getMessage());
+        }
+    }
+}
+----
+
+En este ejemplo, el método `verificarEdad` lanza una excepción `EdadInvalidaException` si la edad proporcionada es menor de 18. En el método `main`, se captura y maneja esta excepción, proporcionando un mensaje claro al usuario. A continuación un poco más de detalle de la explicación:
+
+1. **Definición de la excepción personalizada:**
+   Se crea una nueva clase `EdadInvalidaException` que extiende `Exception`, proporcionando un constructor que acepta un mensaje de error. Esto permite lanzar una excepción con un mensaje específico cuando se produce una condición de error.
+
+2. **Método que lanza la excepción:**
+   El método `verificarEdad` verifica si la edad es menor de 18. Si lo es, lanza una instancia de `EdadInvalidaException` con un mensaje descriptivo.
+
+3. **Captura y manejo de la excepción:**
+   En el método `main`, se intenta verificar una edad usando `verificarEdad`. Si se lanza `EdadInvalidaException`, se captura en el bloque `catch` y se imprime el mensaje de error.
+
+Este enfoque permite que el manejo de errores sea más claro y específico, mejorando la legibilidad y mantenibilidad del código. Además, proporciona un mecanismo robusto para manejar condiciones excepcionales específicas de la aplicación.
+

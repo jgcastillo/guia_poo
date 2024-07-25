@@ -1,0 +1,11 @@
+== Referencias del capítulo
+
+- Barbara Liskov. (2008). *Turing Award Winner*. Recuperado de https://amturing.acm.org/award_winners/liskov_1108679.cfm
+- Fowler, M. (2004). *Refactoring: Improving the Design of Existing Code*. Addison-Wesley.
+- Hunt, A., & Thomas, D. (1999). *The Pragmatic Programmer: From Journeyman to Master*. Addison-Wesley.
+- McConnell, S. (2004). *Code Complete: A Practical Handbook of Software Construction* (2nd ed.). Microsoft Press.
+- Martin, R. C. (2003). *Agile Software Development, Principles, Patterns, and Practices*. Prentice Hall.
+- Martin, R. C. (2008). *Clean Code: A Handbook of Agile Software Craftsmanship*. Prentice Hall.
+- Martin, R. C. (2017). *Clean Architecture: A Craftsman's Guide to Software Structure and Design*. Prentice Hall.
+- Gamma, E., Helm, R., Johnson, R., & Vlissides, J. (1994). *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley.
+- Wikipedia contributors. (2024, July 22). S.O.L.I.D.. In *Wikipedia, The Free Encyclopedia*. Recuperado de https://en.wikipedia.org/wiki/S.O.L.I.D.º

@@ -1,0 +1,203 @@
+= Sintaxis Básica de Java
+
+Java es un lenguaje de programación fuertemente tipado y orientado a objetos, lo que significa que cada variable debe tener un tipo específico y que la estructura del programa se organiza en torno a clases y objetos. En este subcapítulo, exploraremos los elementos fundamentales de la sintaxis de Java, incluyendo tipos de variables, estructuras de control condicionales, bucles, programación de clases y el método `public static void main()`.
+
+== Tipos de Variables
+
+En Java, existen varios tipos de variables, que se dividen en tipos primitivos y tipos de referencia. Los tipos primitivos incluyen:
+
+* **int:** Representa un número entero (32 bits).
+[source,java]
+----
+int edad = 25;
+----
+
+* **double:** Representa un número de coma flotante de doble precisión (64 bits).
+[source,java]
+----
+double precio = 19.99;
+----
+
+* **char:** Representa un carácter Unicode (16 bits).
+[source,java]
+----
+char inicial = 'A';
+----
+
+* **boolean:** Representa un valor de verdad (true o false).
+[source,java]
+----
+boolean esMayor = true;
+----
+
+Otros tipos primitivos incluyen `byte`, `short`, `long` y `float`. Los tipos de referencia, por otro lado, incluyen objetos y arrays. Por ejemplo:
+[source,java]
+----
+String nombre = "Juan";
+int[] numeros = {1, 2, 3, 4, 5};
+----
+
+== Estructuras de Control Condicionales
+
+Java proporciona varias estructuras de control condicionales que permiten dirigir el flujo del programa basado en ciertas condiciones.
+
+* **if:** Ejecuta un bloque de código si la condición es verdadera.
+[source,java]
+----
+if (edad > 18) {
+    System.out.println("Eres mayor de edad.");
+}
+----
+
+* **if-else:** Proporciona una alternativa si la condición no se cumple.
+[source,java]
+----
+if (edad > 18) {
+    System.out.println("Eres mayor de edad.");
+} else {
+    System.out.println("Eres menor de edad.");
+}
+----
+
+* **else if:** Permite verificar múltiples condiciones.
+[source,java]
+----
+if (edad < 13) {
+    System.out.println("Eres un niño.");
+} else if (edad < 18) {
+    System.out.println("Eres un adolescente.");
+} else {
+    System.out.println("Eres un adulto.");
+}
+----
+
+* **switch:** Selecciona una de muchas ramas de código a ejecutar. La estructura switch en Java soporta variables numéricas (int, short, byte, char), String y también enumeraciones (enum). A partir de Java 7, se introdujo el soporte para String en las sentencias switch.
+[source,java]
+----
+// Uso de switch con int
+int dia = 3;
+switch (dia) {
+    case 1:
+        System.out.println("Lunes");
+        break;
+    case 2:
+        System.out.println("Martes");
+        break;
+    case 3:
+        System.out.println("Miércoles");
+        break;
+    default:
+        System.out.println("Día no válido");
+}
+
+// Uso de switch con char
+char letra = 'A';
+switch (letra) {
+    case 'A':
+        System.out.println("La letra es A");
+        break;
+    case 'B':
+        System.out.println("La letra es B");
+        break;
+    case 'C':
+        System.out.println("La letra es C");
+        break;
+    default:
+        System.out.println("Letra no válida");
+}
+
+// Uso de switch con String (desde Java 7)
+String fruta = "Manzana";
+switch (fruta) {
+    case "Manzana":
+        System.out.println("Es una Manzana");
+        break;
+    case "Naranja":
+        System.out.println("Es una Naranja");
+        break;
+    case "Plátano":
+        System.out.println("Es un Plátano");
+        break;
+    default:
+        System.out.println("Fruta no reconocida");
+}
+----
+
+== Bucles
+
+Los bucles en Java permiten repetir un bloque de código múltiples veces.
+
+* **for:** Repite un bloque de código un número específico de veces.
+[source,java]
+----
+for (int i = 0; i < 5; i++) {
+    System.out.println("Iteración: " + i);
+}
+----
+
+* **while:** Repite un bloque de código mientras la condición sea verdadera.
+[source,java]
+----
+int i = 0;
+while (i < 5) {
+    System.out.println("Iteración: " + i);
+    i++;
+}
+----
+
+* **do-while:** Similar al bucle `while`, pero garantiza que el bloque de código se ejecute al menos una vez.
+[source,java]
+----
+int i = 0;
+do {
+    System.out.println("Iteración: " + i);
+    i++;
+} while (i < 5);
+----
+
+== Clases
+
+La programación en Java se centra en la creación y utilización de clases. Una clase define un nuevo tipo de objeto y contiene atributos (variables) y métodos (funciones).
+
+[source,java]
+----
+public class Persona {
+    private String nombre;
+    private int edad;
+
+    // Constructor
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    // Método para mostrar información
+    public void mostrarInformacion() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Edad: " + edad);
+    }
+}
+----
+
+== El Método `public static void main()`
+
+El método `public static void main(String[] args)` es el punto de entrada de cualquier aplicación Java. Es donde comienza la ejecución del programa. Vamos a desglosar cada parte de esta declaración:
+
+* **public:** El método es accesible desde cualquier otra clase.
+* **static:** El método puede ser llamado sin necesidad de instanciar la clase.
+* **void:** El método no retorna ningún valor.
+* **main:** Es el nombre del método que el JVM busca como punto de inicio de la ejecución.
+* **String[] args:** Es un array de `String` que puede recibir argumentos de la línea de comandos.
+
+Aquí hay un ejemplo de cómo se utiliza el método `main`:
+[source,java]
+----
+public class Aplicacion {
+    public static void main(String[] args) {
+        Persona persona1 = new Persona("Juan", 25);
+        persona1.mostrarInformacion();
+    }
+}
+----
+
+En este ejemplo, el método `main` crea un objeto `Persona` y llama al método `mostrarInformacion` para imprimir los detalles de la persona en la consola.

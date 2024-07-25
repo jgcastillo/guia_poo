@@ -1,0 +1,20 @@
+== Referencias del capítulo
+
+- Martin, R. C. (2008). *Clean Code: A Handbook of Agile Software Craftsmanship*. Prentice Hall.
+- Freeman, E., & Robson, E. (2020). *Head First Design Patterns: A Brain-Friendly Guide*. O'Reilly Media.
+- Deitel, P. J., & Deitel, H. M. (2014). *Como programar en Java 9na edición*. Editorial Pearson.
+- Bloch, J. (2018). *Effective Java (3rd ed.)*. Addison-Wesley Professional.
+- Oracle. (n.d.). *Polymorphism in Java*. Retrieved from https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html
+- Stack Overflow. (n.d.). *What is Polymorphism?*. Retrieved from https://stackoverflow.com/questions/12756744/what-is-polymorphism
+- Oracle. (n.d.). *Generics in Java*. Retrieved from https://docs.oracle.com/javase/tutorial/java/generics/index.html
+- Stack Overflow. (n.d.). *What are Generics in Java?*. Retrieved from https://stackoverflow.com/questions/3798390/what-are-generics-in-java
+- GeeksforGeeks. (2022). *Java 8 Optional Class*. Recuperado de https://www.geeksforgeeks.org/java-8-optional-class/
+- Apuntes de Java. (2022). ¿Qué son los :: en Java? Recuperado de https://www.apuntesdejava.com/2022/11/que-son-los-en-java.html
+* Baeldung. (2022). Java Functional Programming. Recuperado de https://www.baeldung.com/java-functional-programming
+* NIIT. (2022). Functional Programming in Java 8: Tips and Tricks. Recuperado de https://www.niit.com/india/Functional-Programming-in-Java-8-Tips-and-Tricks
+* freeCodeCamp. (2022). Functional Programming in Java. Recuperado de https://www.freecodecamp.org/news/functional-programming-in-java/
+* GeeksforGeeks. (2022). Functional Programming in Java with Examples. Recuperado de https://www.geeksforgeeks.org/functional-programming-in-java-with-examples/
+* Jenkov. (2022). Java Functional Programming. Recuperado de https://jenkov.com/tutorials/java-functional-programming/index.html
+* Scaler. (2022). Functional Programming in Java. Recuperado de https://www.scaler.com/topics/java/functional-programming-in-java/
+* Medium. (2022). Functional Programming in Java. Recuperado de https://medium.com/geekculture/functional-programming-in-java-31c9896fa48b
+* Oracle. (2022). Java SE Documentation. Recuperado de https://docs.oracle.com/en/java/javase/17/docs/api/

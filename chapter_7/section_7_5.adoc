@@ -1,0 +1,197 @@
+= Ejercicios
+
+A continuación se presentan algunos ejercicios para que pongas en práctica lo estudiado hasta ahora. Al final encontraras las preguntas, pero trata primero de resolver el ejercicio por tu propia cuenta y solo uses la respuesta para contrastar tu respuesta.
+
+== Ejercicio 1:
+
+Cree una clase que extienda `Thread` y sobrescriba el método `run()` para imprimir los números del 1 al 10. Luego, cree una instancia de esta clase y utilice el método `start()` para iniciar el hilo.
+
+== Ejercicio 2:
+
+Implemente la interfaz `Runnable` en una clase y sobrescriba el método `run()` para imprimir un mensaje cinco veces. Cree una instancia de `Thread` pasando la instancia de `Runnable` y utilice el método `start()` para iniciar el hilo.
+
+== Ejercicio 3:
+
+Cree tres hilos con diferentes prioridades (aplicar el manejo de prioridades de los hilos). Cada hilo debe imprimir su nombre y su prioridad diez veces. Asegúrese de establecer las prioridades utilizando los valores `Thread.MIN_PRIORITY`, `Thread.NORM_PRIORITY` y `Thread.MAX_PRIORITY`.
+
+== Ejercicio 4:
+
+Cree dos hilos que intenten acceder a un recurso compartido (por ejemplo, imprimir mensajes. Usa los conceptos de  sincronización de hilos). Utilice el bloque `synchronized` para asegurar que solo un hilo pueda acceder al recurso a la vez.
+
+== Ejercicio 5:
+
+Implemente un ejemplo utilizando `ReentrantLock` donde dos hilos intenten acceder a un recurso compartido. Asegúrese de utilizar los métodos `lock()` y `unlock()` correctamente.
+
+== Ejercicio 6:
+
+Cree un hilo que se duerma durante 1 segundo en cada iteración de un bucle que imprime números del 1 al 5. Utilice el método `sleep()` de la clase `Thread`.
+
+== Respuestas
+A continuación se suministran las respuestas a los ejercicios, te sujerimos que la uses una vez que hayas hayas respondido los ejercicios para verificar tus respuestas.
+
+=== Respuesta Ejercicio 1
+
+[source,java]
+----
+class HiloEjemplo extends Thread {
+    @Override
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(i);
+        }
+    }
+
+    public static void main(String[] args) {
+        HiloEjemplo hilo = new HiloEjemplo();
+        hilo.start();
+    }
+}
+----
+
+=== Respuesta Ejercicio 2
+
+[source,java]
+----
+class Tarea implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Mensaje " + (i + 1));
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread hilo = new Thread(new Tarea());
+        hilo.start();
+    }
+}
+----
+
+=== Respuesta Ejercicio 3
+
+[source,java]
+----
+class HiloPrioridad extends Thread {
+    public HiloPrioridad(String nombre, int prioridad) {
+        setName(nombre);
+        setPriority(prioridad);
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println(getName() + " - Prioridad: " + getPriority());
+        }
+    }
+
+    public static void main(String[] args) {
+        HiloPrioridad hilo1 = new HiloPrioridad("Hilo1", Thread.MIN_PRIORITY);
+        HiloPrioridad hilo2 = new HiloPrioridad("Hilo2", Thread.NORM_PRIORITY);
+        HiloPrioridad hilo3 = new HiloPrioridad("Hilo3", Thread.MAX_PRIORITY);
+
+        hilo1.start();
+        hilo2.start();
+        hilo3.start();
+    }
+}
+----
+
+=== Respuesta Ejercicio 4
+
+[source,java]
+----
+class RecursoCompartido {
+    public synchronized void mostrarMensaje(String mensaje) {
+        System.out.println(mensaje);
+    }
+}
+
+class HiloSincronizado extends Thread {
+    private RecursoCompartido recurso;
+
+    public HiloSincronizado(RecursoCompartido recurso) {
+        this.recurso = recurso;
+    }
+
+    @Override
+    public void run() {
+        recurso.mostrarMensaje("Mensaje desde " + getName());
+    }
+
+    public static void main(String[] args) {
+        RecursoCompartido recurso = new RecursoCompartido();
+        HiloSincronizado hilo1 = new HiloSincronizado(recurso);
+        HiloSincronizado hilo2 = new HiloSincronizado(recurso);
+
+        hilo1.start();
+        hilo2.start();
+    }
+}
+----
+
+=== Respuesta Ejercicio 5
+
+[source,java]
+----
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class RecursoLock {
+    private final Lock lock = new ReentrantLock();
+
+    public void mostrarMensaje(String mensaje) {
+        lock.lock();
+        try {
+            System.out.println(mensaje);
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+
+class HiloLock extends Thread {
+    private RecursoLock recurso;
+
+    public HiloLock(RecursoLock recurso) {
+        this.recurso = recurso;
+    }
+
+    @Override
+    public void run() {
+        recurso.mostrarMensaje("Mensaje desde " + getName());
+    }
+
+    public static void main(String[] args) {
+        RecursoLock recurso = new RecursoLock();
+        HiloLock hilo1 = new HiloLock(recurso);
+        HiloLock hilo2 = new HiloLock(recurso);
+
+        hilo1.start();
+        hilo2.start();
+    }
+}
+----
+
+=== Respuesta Ejercicio 6
+
+[source,java]
+----
+class HiloTemporizado extends Thread {
+    @Override
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        HiloTemporizado hilo = new HiloTemporizado();
+        hilo.start();
+    }
+}
+----

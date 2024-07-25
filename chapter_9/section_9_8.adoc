@@ -1,0 +1,101 @@
+== Patrón Command
+
+El patrón Command pertenece al grupo de patrones de comportamiento. Este patrón encapsula una solicitud como un objeto, permitiendo parametrizar a los clientes con diferentes solicitudes, encolar solicitudes o registrar solicitudes para deshacer operaciones.
+
+El patrón Command surge de la necesidad de desacoplar al emisor de una solicitud de su receptor. Este patrón permite tratar las solicitudes como objetos, lo que proporciona una mayor flexibilidad en la manipulación de las solicitudes.
+
+Para implementar el patrón Command , se define una interfaz `Command` que declara un método para ejecutar la solicitud. Luego, se crean clases concretas que implementan esta interfaz, encapsulando la solicitud. El objeto invocador mantiene una referencia al comando y puede ejecutar la solicitud en el momento adecuado.
+
+=== Ejemplo
+
+El siguiente es un ejemplo de cómo se puede definir y usar el patrón Command en Java para implementar operaciones en un sistema de control remoto.
+
+[source, java]
+----
+interface Command {
+    void execute();
+}
+
+class Light {
+    public void on() {
+        System.out.println("The light is on");
+    }
+
+    public void off() {
+        System.out.println("The light is off");
+    }
+}
+
+class LightOnCommand implements Command {
+    private Light light;
+
+    public LightOnCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.on();
+    }
+}
+
+class LightOffCommand implements Command {
+    private Light light;
+
+    public LightOffCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.off();
+    }
+}
+
+class RemoteControl {
+    private Command command;
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+
+    public void pressButton() {
+        command.execute();
+    }
+}
+----
+
+En este ejemplo, `Command` es la interfaz que define el método `execute`. `Light` es una clase que tiene métodos `on` y `off`. `LightOnCommand` y `LightOffCommand` son implementaciones concretas de `Command` que encapsulan las operaciones `on` y `off` de `Light`. `RemoteControl` es la clase invocadora que mantiene una referencia a un `Command` y lo ejecuta cuando se presiona el botón.
+
+Para usar este patrón, se puede escribir el siguiente código:
+
+[source, java]
+----
+public class Main {
+    public static void main(String[] args) {
+        Light livingRoomLight = new Light();
+
+        Command lightOn = new LightOnCommand(livingRoomLight);
+        Command lightOff = new LightOffCommand(livingRoomLight);
+
+        RemoteControl remote = new RemoteControl();
+
+        // Encender la luz
+        remote.setCommand(lightOn);
+        remote.pressButton();
+
+        // Apagar la luz
+        remote.setCommand(lightOff);
+        remote.pressButton();
+    }
+}
+----
+
+En este código, se crea una instancia de `Light` y comandos `LightOnCommand` y `LightOffCommand` para encender y apagar la luz respectivamente. El `RemoteControl` se configura con diferentes comandos y ejecuta el comando configurado cuando se presiona el botón.
+
+=== Consideraciones y Mejores Prácticas
+
+El patrón Command es útil en aplicaciones donde las solicitudes deben ser manejadas de manera flexible y desacoplada. Es especialmente útil en sistemas de interfaz de usuario, controladores remotos, colas de trabajos y sistemas de transacciones. Al diseñar comandos, es importante considerar la posibilidad de deshacer operaciones, lo que implica almacenar el estado previo al comando para revertir cambios si es necesario.
+
+Un ejemplo común del uso del patrón Command es en sistemas de interfaz gráfica de usuario (GUI) donde cada acción del usuario, como clics de botón y selecciones de menú, se encapsula como un objeto de comando. Otro ejemplo es en sistemas de procesamiento de transacciones donde las operaciones pueden ser encoladas y ejecutadas de manera ordenada.
+

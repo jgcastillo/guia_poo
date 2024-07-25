@@ -1,0 +1,104 @@
+= Principio de Segregación de Interfaces (ISP)
+
+El Principio de Segregación de Interfaces (ISP) es uno de los cinco principios fundamentales de diseño SOLID. Este principio establece que una clase no debería verse obligada a implementar interfaces que no usa. En otras palabras, es mejor tener varias interfaces específicas y pequeñas en lugar de una única interfaz general y grande.
+
+El ISP existe para abordar los problemas asociados con la implementación de interfaces grandes y generales. Cuando una clase implementa una interfaz grande, se ve obligada a proporcionar implementaciones para métodos que no necesita, lo que puede llevar a un diseño de código ineficiente y difícil de mantener. La aplicación del ISP permite que las clases implementen solo los métodos que realmente necesitan, mejorando la cohesión y reduciendo la complejidad.
+
+Aplicar el ISP implica dividir las interfaces grandes en interfaces más pequeñas y específicas. Cada interfaz pequeña debe definir un conjunto limitado de métodos relacionados. Las clases que implementen estas interfaces más pequeñas solo tendrán que proporcionar las implementaciones necesarias, lo que facilita el diseño y la comprensión del código.
+
+== Ejemplo de Uso
+
+A continuación se muestra un ejemplo no se aplica el ISP. En este ejemplo, una interfaz `Worker` define métodos para trabajar y para descansar. Sin embargo, una clase `Robot` que implementa esta interfaz no necesita el método de descanso.
+
+[source, java]
+----
+interface Worker {
+    void work();
+    void rest();
+}
+
+class HumanWorker implements Worker {
+    @Override
+    public void work() {
+        System.out.println("Human working");
+    }
+
+    @Override
+    public void rest() {
+        System.out.println("Human resting");
+    }
+}
+
+class RobotWorker implements Worker {
+    @Override
+    public void work() {
+        System.out.println("Robot working");
+    }
+
+    @Override
+    public void rest() {
+        // Los robots no necesitan descansar, pero deben implementar este método
+    }
+}
+
+public class WorkerTest {
+    public static void main(String[] args) {
+        Worker human = new HumanWorker();
+        human.work();
+        human.rest();
+
+        Worker robot = new RobotWorker();
+        robot.work();
+        robot.rest(); // Método innecesario para robots
+    }
+}
+----
+
+En este ejemplo, la clase `RobotWorker` se ve obligada a implementar el método `rest`, aunque no lo necesita. Esto viola el ISP.
+
+A continuación, refactorizaremos el ejemplo anterior para que cumpla con el ISP, separando la interfaz `Worker` en interfaces más específicas.
+
+[source, java]
+----
+interface Workable {
+    void work();
+}
+
+interface Restable {
+    void rest();
+}
+
+class HumanWorker implements Workable, Restable {
+    @Override
+    public void work() {
+        System.out.println("Human working");
+    }
+
+    @Override
+    public void rest() {
+        System.out.println("Human resting");
+    }
+}
+
+class RobotWorker implements Workable {
+    @Override
+    public void work() {
+        System.out.println("Robot working");
+    }
+}
+
+public class WorkerTest {
+    public static void main(String[] args) {
+        Workable humanWorker = new HumanWorker();
+        humanWorker.work();
+        ((Restable) humanWorker).rest();
+
+        Workable robotWorker = new RobotWorker();
+        robotWorker.work();
+    }
+}
+----
+
+En esta refactorización, hemos separado la interfaz `Worker` en dos interfaces: `Workable` y `Restable`. Ahora, la clase `RobotWorker` solo implementa `Workable`, mientras que `HumanWorker` implementa ambas interfaces.
+
+

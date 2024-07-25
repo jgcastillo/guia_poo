@@ -1,0 +1,28 @@
+= Manejo de Excepciones
+:imagesdir: chapter_6/images/
+ifndef::masterdoc[]
+include::../meta.adoc[]
+include::../attributes.adoc[]
+endif::masterdoc[]
+
+:leveloffset: +1
+
+include::section_6_1.adoc[]
+include::section_6_2.adoc[]
+include::section_6_3.adoc[]
+include::section_6_4.adoc[]
+include::section_6_5.adoc[]
+include::section_6_6.adoc[]
+include::section_6_7.adoc[]
+include::section_6_8.adoc[]
+
+
+ifdef::masterdoc[]
+[bibliography]
+= Referencias del capítulo
+
+include::biblio.adoc[]
+
+endif::masterdoc[]
+
+:leveloffset: -1

@@ -1,0 +1,171 @@
+= Ejemplos de Herencia de Clases en Java
+
+== ¿Qué es la Jerarquía de Clases?
+
+Una jerarquía de clases es una estructura en la Programación Orientada a Objetos (POO) que organiza las clases en un sistema de niveles, donde las clases derivadas (subclases) heredan atributos y métodos de clases base (superclases). Esta organización permite la reutilización del código, facilita la extensión de las funcionalidades y ayuda a modelar relaciones más naturales entre los objetos del mundo real.
+
+== Creación de Jerarquías de Clases
+
+Vamos a crear un ejemplo de una jerarquía de clases para representar diferentes tipos de empleados en una empresa. Comenzaremos con una clase base `Empleado` y luego crearemos subclases `EmpleadoTiempoCompleto` y `EmpleadoMedioTiempo` que extienden `Empleado`.
+
+La clase `Empleado` contendrá atributos y métodos comunes a todos los empleados, como `nombre`, `id`, y `calcularSalario()`. Las subclases `EmpleadoTiempoCompleto` y `EmpleadoMedioTiempo` agregarán atributos y métodos específicos para cada tipo de empleado.
+
+=== Código en Java
+
+[source,java]
+----
+public class Empleado {
+    protected String nombre;
+    protected int id;
+
+    public Empleado(String nombre, int id) {
+        this.nombre = nombre;
+        this.id = id;
+    }
+
+    public void mostrarInformacion() {
+        System.out.println("Nombre: " + nombre + ", ID: " + id);
+    }
+
+    public double calcularSalario() {
+        return 0.0; // Sobrescrito por las subclases
+    }
+}
+
+public class EmpleadoTiempoCompleto extends Empleado {
+    private double salarioMensual;
+
+    public EmpleadoTiempoCompleto(String nombre, int id, double salarioMensual) {
+        super(nombre, id);
+        this.salarioMensual = salarioMensual;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return salarioMensual;
+    }
+}
+
+public class EmpleadoMedioTiempo extends Empleado {
+    private double salarioPorHora;
+    private int horasTrabajadas;
+
+    public EmpleadoMedioTiempo(String nombre, int id, double salarioPorHora, int horasTrabajadas) {
+        super(nombre, id);
+        this.salarioPorHora = salarioPorHora;
+        this.horasTrabajadas = horasTrabajadas;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return salarioPorHora * horasTrabajadas;
+    }
+}
+----
+
+1. **Clase `Empleado`:** Esta es la clase base que contiene los atributos `nombre` e `id`, y un método `mostrarInformacion()` para mostrar la información del empleado. También incluye un método `calcularSalario()` que es sobrescrito por las subclases.
+2. **Clase `EmpleadoTiempoCompleto`:** Extiende `Empleado` e introduce un nuevo atributo `salarioMensual`. Sobrescribe el método `calcularSalario()` para retornar el salario mensual.
+3. **Clase `EmpleadoMedioTiempo`:** Extiende `Empleado` e introduce nuevos atributos `salarioPorHora` y `horasTrabajadas`. Sobrescribe el método `calcularSalario()` para calcular el salario en función de las horas trabajadas y el salario por hora.
+
+== Ejemplos de cohesión y dependencia
+
+A continuación, presentamos un ejemplo de código con baja cohesión y alta dependencia, es decir lo contrario a lo que debemos hacer. De esta manera podemos apreciar qué es lo que **no debemos hacer**. Este ejemplo muestra una clase `Orden` que realiza demasiadas funciones, incluidas las relacionadas con el procesamiento de pagos y la generación de facturas.
+
+La clase `Orden` debería estar enfocada en la gestión de órdenes, pero también contiene métodos para procesar pagos y generar facturas, lo cual reduce su cohesión y aumenta su acoplamiento con otras partes del sistema.
+
+[source,java]
+----
+public class Orden {
+    private String producto;
+    private int cantidad;
+    private double precio;
+
+    public Orden(String producto, int cantidad, double precio) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    public void procesarOrden() {
+        // Lógica para procesar la orden
+        System.out.println("Procesando la orden de " + cantidad + " " + producto + "(s) por $" + precio);
+    }
+
+    public void procesarPago() {
+        // Lógica para procesar el pago
+        System.out.println("Procesando el pago de $" + (cantidad * precio));
+    }
+
+    public void generarFactura() {
+        // Lógica para generar la factura
+        System.out.println("Generando factura para " + cantidad + " " + producto + "(s) por $" + (cantidad * precio));
+    }
+}
+----
+
+1. **Clase `Orden`:** La clase `Orden` gestiona atributos relacionados con el producto, la cantidad y el precio. Sin embargo, también contiene métodos `procesarPago()` y `generarFactura()`, que deberían estar en clases separadas para mejorar la cohesión y reducir el acoplamiento.
+
+=== Refactorización para Alta Cohesión y Bajo Acoplamiento
+
+Antes de realizar los cambios que nos permitan mejorar el código, vamos a hablar de lo que significa **refactorizacion**. La refactorización de código es el proceso de modificar el código fuente de un programa para mejorar su estructura interna sin cambiar su comportamiento externo. El objetivo principal de la refactorización es mejorar la legibilidad, mantenibilidad y extensibilidad del código, haciéndolo más limpio y fácil de entender y modificar. Este proceso a menudo implica la eliminación de código redundante, la mejora de la organización del código, y la implementación de buenas prácticas de diseño de software.
+
+==== Beneficios de la Refactorización
+
+- **Mejora de la Legibilidad:** Hacer el código más fácil de leer y entender.
+- **Mantenibilidad:** Facilitar la modificación y el mantenimiento del código a lo largo del tiempo.
+- **Reducción de la Complejidad:** Simplificar estructuras de código complejas y eliminar redundancias.
+- **Detección de Errores:** Identificar y corregir errores potenciales que pueden no ser evidentes en el código original.
+- **Mejora del Rendimiento:** Optimizar el código para mejorar su eficiencia.
+
+=== Ejemplo de Refactorización
+
+Antes de la refactorización, una clase podría tener múltiples responsabilidades, lo que complica su comprensión y mantenimiento. Después de la refactorización, se dividen las responsabilidades en clases separadas, mejorando así la cohesión y reduciendo el acoplamiento.
+
+Vamos a refactorizar el ejemplo anterior para mejorar la cohesión y reducir el acoplamiento. Crearemos clases separadas para el procesamiento de pagos y la generación de facturas.
+
+Refactorizaremos el código creando tres clases: `Orden`, `Pago` y `Factura`, cada una con una única responsabilidad.
+
+[source,java]
+----
+public class Orden {
+    private String producto;
+    private int cantidad;
+    private double precio;
+
+    public Orden(String producto, int cantidad, double precio) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    public void procesarOrden() {
+        // Lógica para procesar la orden
+        System.out.println("Procesando la orden de " + cantidad + " " + producto + "(s) por $" + precio);
+    }
+
+    public double calcularTotal() {
+        return cantidad * precio;
+    }
+}
+
+public class Pago {
+    public void procesarPago(double monto) {
+        // Lógica para procesar el pago
+        System.out.println("Procesando el pago de $" + monto);
+    }
+}
+
+public class Factura {
+    public void generarFactura(String producto, int cantidad, double total) {
+        // Lógica para generar la factura
+        System.out.println("Generando factura para " + cantidad + " " + producto + "(s) por $" + total);
+    }
+}
+----
+Revisemos lo que hicimos:
+
+1. **Clase `Orden`:** Ahora solo gestiona atributos relacionados con el producto, la cantidad y el precio. También incluye un método `calcularTotal()` para calcular el monto total de la orden.
+2. **Clase `Pago`:** Responsable de procesar los pagos. El método `procesarPago()` recibe el monto total y procesa el pago.
+3. **Clase `Factura`:** Responsable de generar facturas. El método `generarFactura()` recibe los detalles del producto, la cantidad y el total, y genera la factura.
+
+Con esta refactorización, hemos mejorado la cohesión de cada clase al asignarles una única responsabilidad. Además, hemos reducido el acoplamiento al separar las funcionalidades en clases distintas, lo que facilita el mantenimiento y la extensibilidad del código.

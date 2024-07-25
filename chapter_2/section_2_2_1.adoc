@@ -1,0 +1,119 @@
+= Herencia en la Programación Orientada a Objetos
+
+La herencia es un principio fundamental en la Programación Orientada a Objetos (POO) que permite crear nuevas clases basadas en clases existentes. Este mecanismo facilita la reutilización de código y la creación de jerarquías de clases que reflejan relaciones naturales entre conceptos. 
+
+== Concepto de Herencia
+
+En la vida real, la herencia puede compararse con las relaciones familiares. Por ejemplo, un hijo hereda características de sus padres. De manera similar, en POO, una clase (subclase) puede heredar propiedades y comportamientos de otra clase (superclase).
+
+En Java, la herencia se implementa utilizando la palabra clave `extends`. La subclase hereda todos los atributos y métodos de la superclase, pero también puede agregar nuevos atributos y métodos, o redefinir los existentes.
+
+=== Ejemplo en Java
+
+[source, java]
+----
+public class Animal {
+    protected String nombre;
+
+    public Animal(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void hacerSonido() {
+        System.out.println("El animal hace un sonido.");
+    }
+}
+
+public class Perro extends Animal {
+
+    public Perro(String nombre) {
+        super(nombre);
+    }
+
+    @Override
+    public void hacerSonido() {
+        System.out.println("El perro ladra.");
+    }
+}
+----
+En este ejemplo, `Perro` es una subclase de `Animal`. `Perro` hereda el atributo `nombre` y el método `hacerSonido` de `Animal`, pero redefine el método `hacerSonido` para proporcionar una implementación específica. A este tipo de nueva implementación se le conoce cómo especialización, es decir la subclase `Perro` es una especialización de la superclase `Animal`.
+
+El decorador `@Override` es una anotación en Java que se utiliza para indicar que un método en una subclase está sobrescribiendo un método en su superclase. Esta anotación ayuda a asegurar que se está sobrescribiendo un método correctamente y no simplemente creando un nuevo método con una firma similar. Es una buena práctica utilizar `@Override` porque proporciona varios beneficios importantes, entre los que podemos mencionar:
+
+1. **Verificación en Tiempo de Compilación:** Cuando se usa `@Override`, el compilador de Java verifica que efectivamente se está sobrescribiendo un método en la superclase. Si no existe un método con la misma firma en la superclase, el compilador generará un error. Esto ayuda a evitar errores comunes como la escritura incorrecta del nombre del método o el uso incorrecto de parámetros.
+
+2. **Legibilidad del Código:** La anotación `@Override` mejora la legibilidad del código. Indica claramente a otros desarrolladores que el método está destinado a sobrescribir un método en la superclase. Esto puede ser útil cuando se revisa el código o se trabaja en equipo.
+
+3. **Mantenimiento del Código:** Facilita el mantenimiento del código, ya que cualquier cambio en la firma del método en la superclase generará un error de compilación en las subclases que lo sobrescriban. Esto asegura que todos los sobrescritos se actualicen adecuadamente.
+
+== Herencia de Clases vs. Herencia de Prototipos
+
+=== Herencia de Clases
+
+La herencia de clases es común en lenguajes como Java y C++. En este tipo de herencia, una clase (subclase) hereda atributos y métodos de otra clase (superclase). Este modelo está basado en una jerarquía de clases bien definida.
+
+=== Herencia de Prototipos
+
+La herencia de prototipos se utiliza principalmente en lenguajes como JavaScript. En este modelo, los objetos pueden heredar directamente de otros objetos sin necesidad de una estructura de clase. La herencia de prototipos es más flexible y permite modificar la estructura del objeto en tiempo de ejecución.
+
+=== Comparación
+
+- *Jerarquía:* La herencia de clases sigue una jerarquía rígida y bien definida, mientras que la herencia de prototipos es más flexible y dinámica.
+- *Reutilización de Código:* Ambos modelos permiten la reutilización de código, pero la herencia de clases es más adecuada para sistemas con estructuras claras y definidas.
+- *Flexibilidad:* La herencia de prototipos ofrece mayor flexibilidad al permitir la modificación de objetos en tiempo de ejecución, pero esto puede llevar a estructuras de código más difíciles de mantener.
+
+== Cohesión y Acoplamiento
+
+La cohesión y el acoplamiento son conceptos clave en el diseño de software orientado a objetos. Ambos conceptos afectan la mantenibilidad y la calidad del código.
+
+=== Cohesión
+
+La cohesión se refiere al grado en que los elementos de una clase están relacionados y trabajan juntos para cumplir una *única responsabilidad*. Una clase con alta cohesión realiza una tarea específica y bien definida, lo que facilita su mantenimiento y comprensión.
+
+Características de un código con alta cohesión:
+
+- *Responsabilidad Única:* Cada clase debe tener una única responsabilidad.
+- *Métodos Relacionados:* Los métodos dentro de una clase deben estar relacionados y trabajar juntos para cumplir la responsabilidad de la clase.
+
+=== Acoplamiento
+
+El acoplamiento mide la interdependencia entre diferentes módulos del sistema. Un bajo acoplamiento es preferible, ya que reduce la dependencia entre partes del sistema y facilita los cambios.
+
+Características de un código con bajo acoplamiento:
+
+- *Independencia de Módulos:* Los módulos deben tener pocas dependencias entre sí.
+- *Interfaces Claras:* Utilizar interfaces para definir las interacciones entre módulos.
+- *Encapsulación:* Ocultar los detalles de implementación dentro de las clases.
+
+== Ley de Demeter
+
+La Ley de Demeter, también conocida como el `principio de menor conocimiento`, establece que un objeto debe interactuar solo con sus amigos inmediatos y no con objetos desconocidos o distantes. Este principio ayuda a reducir el acoplamiento y aumentar la modularidad del sistema.
+
+=== Aplicación de la Ley de Demeter en POO:
+
+- *Métodos Locales:* Un método debe llamar solo a métodos de su propia clase, sus parámetros, objetos creados por él, o sus atributos directos.
+- *Reducir Dependencias:* Minimizar las dependencias entre clases para evitar que los cambios en una clase afecten a muchas otras clases.
+
+=== Ejemplo en Java
+
+[source, java]
+----
+public class Carro {
+    private Motor motor;
+
+    public Carro() {
+        motor = new Motor();
+    }
+
+    public void arrancar() {
+        motor.encender();
+    }
+}
+
+public class Motor {
+    public void encender() {
+        System.out.println("El motor está encendido.");
+    }
+}
+----
+En este ejemplo, la clase `Carro` interactúa solo con su atributo directo `motor`, siguiendo la Ley de Demeter. La clase `Carro` no accede a los detalles internos del `Motor`, manteniendo un bajo acoplamiento.

@@ -1,0 +1,92 @@
+== Patrón Observer
+
+El patrón Observer pertenece al grupo de patrones de comportamiento. Este patrón define una relación de dependencia uno-a-muchos entre objetos, de manera que cuando un objeto cambia de estado, todos sus dependientes son notificados y actualizados automáticamente.
+
+El patrón Observer es esencial para sistemas donde los cambios en un objeto necesitan ser reflejados automáticamente en otros objetos sin que el objeto modificado necesite conocer todos los detalles sobre sus dependientes. Este patrón permite un diseño desacoplado, donde el sujeto y los observadores no tienen una dependencia directa y fuerte entre ellos.
+
+Para implementar el patrón Observer, se define una interfaz `Observer` que será implementada por todos los observadores y una clase `Subject` que mantiene una lista de observadores y les notifica los cambios.
+
+=== Ejemplo
+
+El siguiente es un ejemplo de cómo se puede definir y usar el patrón Observer en Java.
+
+[source, java]
+----
+import java.util.ArrayList;
+import java.util.List;
+
+// Interfaz Observer
+interface Observer {
+    void update(String message);
+}
+
+// Clase Subject
+class Subject {
+    private List<Observer> observers = new ArrayList<>();
+    private String message;
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+        notifyAllObservers();
+    }
+
+    public void notifyAllObservers() {
+        for (Observer observer : observers) {
+            observer.update(message);
+        }
+    }
+}
+
+// Implementación concreta de Observer
+class ConcreteObserver implements Observer {
+    private String name;
+
+    public ConcreteObserver(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void update(String message) {
+        System.out.println(name + " received message: " + message);
+    }
+}
+----
+
+En este ejemplo, `Observer` es la interfaz que define el método `update`. `Subject` es la clase que mantiene una lista de observadores y les notifica los cambios en su estado. `ConcreteObserver` es una implementación concreta de la interfaz `Observer`.
+
+Para usar este patrón, se puede escribir el siguiente código:
+
+[source, java]
+----
+public class Main {
+    public static void main(String[] args) {
+        Subject subject = new Subject();
+
+        Observer observer1 = new ConcreteObserver("Observer 1");
+        Observer observer2 = new ConcreteObserver("Observer 2");
+
+        subject.addObserver(observer1);
+        subject.addObserver(observer2);
+
+        subject.setMessage("Hello, Observers!");
+        subject.setMessage("Observer Pattern in Action");
+    }
+}
+----
+
+En este código, se crean dos observadores `observer1` y `observer2`, que se registran en el sujeto `subject`. Cuando se cambia el mensaje en el sujeto utilizando `setMessage`, todos los observadores son notificados automáticamente y se imprime el mensaje recibido.
+
+=== Consideraciones y Mejores Prácticas
+
+El patrón Observer es útil en aplicaciones que requieren la actualización automática de los datos visualizados en la interfaz de usuario cuando cambian los datos subyacentes. Es importante tener en cuenta la gestión de los observadores registrados y asegurarse de que no se produzcan actualizaciones redundantes. Además, en entornos multihilo, puede ser necesario sincronizar el acceso a la lista de observadores para evitar problemas de concurrencia.
+
+Un ejemplo típico del uso del patrón Observer es en aplicaciones de mensajería donde varios usuarios (observadores) necesitan ser notificados en tiempo real cuando llega un nuevo mensaje (evento en el sujeto). Otro ejemplo es en aplicaciones financieras donde diferentes componentes necesitan ser actualizados cuando cambian los precios de las acciones.
+

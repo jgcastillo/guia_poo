@@ -1,0 +1,252 @@
+= Conceptos y Definiciones
+
+La Programación Orientada a Objetos (POO) busca modelar objetos y situaciones del mundo real para expresar sus relaciones y comportamientos a través de programas de computación. Este enfoque permite que los desarrolladores creen sistemas que son más intuitivos y fáciles de entender, ya que los objetos en el código reflejan entidades del mundo real con las que estamos familiarizados.
+
+Por ejemplo, en un sistema de gestión de bibliotecas, podríamos tener objetos como "Libro", "Usuario" y "Préstamo". Cada uno de estos objetos tiene atributos (como el título del libro, el nombre del usuario y la fecha de préstamo) y métodos que representan sus comportamientos (como prestar un libro o devolverlo). Al organizar el código de esta manera, podemos representar claramente cómo interactúan estos objetos en el sistema.
+
+La POO también permite expresar relaciones complejas entre objetos, como herencia y composición. La herencia permite crear nuevas clases basadas en clases existentes, reutilizando y extendiendo su comportamiento. La composición permite que los objetos se construyan a partir de otros objetos, promoviendo la modularidad y la reutilización del código.
+
+En las siguientes secciones, exploraremos en detalle estos conceptos, asegurándonos de que comprendas no solo cómo se implementan en código, sino también por qué son útiles y cómo pueden mejorar la calidad y mantenibilidad de los programas.
+
+== Clases, Objetos, Atributos
+
+La Programación Orientada a Objetos utiliza tres conceptos fundamentales para modelar el mundo real en programas de computación: clases, objetos y atributos. Una clase es una plantilla que define las propiedades y comportamientos comunes de un conjunto de objetos. Un objeto es una instancia de una clase, y los atributos son las características o propiedades de un objeto.
+
+=== Clase
+
+Una clase es una plantilla o modelo que define las propiedades y métodos que los objetos de ese tipo tendrán. Las clases permiten encapsular datos y comportamientos relacionados en una sola unidad, facilitando la reutilización y organización del código.
+
+Por ejemplo, si quisiéramos modelar un coche, podríamos definir una clase `Coche` que incluya atributos como `color`, `marca` y `velocidad`, y métodos como `acelerar` y `frenar`.
+
+[source,java]
+----
+public class Auto {
+    // Atributos de la clase Auto
+    private String color;
+    private String marca;
+    private int velocidad;
+
+    // Constructor de la clase Auto
+    public Auto(String color, String marca, int velocidad) {
+        this.color = color;
+        this.marca = marca;
+        this.velocidad = velocidad;
+    }
+
+    // Método para acelerar el auto
+    public void acelerar(int incremento) {
+        velocidad += incremento;
+    }
+
+    // Método para frenar el auto
+    public void frenar(int decremento) {
+        velocidad -= decremento;
+    }
+}
+----
+
+Es importante seguir ciertas convenciones de sintaxis y mejores prácticas al nombrar clases:
+
+* Los nombres de las clases deben comenzar con una letra mayúscula y usar la convención PascalCase (e.g., `Auto`, `Rectangulo`).
+* Los nombres de las clases deben ser sustantivos que representen claramente la entidad modelada.
+* Mantén las clases enfocadas en una sola responsabilidad para facilitar el mantenimiento y la reutilización del código.
+
+=== Objeto
+
+Un objeto es una instancia de una clase. Representa una entidad específica del mundo real con propiedades y comportamientos definidos por su clase. Al crear un objeto, utilizamos el constructor de su clase para inicializar sus atributos.
+
+Por ejemplo, podemos crear un objeto `miCoche` de la clase `Coche`:
+
+[source,java]
+----
+public class TestAuto {
+    public static void main(String[] args) {
+        // Crear un objeto de la clase Auto
+        Auto miAuto = new Auto("Rojo", "Toyota", 0);
+
+        // Utilizar los métodos del objeto
+        miAuto.acelerar(50);
+        System.out.println("Velocidad actual: " + miAuto.velocidad);
+
+        miAuto.frenar(20);
+        System.out.println("Velocidad actual: " + miAuto.velocidad);
+    }
+}
+----
+
+=== Atributo o Propiedad
+
+Los atributos o propiedades son las características de un objeto. Cada atributo tiene un tipo y puede almacenar un valor. En la clase `Coche`, los atributos `color`, `marca` y `velocidad` describen las características del coche.
+
+[source,java]
+----
+public class Auto {
+    // Atributos de la clase Coche
+    private String color;
+    private String marca;
+    private int velocidad;
+
+    // Constructor y métodos...
+}
+----
+
+El código presentado anteriormente nos permite analizar en detalle varios conceptos clave de la Programación Orientada a Objetos, como el encapsulamiento e instanciación de clases. Vamos a desglosar lo que está ocurriendo en las clases `Auto` y `TestAuto`.
+
+==== Encapsulamiento
+
+El encapsulamiento es una de las principales características de la POO, y se refiere a la capacidad de agrupar datos (atributos) y métodos (comportamientos) dentro de una clase. En la clase `Auto`, los atributos `color`, `marca` y `velocidad` están encapsulados, lo que significa que están protegidos del acceso directo desde fuera de la clase. Esto se logra declarando los atributos como `private`. La clase también define métodos `acelerar` y `frenar` que permiten modificar los atributos de manera controlada.
+
+[source,java]
+----
+public class Auto {
+    private String color;    // Atributo encapsulado
+    private String marca;    // Atributo encapsulado
+    private int velocidad;   // Atributo encapsulado
+
+    // Constructor de la clase Auto
+    public Auto(String color, String marca, int velocidad) {
+        this.color = color;
+        this.marca = marca;
+        this.velocidad = velocidad;
+    }
+
+    // Método para acelerar el auto
+    public void acelerar(int incremento) {
+        velocidad += incremento;
+    }
+
+    // Método para frenar el auto
+    public void frenar(int decremento) {
+        velocidad -= decremento;
+    }
+}
+----
+
+==== Instanciación de la Clase
+
+Instanciar una clase significa crear un objeto de esa clase. En la clase `TestAuto`, instanciamos la clase `Auto` creando un objeto llamado `miAuto`. Para ello, utilizamos el constructor de la clase `Auto`, pasando los valores iniciales para `color`, `marca` y `velocidad`. Esta instancia ahora tiene su propio estado independiente, representado por los valores de sus atributos.
+
+[source,java]
+----
+public class TestAuto {
+    public static void main(String[] args) {
+        // Crear un objeto de la clase Auto
+        Auto miAuto = new Auto("Rojo", "Toyota", 0);  // Instanciación de la clase
+
+        // Utilizar los métodos del objeto
+        miAuto.acelerar(50);
+        System.out.println("Velocidad actual: " + miAuto.velocidad);
+
+        miAuto.frenar(20);
+        System.out.println("Velocidad actual: " + miAuto.velocidad);
+    }
+}
+----
+
+==== Uso de Métodos
+
+Una vez que hemos instanciado la clase `Auto` creando el objeto `miAuto`, podemos utilizar los métodos definidos en la clase para interactuar con el objeto. En el código, llamamos al método `acelerar` para aumentar la velocidad del auto, y al método `frenar` para reducirla. Estos métodos permiten modificar los atributos del objeto de manera controlada y segura, asegurando que los cambios en el estado del objeto se realicen de acuerdo a las reglas definidas en la clase.
+
+==== Cambio de Estado de un Objeto
+
+El "cambio de estado" de un objeto se refiere a la modificación de los valores de sus atributos a lo largo del tiempo mediante la invocación de sus métodos. Por ejemplo, en la clase `Auto`, cuando se llama al método `acelerar`, el valor del atributo `velocidad` se incrementa, reflejando así un cambio en el estado del objeto `Auto`. Este concepto es fundamental en la POO, ya que permite que los objetos respondan y adapten su comportamiento basado en interacciones y eventos durante la ejecución del programa.
+
+
+[source,java]
+----
+        // Utilizar los métodos del objeto
+        miAuto.acelerar(50);   // Uso del método acelerar
+        System.out.println("Velocidad actual: " + miAuto.velocidad);
+
+        miAuto.frenar(20);     // Uso del método frenar
+        System.out.println("Velocidad actual: " + miAuto.velocidad);
+----
+
+=== Constructores, Métodos y Mensajes
+
+Al igual que los objetos en la vida real poseen comportamientos, los objetos en la Programación Orientada a Objetos (POO) también tienen comportamientos que se modelan mediante métodos. Estos métodos permiten a los objetos realizar acciones y responder a eventos. Además, la comunicación entre los objetos, que se realiza mediante el envío de mensajes, es esencial para modelar situaciones del mundo real de manera efectiva. Esta comunicación y comportamiento permiten a los objetos interactuar y colaborar, formando sistemas complejos y dinámicos.
+
+==== Constructores
+
+Los constructores son métodos especiales que se utilizan para inicializar objetos cuando se crean. Su función principal es asignar valores iniciales a los atributos del objeto. Los constructores tienen el mismo nombre que la clase y no tienen un valor de retorno. Utilizar constructores garantiza que cada objeto se inicialice con un estado válido desde el momento de su creación.
+
+[source,java]
+----
+public class Auto {
+    private String color;
+    private String marca;
+    private int velocidad;
+
+    // Constructor de la clase Auto
+    public Auto(String color, String marca, int velocidad) {
+        this.color = color;
+        this.marca = marca;
+        this.velocidad = velocidad;
+    }
+}
+----
+
+La razón por la que el constructor debe tener el mismo nombre que la clase es para que el compilador de Java lo identifique correctamente como el método de inicialización del objeto. Esto es una regla de sintaxis del lenguaje. Es una buena práctica inicializar todos los atributos de un objeto en el constructor para asegurar que el objeto comience con un estado válido y consistente.
+
+==== Métodos
+
+Los métodos son funciones definidas dentro de una clase que describen los comportamientos que los objetos de esa clase pueden realizar. Los métodos permiten manipular los datos encapsulados en los objetos y definir cómo deben responder a ciertas interacciones. En la clase `Auto`, los métodos `acelerar` y `frenar` son ejemplos de comportamientos que un objeto `Auto` puede realizar.
+
+[source,java]
+----
+public class Auto {
+    private String color;
+    private String marca;
+    private int velocidad;
+
+    // Constructor de la clase Auto
+    public Auto(String color, String marca, int velocidad) {
+        this.color = color;
+        this.marca = marca;
+        this.velocidad = velocidad;
+    }
+
+    // Método para acelerar el auto
+    public void acelerar(int incremento) {
+        velocidad += incremento;
+    }
+
+    // Método para frenar el auto
+    public void frenar(int decremento) {
+        velocidad -= decremento;
+    }
+}
+----
+
+Al definir métodos, es importante seguir algunas mejores prácticas:
+
+* Utilizar nombres descriptivos y en minúsculas, separados por camelCase (e.g., `acelerar`, `frenar`).
+* Cada método debe realizar una sola tarea o acción para mantener la claridad y la simplicidad.
+* Evitar métodos demasiado largos o complejos.
+
+==== Mensajes
+
+En la POO, los objetos se comunican entre sí enviando mensajes. Un mensaje es simplemente una llamada a un método de otro objeto. Esta comunicación permite que los objetos colaboren para realizar tareas más complejas. Por ejemplo, en la clase `TestAuto`, cuando llamamos al método `acelerar` del objeto `miAuto`, estamos enviando un mensaje a `miAuto` para que ejecute su comportamiento de aceleración.
+
+[source,java]
+----
+public class TestAuto {
+    public static void main(String[] args) {
+        // Crear un objeto de la clase Auto
+        Auto miAuto = new Auto("Rojo", "Toyota", 0);
+
+        // Enviar mensajes al objeto miAuto
+        miAuto.acelerar(50);  // Mensaje para acelerar el auto
+        System.out.println("Velocidad actual: " + miAuto.velocidad);
+
+        miAuto.frenar(20);    // Mensaje para frenar el auto
+        System.out.println("Velocidad actual: " + miAuto.velocidad);
+    }
+}
+----
+
+El uso de mensajes permite que los objetos interactúen de manera dinámica y flexible, reflejando mejor las interacciones del mundo real y facilitando el desarrollo de sistemas complejos y modulares. Para enviar mensajes correctamente:
+
+* Asegúrate de que el método existe en la clase del objeto receptor.
+* Utiliza nombres de métodos que describan claramente la acción realizada.
+* Sigue el principio de encapsulamiento para que los mensajes afecten solo a los datos del objeto de manera controlada.

@@ -1,0 +1,9 @@
+== Referencias del capítulo
+
+- Deitel, P. J., & Deitel, H. M. (2014). *Como programar en Java 9na edición*. Editorial Pearson.
+- Freeman, E., & Robson, E. (2020). *Head First Design Patterns: A Brain-Friendly Guide*. O'Reilly Media.
+- Martin, R. C. (2008). *Clean Code: A Handbook of Agile Software Craftsmanship*. Prentice Hall.
+- Brandon, W. (n.d.). Abstract Classes and Interfaces in Java. Retrieved from https://medium.com/@brandon93.w/abstract-classes-and-interfaces-in-java-aea14dc14801
+- Exploring Abstract Classes and Interfaces in Java: Differences and Use Cases. (n.d.). Retrieved from https://medium.com/spring-boot/exploring-abstract-classes-and-interfaces-in-java-differences-and-use-cases-59cbf4db88b1
+- Tanishq, P. (n.d.). Need of Abstract Classes and Interfaces in Java. Retrieved from https://medium.com/@tanishq252002/need-of-abstract-classes-and-interfaces-in-java-67ad84c7d59b
+- Mitrajeet, G. (n.d.). Abstract Classes and Interfaces in Java. Retrieved from https://medium.com/@mitrajeetgolsangi/abstract-classes-and-interfaces-in-java-858ae0d2299c

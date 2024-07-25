@@ -1,0 +1,19 @@
+= Polimorfismo
+
+El polimorfismo es uno de los pilares fundamentales de la Programación Orientada a Objetos (POO), junto con la encapsulación, la abstracción y la herencia. El término "polimorfismo" proviene del griego y significa "muchas formas". En el contexto de la POO, el polimorfismo permite que los objetos de diferentes clases sean tratados como objetos de una clase común. Este concepto facilita la extensión y mantenimiento del código, ya que permite a los desarrolladores escribir código más genérico y reutilizable.
+
+En términos más simples, el polimorfismo permite que una misma operación o método pueda ejecutarse de diferentes maneras según el objeto que la invoca. Esto se puede observar en la vida real en diversas situaciones. Por ejemplo, considere el verbo "conducir". Tanto un coche, una bicicleta como una moto pueden ser conducidos, pero la forma en que se conduce cada uno es diferente. En este caso, "conducir" es una operación polimórfica que se ejecuta de distintas maneras según el tipo de vehículo.
+
+El polimorfismo en POO se puede lograr de dos maneras: mediante la sobrecarga de métodos y mediante la sobrescritura de métodos. La sobrecarga de métodos ocurre cuando dos o más métodos en la misma clase tienen el mismo nombre pero diferentes parámetros. Por otro lado, la sobrescritura de métodos permite que una subclase proporcione una implementación específica de un método que ya está definido en su superclase. Esto último es lo que generalmente se asocia más estrechamente con el polimorfismo en POO.
+
+En la vida diaria, un ejemplo claro de polimorfismo es el uso de herramientas. Considere un carpintero que utiliza diferentes tipos de martillos para diferentes propósitos: un martillo de carpintero, un martillo de bola y un martillo de goma. Aunque todos son martillos y sirven para golpear, cada uno tiene un uso específico y se maneja de manera ligeramente diferente. Del mismo modo, en POO, un método puede comportarse de manera distinta según la clase del objeto que lo esté utilizando.
+
+Otra analogía de la vida real puede ser vista en el ámbito de la educación. Un maestro puede enseñar a diferentes niveles de estudiantes: primaria, secundaria y universitarios. Aunque el proceso de enseñanza es el mismo en esencia, las técnicas y métodos utilizados varían según el nivel de los estudiantes. De igual manera, el polimorfismo permite que el mismo método se ejecute de diferentes maneras según el contexto.
+
+El polimorfismo también facilita la ampliación de sistemas. Imagine un zoológico que tiene que alimentar a diferentes tipos de animales: leones, elefantes y aves. Aunque la acción de "alimentar" es común a todos los animales, la implementación específica varía. Los leones comen carne, los elefantes comen plantas y las aves pueden comer semillas o frutas. En POO, un método polimórfico "alimentar" puede ser invocado en diferentes objetos (leones, elefantes, aves) y cada uno ejecutará su versión específica del método.
+
+Además de simplificar la implementación de operaciones comunes, el polimorfismo también mejora la flexibilidad del código. Permite a los desarrolladores añadir nuevas clases sin modificar las existentes, siempre y cuando estas nuevas clases implementen los métodos necesarios. Esta característica es especialmente valiosa en sistemas grandes y complejos donde la extensión continua es necesaria.
+
+El polimorfismo también juega un papel crucial en el diseño de interfaces y la programación basada en contratos. Al definir métodos en una interfaz y permitir que diferentes clases implementen estos métodos de manera específica, se puede garantizar que las clases se adhieren a un contrato común mientras se permite la diversidad en las implementaciones. Este último tipo de conceptos se verán más en detalle más adelante en el curso
+
+

@@ -1,0 +1,119 @@
+= Principio de Responsabilidad Única (SRP)
+
+El Principio de Responsabilidad Única (SRP) es uno de los cinco principios fundamentales de diseño SOLID. Este principio establece que una clase debe tener una, y solo una, razón para cambiar. En otras palabras, una clase debe estar encargada de una única tarea o función dentro de un sistema, asegurando que cada clase tiene una responsabilidad clara y específica.
+
+La existencia del SRP radica en la necesidad de reducir la complejidad y mejorar la mantenibilidad del código. Cuando una clase tiene múltiples responsabilidades, se vuelve más difícil de entender, mantener y modificar. Los cambios en una responsabilidad pueden afectar negativamente a las otras, incrementando el riesgo de introducir errores. Al adherirse al SRP, se facilita la división del sistema en módulos más pequeños y manejables, permitiendo que los cambios en una parte del código no afecten a otras partes.
+
+Aplicar el SRP implica identificar y separar las responsabilidades de una clase en clases individuales. Cada clase debe tener un propósito claro y una única razón para cambiar. Esta práctica no solo mejora la claridad del código, sino que también facilita la reutilización y la prueba de unidades.
+
+== Ejemplo de Uso
+
+Comencemos creando un ejemplo donde no se aplica el SRP. En este ejemplo, la clase `Invoice` tiene múltiples responsabilidades: 
+
+* gestionar los detalles de la factura, y 
+* manejar la persistencia de datos.
+
+[source, java]
+----
+public class Invoice {
+    private String id;
+    private double amount;
+
+    public Invoice(String id, double amount) {
+        this.id = id;
+        this.amount = amount;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void saveToDatabase() {
+        // Código para guardar la factura en la base de datos
+        System.out.println("Saving invoice to database");
+    }
+
+    public void printInvoice() {
+        // Código para imprimir la factura
+        System.out.println("Printing invoice");
+    }
+}
+
+public class InvoiceTest {
+    public static void main(String[] args) {
+        Invoice invoice = new Invoice("001", 250.0);
+        invoice.saveToDatabase();
+        invoice.printInvoice();
+    }
+}
+----
+
+Cómo se puede observar, la clase `Invoice` está encargada de gestionar los detalles de la factura, guardar la factura en la base de datos y también imprimir la factura. Esto viola el SRP ya que la clase tiene más de una responsabilidad.
+
+Ahora, refactorizaremos el ejemplo anterior para que cada clase tenga una única responsabilidad.
+
+[source, java]
+----
+public class Invoice {
+    private String id;
+    private double amount;
+
+    public Invoice(String id, double amount) {
+        this.id = id;
+        this.amount = amount;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+}
+
+public class InvoiceRepository {
+    public void save(Invoice invoice) {
+        // Código para guardar la factura en la base de datos
+        System.out.println("Saving invoice to database");
+    }
+}
+
+public class InvoicePrinter {
+    public void print(Invoice invoice) {
+        // Código para imprimir la factura
+        System.out.println("Printing invoice");
+    }
+}
+
+public class InvoiceTest {
+    public static void main(String[] args) {
+        Invoice invoice = new Invoice("001", 250.0);
+        InvoiceRepository repository = new InvoiceRepository();
+        InvoicePrinter printer = new InvoicePrinter();
+
+        repository.save(invoice);
+        printer.print(invoice);
+    }
+}
+----
+
+En esta refactorización, hemos separado las responsabilidades en tres clases diferentes:
+
+- `Invoice`: Gestiona los detalles de la factura.
+- `InvoiceRepository`: Maneja la persistencia de datos.
+- `InvoicePrinter`: Se encarga de la impresión de la factura.
+
+Cada clase ahora tiene una única responsabilidad, cumpliendo con el SRP. Esta separación facilita el mantenimiento y la extensibilidad del sistema.
+
+Es importante destacar que, después de aplicar el SRP, a pesar de que el código parece más extenso debido a la creación de más clases, las ventajas superan este incremento en líneas de código:
+
+- **Manejo**: Cada clase tiene una única responsabilidad, lo que facilita su comprensión y manejo. Los desarrolladores pueden enfocarse en una tarea específica sin la distracción de otras responsabilidades mezcladas en la misma clase.
+- **Mantenimiento**: El mantenimiento se simplifica ya que los cambios en una funcionalidad específica se limitan a una sola clase, reduciendo el riesgo de afectar otras partes del sistema. Esto resulta en menos errores y mayor estabilidad del código.
+- **Posibilidad de Ampliación**: La refactorización permite una mayor flexibilidad y escalabilidad. Es más fácil añadir nuevas funcionalidades o modificar las existentes sin comprometer la estructura general del sistema. Las nuevas responsabilidades pueden ser añadidas como nuevas clases sin afectar las clases existentes.
+
+

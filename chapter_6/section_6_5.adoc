@@ -1,0 +1,91 @@
+= Propagación de Excepciones
+
+La propagación de excepciones en Java es el proceso mediante el cual una excepción es transmitida de un método a otro a lo largo de la pila de llamadas. Cuando una excepción no es manejada en el método donde se produjo, se propaga hacia el método que lo llamó, y este proceso continúa hasta que la excepción es manejada o alcanza el nivel superior de la pila de llamadas, causando la terminación del programa.
+
+== Cómo Funciona la Propagación de Excepciones
+
+Cuando una excepción se lanza dentro de un método y no es capturada por un bloque `catch` dentro del mismo método, la excepción se propaga al método que lo invocó. Esta propagación continúa recursivamente hasta que se encuentra un bloque `catch` que maneje la excepción o hasta que se alcanza el método `main`. Si la excepción no es manejada en ningún punto de la pila de llamadas, el programa terminará abruptamente.
+
+Este proceso se muestra en la siguiente imagen:
+
+image::propagacion_excepcion.png[]
+
+
+Consideremos un ejemplo simple donde una excepción se lanza en un método y se propaga a través de varios niveles de la pila de llamadas.
+
+[source, java]
+----
+public class ExceptionPropagation {
+
+    public static void main(String[] args) {
+        try {
+            metodoA();
+        } catch (Exception e) {
+            System.out.println("Excepción manejada en main: " + e);
+        }
+    }
+
+    public static void metodoA() throws Exception {
+        metodoB();
+    }
+
+    public static void metodoB() throws Exception {
+        metodoC();
+    }
+
+    public static void metodoC() throws Exception {
+        throw new Exception("Excepción en metodoC");
+    }
+}
+----
+
+En este ejemplo, `metodoC` lanza una excepción. Como `metodoC` no maneja la excepción, esta se propaga a `metodoB`, luego a `metodoA`, y finalmente es capturada en el bloque `catch` del método `main`. La salida del programa sería:
+
+[source, bach]
+----
+Excepción manejada en main: java.lang.Exception: Excepción en metodoC
+----
+
+== Importancia de la Propagación de Excepciones
+
+La propagación de excepciones permite manejar errores de manera flexible y centralizada. En lugar de manejar una excepción en cada método donde puede ocurrir, es posible capturarla y manejarla en un nivel superior de la pila de llamadas, donde se tiene un mejor contexto para decidir cómo proceder. Esto reduce la redundancia en el manejo de errores y simplifica el código.
+
+== Cláusula `throws` y Propagación de Excepciones
+
+Para permitir que una excepción chequeada se propague, los métodos deben declarar la excepción utilizando la cláusula `throws`. Esto informa a los métodos que llaman a este método que deben manejar la excepción o declarar que también la lanzan.
+
+[source, java]
+----
+public void metodoA() throws Exception {
+    metodoB();
+}
+
+public void metodoB() throws Exception {
+    metodoC();
+}
+
+public void metodoC() throws Exception {
+    throw new Exception("Excepción en metodoC");
+}
+----
+
+En este código, cada método declara que puede lanzar una excepción utilizando la cláusula `throws`. Esto permite que la excepción se propague a través de la pila de llamadas hasta que se encuentre un bloque `catch` adecuado.
+
+== Manejo de Excepciones No Chequeadas
+
+Para las excepciones no chequeadas (subclases de `RuntimeException`), la cláusula `throws` no es obligatoria, y la excepción se propaga automáticamente sin necesidad de declararla. Sin embargo, es una buena práctica documentar este comportamiento para que otros desarrolladores sean conscientes de las posibles excepciones que pueden surgir.
+
+[source, java]
+----
+public void metodoD() {
+    metodoE();
+}
+
+public void metodoE() {
+    metodoF();
+}
+
+public void metodoF() {
+    throw new RuntimeException("Excepción en metodoF");
+}
+----

@@ -1,0 +1,19 @@
+== Libros
+
+. Deitel, P. J., & Deitel, H. M. (2014). Como programar en Java 9na edición. Editorial Pearson.
+. Martin, R. C. (2008). Clean Code: A Handbook of Agile Software Craftsmanship. Prentice Hall.
+. Kay, A. (1993). The Early History of Smalltalk. In History of Programming Languages-II.
+. Freeman, E., & Robson, E. (2020). Head First Design Patterns: A Brain-Friendly Guide. O'Reilly Media.
+. Larman, C. (2004). UML y Patrones. Prentice Hall.
+. Meyer, B. (2000). Object-Oriented Software Construction (2nd ed.). Prentice Hall.
+. McLaughlin, B., Pollice, G., & West, D. (2006). Head First Object-Oriented Analysis and Design. O'Reilly Media.
+
+
+
+== En línea
+
+. Ciberaula. (s.f.). Ventajas de la Programación Orientada a Objetos. https://www.ciberaula.com/cursos/java/ventajas_poo.php
+
+. IONOS. (2023). ¿Qué es la programación orientada a objetos (OOP)?. https://www.ionos.mx/digitalguide/paginas-web/desarrollo-web/programacion-orientada-a-objetos-oop/
+
+. Programación Pro. (2024). 5 Desventajas de la Programación Orientada a Objetos. https://programacionpro.com/5-desventajas-de-la-programacion-orientada-a-objetos/

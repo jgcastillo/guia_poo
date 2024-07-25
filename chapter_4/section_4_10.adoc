@@ -1,0 +1,485 @@
+= Ejemplos y Ejercicios
+
+A continuación presentamos ejemplos detallados que utilizan clases abstractas e interfaces. Luego, proponemos una serie de ejercicios donde el estudiante podrá aplicar los conceptos aprendidos sobre clases abstractas, interfaces, métodos predeterminados, métodos finales y el uso combinado de clases abstractas e interfaces. COmo ya es usual, las soluciones están 
+
+== Ejemplo 1: Uso de Clases Abstractas
+
+En este ejemplo, crearemos una clase abstracta `DispositivoElectronico` y dos subclases `Telefono` y `Tablet` que heredan de `DispositivoElectronico`.
+
+[source,java]
+----
+public abstract class DispositivoElectronico {
+    private String marca;
+    private String modelo;
+
+    public DispositivoElectronico(String marca, String modelo) {
+        this.marca = marca;
+        this.modelo = modelo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public abstract void encender();
+}
+
+public class Telefono extends DispositivoElectronico {
+    public Telefono(String marca, String modelo) {
+        super(marca, modelo);
+    }
+
+    @Override
+    public void encender() {
+        System.out.println(getMarca() + " " + getModelo() + " está encendiendo.");
+    }
+}
+
+public class Tablet extends DispositivoElectronico {
+    public Tablet(String marca, String modelo) {
+        super(marca, modelo);
+    }
+
+    @Override
+    public void encender() {
+        System.out.println(getMarca() + " " + getModelo() + " está encendiendo.");
+    }
+}
+
+public class PruebaDispositivos {
+    public static void main(String[] args) {
+        DispositivoElectronico telefono = new Telefono("Samsung", "Galaxy S21");
+        DispositivoElectronico tablet = new Tablet("Apple", "iPad Pro");
+
+        telefono.encender();
+        tablet.encender();
+    }
+}
+----
+
+En este ejemplo, `DispositivoElectronico` es una clase abstracta con un método abstracto `encender`. Las clases `Telefono` y `Tablet` heredan de `DispositivoElectronico` y proporcionan sus propias implementaciones del método `encender`. Observa el uso de `super(marca, modelo)` en los constructores de `Telefono` y `Tablet` para llamar al constructor de la clase base `DispositivoElectronico` y pasarle los parámetros `marca` y `modelo`. La clase `PruebaDispositivos` crea instancias de `Telefono` y `Tablet` y llama al método `encender` para cada una, demostrando cómo las subclases proporcionan diferentes implementaciones para el mismo método abstracto.
+
+== Ejemplo 2: Uso de Interfaces
+
+En este ejemplo, definiremos una interface `Pagable` y varias clases que la implementan.
+
+[source,java]
+----
+public interface Pagable {
+    void procesarPago(double monto);
+}
+
+public class TarjetaCredito implements Pagable {
+    @Override
+    public void procesarPago(double monto) {
+        System.out.println("Procesando pago de $" + monto + " con tarjeta de crédito.");
+    }
+}
+
+public class TransferenciaBancaria implements Pagable {
+    @Override
+    public void procesarPago(double monto) {
+        System.out.println("Procesando transferencia bancaria de $" + monto);
+    }
+}
+
+public class PruebaPagos {
+    public static void main(String[] args) {
+        Pagable tarjeta = new TarjetaCredito();
+        Pagable transferencia = new TransferenciaBancaria();
+
+        tarjeta.procesarPago(250.0);
+        transferencia.procesarPago(1000.0);
+    }
+}
+----
+
+En este ejemplo, la interface `Pagable` define un método abstracto `procesarPago`. Las clases `TarjetaCredito` y `TransferenciaBancaria` implementan esta interfaz y proporcionan sus propias implementaciones del método `procesarPago`. La clase `PruebaPagos` utiliza referencias a la interfaz `Pagable` para trabajar con objetos de tipo `TarjetaCredito` y `TransferenciaBancaria` de manera uniforme, demostrando cómo el polimorfismo permite tratar diferentes objetos de manera consistente.
+
+== Ejemplo 3: combinación de clases abstractas e interfaces
+
+En este ejemplo, veremos cómo se pueden utilizar conjuntamente una clase abstracta y varias interfaces para definir comportamientos comunes y específicos en una jerarquía de clases. Crearemos una clase abstracta `Electrodomestico`, una interfaz `Conectable` y una interfaz `Programable`. Luego, implementaremos estas interfaces en subclases que heredan de `Electrodomestico`.
+
+=== Descripción del Ejemplo
+
+Queremos modelar un sistema de electrodomésticos donde algunos dispositivos pueden conectarse a la red eléctrica y otros pueden ser programados para realizar tareas automáticas. Definiremos una clase abstracta `Electrodomestico` que proporciona métodos y propiedades comunes a todos los electrodomésticos. La interfaz `Conectable` definirá un método para conectar el dispositivo, y la interfaz `Programable` definirá un método para programar el dispositivo. Luego, crearemos clases concretas que hereden de `Electrodomestico` e implementen estas interfaces según sea necesario.
+
+[source,java]
+----
+public abstract class Electrodomestico {
+    private String marca;
+    private String modelo;
+
+    public Electrodomestico(String marca, String modelo) {
+        this.marca = marca;
+        this.modelo = modelo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public abstract void encender();
+}
+
+public interface Conectable {
+    void conectar();
+}
+
+public interface Programable {
+    void programar(String horario);
+}
+
+public class Lavadora extends Electrodomestico implements Conectable, Programable {
+    public Lavadora(String marca, String modelo) {
+        super(marca, modelo);
+    }
+
+    @Override
+    public void encender() {
+        System.out.println(getMarca() + " " + getModelo() + " lavadora está encendida.");
+    }
+
+    @Override
+    public void conectar() {
+        System.out.println(getMarca() + " " + getModelo() + " lavadora está conectada a la red eléctrica.");
+    }
+
+    @Override
+    public void programar(String horario) {
+        System.out.println(getMarca() + " " + getModelo() + " lavadora está programada para las " + horario);
+    }
+}
+
+public class Televisor extends Electrodomestico implements Conectable {
+    public Televisor(String marca, String modelo) {
+        super(marca, modelo);
+    }
+
+    @Override
+    public void encender() {
+        System.out.println(getMarca() + " " + getModelo() + " televisor está encendido.");
+    }
+
+    @Override
+    public void conectar() {
+        System.out.println(getMarca() + " " + getModelo() + " televisor está conectado a la red eléctrica.");
+    }
+}
+
+public class PruebaElectrodomesticos {
+    public static void main(String[] args) {
+        Lavadora lavadora = new Lavadora("LG", "TWINWash");
+        Televisor televisor = new Televisor("Sony", "Bravia");
+
+        lavadora.encender();
+        lavadora.conectar();
+        lavadora.programar("10:00 AM");
+
+        televisor.encender();
+        televisor.conectar();
+    }
+}
+----
+
+=== Solución
+
+1. **Clase Abstracta `Electrodomestico`:**
+   - Proporciona propiedades comunes `marca` y `modelo` y un método abstracto `encender` que debe ser implementado por las subclases.
+   - Permite compartir código común entre todas las subclases y asegura que todas las subclases implementen el método `encender`.
+
+2. **Interfaz `Conectable`:**
+   - Define un método `conectar` que debe ser implementado por cualquier clase que se conecte a la red eléctrica.
+   - Facilita la implementación de la funcionalidad de conexión en diferentes tipos de electrodomésticos.
+
+3. **Interfaz `Programable`:**
+   - Define un método `programar` que debe ser implementado por cualquier clase que pueda ser programada para realizar tareas automáticas.
+   - Proporciona la capacidad de programar tareas en dispositivos que lo requieran.
+
+4. **Clase `Lavadora`:**
+   - Hereda de `Electrodomestico` e implementa las interfaces `Conectable` y `Programable`.
+   - Proporciona implementaciones específicas para los métodos `encender`, `conectar` y `programar`.
+
+5. **Clase `Televisor`:**
+   - Hereda de `Electrodomestico` e implementa la interfaz `Conectable`.
+   - Proporciona implementaciones específicas para los métodos `encender` y `conectar`.
+
+6. **Clase `PruebaElectrodomesticos`:**
+   - Crea instancias de `Lavadora` y `Televisor` y llama a sus métodos para demostrar cómo se combinan las funcionalidades de la clase abstracta y las interfaces.
+
+En este ejemplo se muestra cómo las clases abstractas y las interfaces pueden ser utilizadas conjuntamente para definir comportamientos comunes y específicos en una jerarquía de clases. Al combinar estos conceptos, se puede crear un sistema flexible y extensible que facilite la implementación y la evolución de diferentes tipos de dispositivos.
+
+
+== Ejercicios
+
+A continuación, se presentan una serie de ejercicios para que el estudiante aplique los conceptos señalados en este capítulo.
+
+=== Ejercicio 1
+
+Cree una clase abstracta `Transporte` con un método abstracto `mover`. Implemente dos subclases `Automovil` y `Bicicleta` que proporcionen sus propias implementaciones del método `mover`.
+
+=== Ejercicio 2
+
+Defina una interfaz `Imprimible` con un método `imprimir`. Implemente dos clases `Documento` y `Foto` que implementen esta interfaz y proporcionen sus propias implementaciones del método `imprimir`.
+
+=== Ejercicio 3
+
+Cree una interfaz `Recargable` con un método predeterminado `recargar`. Implemente esta interfaz en una clase `Bateria` y sobrescriba el método `recargar`.
+
+=== Ejercicio 4
+
+Defina una clase `ConstantesFisicas` con una variable estática final `GRAVEDAD` y un método estático `calcularFuerzaGravitacional` que calcule la fuerza gravitacional entre dos masas y una distancia.
+
+=== Ejercicio 5
+
+Cree una clase `Base` con un método final `mostrarMensaje` que imprima un mensaje. Cree una subclase `Derivada` e intente sobrescribir `mostrarMensaje` (esto debe causar un error de compilación).
+
+=== Ejercicio 6
+
+Defina una interfaz `Cocinable` con métodos `preparar` y `cocinar`. Cree una clase abstracta `Plato` que implemente `Cocinable` y añada un método abstracto `servir`. Implemente dos subclases `Pasta` y `Ensalada`.
+
+=== Ejercicio 7
+
+Cree una interfaz `Calculadora` con un método estático `multiplicar` y un método predeterminado `dividir`. Implemente la interfaz en una clase `CalculadoraBasica`.
+
+=== Ejercicio 8
+
+Defina una interfaz `Volador` con un método `volar` y una interfaz `Nadador` con un método `nadar`. Cree una clase `SuperHeroe` que implemente ambas interfaces y proporcione las implementaciones necesarias.
+
+== Soluciones
+
+=== Solución Ejercicio 1
+
+[source,java]
+----
+public abstract class Transporte {
+    private String marca;
+
+    public Transporte(String marca) {
+        this.marca = marca;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public abstract void mover();
+}
+
+public class Automovil extends Transporte {
+    public Automovil(String marca) {
+        super(marca);
+    }
+
+    @Override
+    public void mover() {
+        System.out.println(getMarca() + " está moviéndose por la carretera.");
+    }
+}
+
+public class Bicicleta extends Transporte {
+    public Bicicleta(String marca) {
+        super(marca);
+    }
+
+    @Override
+    public void mover() {
+        System.out.println(getMarca() + " está moviéndose por el carril bici.");
+    }
+}
+----
+
+=== Solución Ejercicio 2
+
+[source,java]
+----
+public interface Imprimible {
+    void imprimir();
+}
+
+public class Documento implements Imprimible {
+    private String contenido;
+
+    public Documento(String contenido) {
+        this.contenido = contenido;
+    }
+
+    @Override
+    public void imprimir() {
+        System.out.println("Imprimiendo documento: " + contenido);
+    }
+}
+
+public class Foto implements Imprimible {
+    private String archivo;
+
+    public Foto(String archivo) {
+        this.archivo = archivo;
+    }
+
+    @Override
+    public void imprimir() {
+        System.out.println("Imprimiendo foto: " + archivo);
+    }
+}
+----
+
+=== Solución Ejercicio 3
+
+[source,java]
+----
+public interface Recargable {
+    default void recargar() {
+        System.out.println("Recargando...");
+    }
+}
+
+public class Bateria implements Recargable {
+    @Override
+    public void recargar() {
+        System.out.println("La batería se está recargando completamente.");
+    }
+}
+----
+
+=== Solución Ejercicio 4
+
+[source,java]
+----
+public class ConstantesFisicas {
+    public static final double GRAVEDAD = 9.81;
+
+    public static double calcularFuerzaGravitacional(double masa1, double masa2, double distancia) {
+        return (GRAVEDAD * masa1 * masa2) / (distancia * distancia);
+    }
+}
+----
+
+=== Solución Ejercicio 5
+
+[source,java]
+----
+public class Base {
+    public final void mostrarMensaje() {
+        System.out.println("Este mensaje no puede ser sobrescrito.");
+    }
+}
+
+public class Derivada extends Base {
+    // public void mostrarMensaje() { // Esto causaría un error de compilación
+    //     System.out.println("Intentando sobrescribir un método final");
+    // }
+}
+----
+
+=== Solución Ejercicio 6
+
+[source,java]
+----
+public interface Cocinable {
+    void preparar();
+    void cocinar();
+}
+
+public abstract class Plato implements Cocinable {
+    private String nombre;
+
+    public Plato(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    @Override
+    public void preparar() {
+        System.out.println("Preparando " + nombre);
+    }
+
+    @Override
+    public void cocinar() {
+        System.out.println("Cocinando " + nombre);
+    }
+
+    public abstract void servir();
+}
+
+public class Pasta extends Plato {
+    public Pasta(String nombre) {
+        super(nombre);
+    }
+
+    @Override
+    public void servir() {
+        System.out.println("Sirviendo " + getNombre());
+    }
+}
+
+public class Ensalada extends Plato {
+    public Ensalada(String nombre) {
+        super(nombre);
+    }
+
+    @Override
+    public void servir() {
+        System.out.println("Sirviendo " + getNombre());
+    }
+}
+----
+
+==== Solución Ejercicio 7
+
+[source,java]
+----
+public interface Calculadora {
+    static int multiplicar(int a, int b) {
+        return a * b;
+    }
+
+    default int dividir(int a, int b) {
+        if (b != 0) {
+            return a / b;
+        } else {
+            throw new IllegalArgumentException("Divisor no puede ser cero");
+        }
+    }
+}
+
+public class CalculadoraBasica implements Calculadora {
+    // Implementa métodos si es necesario
+}
+----
+
+==== Solución Ejercicio 8
+
+[source,java]
+----
+public interface Volador {
+    void volar();
+}
+
+public interface Nadador {
+    void nadar();
+}
+
+public class SuperHeroe implements Volador, Nadador {
+    @Override
+    public void volar() {
+        System.out.println("El superhéroe está volando");
+    }
+
+    @Override
+    public void nadar() {
+        System.out.println("El superhéroe está nadando");
+    }
+}
+----

@@ -1,0 +1,115 @@
+= Catálogo de Patrones de Diseño
+
+== Agrupación de los Patrones de Diseño
+
+Los patrones de diseño se agrupan generalmente en tres categorías principales: Patrones Creacionales, Patrones Estructurales y Patrones de Comportamiento. Cada una de estas categorías aborda diferentes aspectos del diseño de software y proporciona soluciones específicas a problemas comunes en esas áreas.
+
+1. **Patrones Creacionales**: Estos patrones se centran en el proceso de creación de objetos. Ayudan a abstraer el proceso de instanciación, facilitando la creación de objetos de una manera controlada y optimizada. Algunos de los patrones creacionales incluyen Singleton, Factory Method, Abstract Factory, Builder y Prototype.
+
+2. **Patrones Estructurales**: Los patrones estructurales se enfocan en la composición de clases y objetos. Facilitan la definición de relaciones claras y eficientes entre diferentes componentes del sistema. Entre los patrones estructurales se encuentran Adapter, Composite, Proxy, Flyweight, Facade, Bridge y Decorator.
+
+3. **Patrones de Comportamiento**: Estos patrones se centran en la interacción y responsabilidad entre objetos. Facilitan la comunicación efectiva y la asignación de responsabilidades, mejorando así la flexibilidad y la reutilización del código. Algunos patrones de comportamiento son Chain of Responsibility, Command, Interpreter, Iterator, Mediator, Memento, Observer, State, Strategy, Template Method y Visitor.
+
+
+== Patrones de Diseño
+
+[cols="1,1,3", options="header"]
+|===
+| Categoría
+| Patrón
+| Descripción
+
+| Creacional
+| Singleton
+| Asegura que una clase tenga solo una instancia y proporciona un punto de acceso global a ella.
+
+| Creacional
+| Factory Method
+| Define una interfaz para crear un objeto, pero deja que las subclases decidan qué clase instanciar.
+
+| Creacional
+| Abstract Factory
+| Proporciona una interfaz para crear familias de objetos relacionados o dependientes sin especificar sus clases concretas.
+
+| Creacional
+| Builder
+| Separa la construcción de un objeto complejo de su representación, permitiendo que el mismo proceso de construcción cree diferentes representaciones.
+
+| Creacional
+| Prototype
+| Permite crear nuevos objetos clonando una instancia existente.
+
+| Estructural
+| Adapter
+| Permite que la interfaz de una clase existente se convierta en otra interfaz que el cliente espera.
+
+| Estructural
+| Composite
+| Compone objetos en estructuras de árbol para representar jerarquías de partes y subpartes.
+
+| Estructural
+| Proxy
+| Proporciona un sustituto o marcador de posición para otro objeto para controlar el acceso a este.
+
+| Estructural
+| Flyweight
+| Utiliza el almacenamiento en caché para compartir objetos de manera eficiente cuando hay una gran cantidad de instancias.
+
+| Estructural
+| Facade
+| Proporciona una interfaz simplificada para un subsistema complejo.
+
+| Estructural
+| Bridge
+| Desacopla una abstracción de su implementación para que ambas puedan variar independientemente.
+
+| Estructural
+| Decorator
+| Añade comportamiento adicional a un objeto de manera dinámica.
+
+| Comportamiento
+| Chain of Responsibility
+| Permite que varios objetos manejen una solicitud, pasando la solicitud a lo largo de una cadena de manejadores.
+
+| Comportamiento
+| Command
+| Encapsula una solicitud como un objeto, permitiendo parametrizar a los clientes con diferentes solicitudes.
+
+| Comportamiento
+| Interpreter
+| Dada un lenguaje, define una representación para su gramática junto con un intérprete que utiliza la representación para interpretar oraciones en el lenguaje.
+
+| Comportamiento
+| Iterator
+| Proporciona una manera de acceder secuencialmente a los elementos de un objeto agregado sin exponer su representación subyacente.
+
+| Comportamiento
+| Mediator
+| Define un objeto que encapsula cómo interactúan un conjunto de objetos.
+
+| Comportamiento
+| Memento
+| Permite capturar y externalizar el estado interno de un objeto sin violar la encapsulación para que el objeto pueda ser restaurado a este estado más tarde.
+
+| Comportamiento
+| Observer
+| Define una dependencia de uno a muchos entre objetos para que cuando uno cambie de estado, todos sus dependientes sean notificados y actualizados automáticamente.
+
+| Comportamiento
+| State
+| Permite que un objeto altere su comportamiento cuando su estado interno cambia.
+
+| Comportamiento
+| Strategy
+| Define una familia de algoritmos, encapsula cada uno de ellos y los hace intercambiables.
+
+| Comportamiento
+| Template Method
+| Define el esqueleto de un algoritmo en una operación, diferiendo algunos pasos a las subclases.
+
+| Comportamiento
+| Visitor
+| Representa una operación que se va a realizar sobre los elementos de una estructura de objetos, permitiendo definir una nueva operación sin cambiar las clases de los elementos sobre los que opera.
+|===
+
+A contiuación vamos a tratar con más detalle algunos de los patrones de diseño, más comunes. En las referencias del proyecto, encontraras documentación y sitios web que te permitiran ampliar tu conocimiento sobre el resto de los patrones, su uso y aplicación.

@@ -1,0 +1,30 @@
+= Licencia
+
+Este trabajo está licenciado bajo la Licencia Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+
+https://creativecommons.org/licenses/by-sa/4.0/
+
+== Términos de la Licencia
+
+El texto completo de la licencia se encuentra a continuación:
+
+[source, text]
+----
+Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)
+
+Usted es libre de:
+- Compartir — copiar y redistribuir el material en cualquier medio o formato
+- Adaptar — remezclar, transformar y construir a partir del material para cualquier propósito, incluso comercialmente.
+
+El licenciador no puede revocar estas libertades mientras usted siga los términos de la licencia.
+
+Bajo los siguientes términos:
+- Atribución — Usted debe dar el crédito apropiado, proporcionar un enlace a la licencia, e indicar si se realizaron cambios. Puede hacerlo de cualquier manera razonable, pero no de manera que sugiera que el licenciador lo respalda a usted o su uso.
+- CompartirIgual — Si remezcla, transforma o construye a partir del material, debe distribuir sus contribuciones bajo la misma licencia que el original.
+- No hay restricciones adicionales — No puede aplicar términos legales o medidas tecnológicas que legalmente restrinjan realizar aquello que la licencia permite.
+
+Avisos:
+No tiene que cumplir con la licencia para aquellos elementos del material en el dominio público o cuando su uso está permitido por una excepción o limitación aplicable.
+
+No se dan garantías. La licencia puede no otorgar todos los permisos necesarios para su uso previsto. Por ejemplo, otros derechos como publicidad, privacidad, o derechos morales pueden limitar el uso del material con licencia.
+----

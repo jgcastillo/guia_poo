@@ -1,0 +1,235 @@
+= Buenas Prácticas de Programación y Principios de Código Limpio
+
+La calidad del código es fundamental para el desarrollo de software mantenible, extensible y comprensible. Las buenas prácticas de programación y los principios de código limpio son esenciales para lograr este objetivo. En este subcapítulo, exploraremos en detalle estos conceptos y proporcionaremos ejemplos prácticos en Java.
+
+== Buenas Prácticas de Programación
+
+Las buenas prácticas de programación son métodos y técnicas recomendadas que los desarrolladores deben seguir para producir código de alta calidad. Estas prácticas incluyen, pero no se limitan a, la escritura de código claro y legible, el uso adecuado de comentarios, la organización del código y la implementación de pruebas.
+
+=== Código Claro y Legible
+
+Un código claro y legible es fácil de entender, lo que facilita su mantenimiento y reducción de errores. Aquí hay algunos principios para lograrlo:
+
+- **Nombres Descriptivos:** Usar nombres significativos para variables, métodos y clases.
+- **Funciones Cortas:** Las funciones deben realizar una única tarea y ser breves.
+- **Consistencia:** Mantener un estilo de codificación consistente.
+
+[source,java]
+----
+public class Calculadora {
+    public int sumar(int a, int b) {
+        return a + b;
+    }
+
+    public int restar(int a, int b) {
+        return a - b;
+    }
+
+    public int multiplicar(int a, int b) {
+        return a * b;
+    }
+
+    public double dividir(int a, int b) {
+        if (b == 0) {
+            System.out.println("El divisor no puede ser cero");
+        }
+        return (double) a / b;
+    }
+}
+----
+
+En este ejemplo, los nombres de los métodos y las variables son claros y descriptivos, lo que hace que el código sea fácil de leer y entender.
+
+=== Uso Adecuado de Comentarios
+
+Los comentarios deben ser usados para explicar por qué se hizo algo, no qué se hizo. El código debe ser autoexplicativo en la medida de lo posible.
+
+[source,java]
+----
+public class Calculadora {
+    /**
+     * Suma dos números enteros.
+     * @param a el primer número
+     * @param b el segundo número
+     * @return la suma de a y b
+     */
+    public int sumar(int a, int b) {
+        return a + b;
+    }
+
+    // Resta dos números enteros
+    public int restar(int a, int b) {
+        return a - b;
+    }
+
+    // Multiplica dos números enteros
+    public int multiplicar(int a, int b) {
+        return a * b;
+    }
+
+    /**
+     * Divide dos números enteros.
+     * @param a el dividendo
+     * @param b el divisor
+     * @return el resultado de la división
+     * Muestra un mensaje de error si el divisor es cero
+     */
+    public double dividir(int a, int b) {
+        if (b == 0) {
+            System.out.println("El divisor no puede ser cero");
+        }
+        return (double) a / b;
+    }
+}
+----
+
+=== Organización del Código
+
+Una buena organización del código facilita la navegación y comprensión del proyecto. Esto incluye la estructura del proyecto, la separación de responsabilidades y el uso de patrones de diseño adecuados.
+
+[source,java]
+----
+public class Main {
+    public static void main(String[] args) {
+        Calculadora calc = new Calculadora();
+        System.out.println("Suma: " + calc.sumar(5, 3));
+        System.out.println("Resta: " + calc.restar(5, 3));
+        System.out.println("Multiplicación: " + calc.multiplicar(5, 3));
+        System.out.println("División: " + calc.dividir(5, 3));
+    }
+}
+----
+
+=== Principios de Código Limpio
+
+Los principios de código limpio, popularizados por Robert C. Martin en su libro "Clean Code", son directrices que ayudan a los desarrolladores a escribir código más legible, mantenible y libre de errores. Son esenciales para escribir software de alta calidad. Siguiendo estas prácticas, los desarrolladores pueden crear código que sea más fácil de leer, entender, mantener y extender.
+
+=== Ejemplo de Código No Limpio
+
+Antes de aplicar los principios de código limpio, consideremos un ejemplo de código que no sigue estas prácticas.
+
+[source,java]
+----
+public class Pedido {
+    private String producto;
+    private int cantidad;
+    private double precio;
+    private double total;
+
+    public Pedido(String producto, int cantidad, double precio) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.total = calcularTotal();
+    }
+
+    public double calcularTotal() {
+        return cantidad * precio;
+    }
+
+    public void imprimirFactura() {
+        System.out.println("Factura");
+        System.out.println("Producto: " + producto);
+        System.out.println("Cantidad: " + cantidad);
+        System.out.println("Precio: $" + precio);
+        System.out.println("Total: $" + total);
+    }
+
+    public void enviarCorreo() {
+        System.out.println("Enviando correo...");
+    }
+}
+----
+
+Este código tiene varias deficiencias: mezcla de responsabilidades, falta de cohesión y uso de métodos que no deberían estar en la misma clase.
+
+=== Refactorización para Código Limpio
+
+Vamos a refactorizar el código anterior siguiendo los principios de código limpio.
+
+[source,java]
+----
+public class Pedido {
+    private String producto;
+    private int cantidad;
+    private double precio;
+
+    public Pedido(String producto, int cantidad, double precio) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    public double calcularTotal() {
+        return cantidad * precio;
+    }
+
+    public String getProducto() {
+        return producto;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+}
+
+public class Factura {
+    public void imprimirFactura(Pedido pedido) {
+        double total = pedido.calcularTotal();
+        System.out.println("Factura");
+        System.out.println("Producto: " + pedido.getProducto());
+        System.out.println("Cantidad: " + pedido.getCantidad());
+        System.out.println("Precio: $" + pedido.getPrecio());
+        System.out.println("Total: $" + total);
+    }
+}
+
+public class Correo {
+    public void enviarCorreo(Pedido pedido) {
+        System.out.println("Enviando correo para el pedido de " + pedido.getProducto());
+    }
+}
+----
+
+Veamos que se hizo para cumplir con los principios de código limpio
+
+1. **Separación de Responsabilidades:** Ahora, las clases `Pedido`, `Factura` y `Correo` tienen responsabilidades claramente definidas.
+2. **Alta Cohesión:** Cada clase tiene una única responsabilidad y se enfoca en una tarea específica.
+3. **Bajo Acoplamiento:** Las clases interactúan entre sí de manera controlada, lo que facilita el mantenimiento y la evolución del código.
+
+== Pruebas
+
+Las pruebas son una parte integral de las buenas prácticas de programación. Ayudan a garantizar que el código funciona como se espera y facilita la detección de errores. Aunque no es tema de este curso la realización de pruebas en el código, a continuación se muestra una forma de ejecutar una prueba sobre la clase `Pedido`.
+
+[source,java]
+----
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class PedidoTest {
+
+    @Test
+    public void testCalcularTotal() {
+        Pedido pedido = new Pedido("Laptop", 2, 1000.00);
+        assertEquals(2000.00, pedido.calcularTotal(), 0.01);
+    }
+}
+----
+
+En resumidas cuentas, un código debe seguir unas normas claras y concisas:
+
+* **Nombres Significativos**: El uso de nombres claros y significativos para variables, funciones y clases es fundamental. Un buen nombre puede hacer que el código sea más legible y entendible.
+
+* **Funciones Pequeñas**: Las funciones deben ser pequeñas y realizar una única tarea. Esto facilita su comprensión y mantenimiento.
+
+* **Evitar Comentarios Innecesarios**: El código debe ser autoexplicativo en la medida de lo posible. Los comentarios deben usarse para explicar el "por qué" detrás del código, no el "qué". Existe una máxima en programación que indica que "código que se comenta demasiado es mal código"
+
+* **Manejo de Errores**: El manejo de errores debe ser claro y no debe obstruir el flujo lógico del código. Utilizar excepciones en lugar de códigos de error. (Esto se tratará en detalle más adelante en el curso)
+
+* **Principio de Responsabilidad Única**: Cada clase y método debe tener una única responsabilidad o razón para cambiar. Esto mejora la cohesión y facilita la mantenibilidad del código.
+
+Las buenas prácticas de programación y los principios de código limpio son esenciales para escribir código de alta calidad. Aplicando estos principios, los desarrolladores pueden producir software más mantenible, legible y libre de errores, lo que conduce a sistemas más robustos y eficientes.

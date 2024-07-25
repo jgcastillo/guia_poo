@@ -1,0 +1,194 @@
+= Diagramas de Secuencia y de Colaboración en UML
+
+Vamos a dedicarnos a los diagramas de secuencia y de colaboración en UML, dos tipos de diagramas de comportamiento que representan la interacción entre los objetos en un sistema. Estos diagramas son esenciales para entender y visualizar cómo los objetos colaboran entre sí para realizar un proceso específico.
+
+== Diagrama de Secuencia
+
+Un diagrama de secuencia ilustra cómo los objetos interactúan en una secuencia de mensajes a lo largo del tiempo. Este tipo de diagrama es útil para describir el flujo de control entre los objetos y para especificar el orden de los eventos en un sistema.
+
+=== Conceptos y Propiedades
+
+- **Líneas de Vida (Lifelines)**: Representan la existencia de un objeto en un momento particular.
+- **Mensajes**: Representan la comunicación entre los objetos, denotados por flechas.
+- **Activaciones (Activation Bars)**: Indican el período durante el cual un objeto está ejecutando un proceso.
+- **Notas**: Añaden comentarios o información adicional al diagrama.
+
+=== Importancia y Usos
+
+Los diagramas de secuencia son importantes para:
+
+- **Visualizar la Interacción**: Permiten visualizar la interacción entre los objetos en una secuencia temporal.
+- **Detallar Casos de Uso**: Ayudan a detallar los escenarios descritos en los diagramas de casos de uso.
+- **Identificar Problemas**: Facilitan la identificación de problemas en el flujo de control y la comunicación entre los objetos.
+
+=== Ejemplo de Diagrama de Secuencia
+
+EL siguiente código nos va a servir para entender el diagrama de secuencia. En el tenemos las clases `Producto`, `Cliente` y `Pedido`. Observamos como la clase `Pedido` hace uso de las otras clases para realizar su trabajo en el método `realalizarPedido()`. Al observar el diagrama nos queda más claro la secuencia de sucesos que ocurren en esta interacción.
+
+[source,java]
+----
+public class Pedido {
+    public void realizarPedido() {
+        Cliente cliente = new Cliente();
+        Producto producto = new Producto();
+        cliente.solicitarProducto(producto);
+    }
+}
+
+class Cliente {
+    public void solicitarProducto(Producto producto) {
+        producto.procesar();
+    }
+}
+
+class Producto {
+    public void procesar() {
+        System.out.println("Producto procesado");
+    }
+}
+----
+
+A continuación como luciría el diagrama de secuencia:
+
+image::secuencia_1.png[]
+
+**Explicación**:
+
+1. *Inicio del Pedido*:
+
+* El diagrama comienza con el actor `Cliente` iniciando el mensaje `realizarPedido()` hacia el objeto `Pedido`.
+* Esto indica que el cliente está iniciando el proceso de pedido en el sistema.
+
+2. *Solicitud del Producto*:
+
+* El objeto `Sistema` envía el mensaje `solicitarProducto()` al objeto `Producto`.
+* Aquí, el pedido solicita al producto que inicie su procesamiento.
+
+3. *Procesamiento del Producto*:
+
+* El objeto `Producto` ejecuta su propio método `procesar()`.
+* Este mensaje se muestra como una llamada interna dentro del objeto `Producto`, indicando que el producto se está procesando.
+
+4. *Activaciones y Mensajes*:
+
+* Las barras de activación en el diagrama muestran que el `pedido` y `Producto` están activos durante la ejecución de sus respectivos métodos.
+* Los mensajes entre los objetos están representados por flechas que indican el flujo de control y las llamadas de método.
+
+== Diagrama de Colaboración
+
+Un diagrama de colaboración, también conocido como diagrama de comunicación, representa la interacción entre los objetos, similar a un diagrama de secuencia, pero se centra en los roles de los objetos y sus relaciones. Este diagrama muestra cómo los objetos colaboran para realizar una tarea específica.
+
+=== Conceptos y Propiedades
+
+- **Objetos**: Representan las instancias que participan en la colaboración.
+- **Enlaces**: Muestran las asociaciones entre los objetos.
+- **Mensajes**: Indican la comunicación entre los objetos, numerados para mostrar el orden de los eventos.
+
+=== Importancia y Usos
+
+Los diagramas de colaboración son importantes para:
+
+- **Mostrar Relaciones**: Visualizan las relaciones entre los objetos en una colaboración.
+- **Describir Interacciones**: Detallan cómo los objetos trabajan juntos para realizar una tarea.
+- **Complementar Diagramas de Secuencia**: Proporcionan una vista diferente y complementaria a los diagramas de secuencia.
+
+=== Ejemplo de Diagrama de Colaboración
+
+Este ejemplo es similar al usado anteriormente. Ahora tenemos una clase llamada `Sistema` con su método `procesarPedido()`. En este método se observa como se instancian dos objetos uno de tipo `Cliente` y otro de tipo `Pedido` para realizar su trabajo. El diagrama nos ayuda a entender cómo los mensajes se suceden para que el método `procesarPedido` realice su labor.
+
+[source,java]
+----
+public class Sistema {
+    public void procesarPedido() {
+        Cliente cliente = new Cliente();
+        Pedido pedido = new Pedido();
+        cliente.realizarPedido(pedido);
+        pedido.confirmar();
+    }
+}
+
+class Cliente {
+    public void realizarPedido(Pedido pedido) {
+        System.out.println("Pedido realizado");
+    }
+}
+
+class Pedido {
+    public void confirmar() {
+        System.out.println("Pedido confirmado");
+    }
+}
+----
+
+A continuación como luciría el diagrama de colaboración:
+
+image::colaboracion_1.png[]
+
+*Explicación*:
+
+1. **Inicio del Proceso de Pedido**:
+
+* El objeto `Sistema` inicia la interacción con el mensaje `procesarPedido()`` enviado al objeto `Cliente`.
+* Esto indica que el sistema está iniciando el proceso de pedido.
+
+2. **Realización del Pedido**:
+
+* El objeto `Cliente` recibe el mensaje y envía `realizarPedido()` al objeto `Pedido`.
+* Aquí, el cliente realiza el pedido específico.
+
+3. **Confirmación del Pedido**:
+
+* El objeto `Pedido` recibe el mensaje y ejecuta su método `confirmar()`.
+* Esto se muestra como una llamada interna en el objeto `Pedido`, indicando que el pedido ha sido confirmado.
+
+4. **Relaciones y Mensajes**:
+
+* Los enlaces entre los objetos muestran las asociaciones necesarias para completar la tarea.
+* Los mensajes están numerados para indicar el orden de las interacciones y la secuencia de eventos.
+
+Como habras notado lols diagrams de Secuencia y de Colaboración tienen algunas similitudes y al principio te podrían confundir, de manera de abordar esas posibles dudas a continuación se muestra una tabla comparativa de ambos diagramas y así facilitar su uso correcto:
+
+[cols="1,1,1", options="header"]
+|===
+| Característica | Diagrama de Secuencia | Diagrama de Colaboración
+
+| **Propósito Principal**
+| Muestra la interacción entre objetos en una secuencia temporal
+| Representa las interacciones entre objetos y sus relaciones en un contexto colaborativo
+
+| **Enfoque**
+| Enfatiza el orden temporal de los mensajes
+| Enfatiza las relaciones y la estructura de las interacciones
+
+| **Elementos Clave**
+| Líneas de Vida, Mensajes, Activaciones
+| Objetos, Enlaces, Mensajes
+
+| **Visualización**
+| Temporal, mostrando la cronología de los eventos
+| Estructural, mostrando cómo los objetos colaboran
+
+| **Uso Principal**
+| Detallar el flujo de control y la secuencia de eventos
+| Visualizar cómo los objetos trabajan juntos para realizar una tarea
+
+| **Importancia**
+| Ayuda a entender el flujo de mensajes y la interacción en el tiempo
+| Facilita la comprensión de las relaciones entre objetos y su colaboración
+
+| **Detallade**
+| Más adecuado para describir complejas secuencias de interacción
+| Más adecuado para mostrar la estructura de una colaboración y las relaciones entre objetos
+
+| **Complementariedad**
+| Complementa los diagramas de casos de uso al detallar los escenarios de interacción
+| Complementa los diagramas de secuencia proporcionando una vista estructural de las interacciones
+
+| **Ventajas**
+| Proporciona una visión clara del flujo de control entre objetos
+| Proporciona una visión clara de cómo los objetos están relacionados y colaboran
+
+| **Ejemplo de Uso**
+| Describir cómo un pedido se procesa a través de diferentes etapas
+| Mostrar cómo un sistema, un cliente y un pedido interactúan para completar una transacción
+|===

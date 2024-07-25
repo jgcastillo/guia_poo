@@ -1,0 +1,26 @@
+= Polimorfismo
+ifndef::masterdoc[]
+include::../meta.adoc[]
+include::../attributes.adoc[]
+endif::masterdoc[]
+
+:leveloffset: +1
+
+include::section_3_1.adoc[]
+include::section_3_2.adoc[]
+include::section_3_3.adoc[]
+include::section_3_4.adoc[]
+include::section_3_5.adoc[]
+include::section_3_6.adoc[]
+include::section_3_7.adoc[]
+
+
+ifdef::masterdoc[]
+[bibliography]
+= Referencias del capítulo
+
+include::biblio.adoc[]
+
+endif::masterdoc[]
+
+:leveloffset: -1

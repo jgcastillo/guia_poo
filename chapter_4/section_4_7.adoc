@@ -1,0 +1,371 @@
+= Ejemplos Prácticos de Interfaces
+
+En esta oportunidad proporcionaremos ejemplos prácticos que demuestran el uso y la importancia de las interfaces en la Programación Orientada a Objetos (POO). A través de estos ejemplos, podrás ver cómo las interfaces facilitan la creación de sistemas flexibles, modulares y mantenibles.
+
+== Ejemplo 1:
+
+En este ejemplo, definiremos una interfaz `Imprimible` que define un contrato y varias clases que la implementan. Luego, usaremos el polimorfismo para trabajar con objetos de diferentes clases de manera uniforme.
+
+[source,java]
+----
+public interface Imprimible {
+    void imprimir();
+}
+
+public class Documento implements Imprimible {
+    private String contenido;
+
+    public Documento(String contenido) {
+        this.contenido = contenido;
+    }
+
+    @Override
+    public void imprimir() {
+        System.out.println("Imprimiendo documento: " + contenido);
+    }
+}
+
+public class Foto implements Imprimible {
+    private String archivo;
+
+    public Foto(String archivo) {
+        this.archivo = archivo;
+    }
+
+    @Override
+    public void imprimir() {
+        System.out.println("Imprimiendo foto: " + archivo);
+    }
+}
+
+public class PruebaImprimibles {
+    public static void main(String[] args) {
+        Imprimible doc = new Documento("Mi documento");
+        Imprimible foto = new Foto("foto.jpg");
+
+        doc.imprimir();
+        foto.imprimir();
+    }
+}
+----
+
+En este ejemplo, la interfaz `Imprimible` define un método `imprimir`. Las clases `Documento` y `Foto` implementan esta interfaz y proporcionan sus propias implementaciones del método `imprimir`. En la clase `PruebaImprimibles`, se utilizan referencias a la interfaz `Imprimible` para trabajar con objetos de tipo `Documento` y `Foto` de manera uniforme, demostrando cómo el polimorfismo permite tratar diferentes objetos de manera consistente.
+
+=== Ejemplo 2:
+
+En este ejemplo, mostraremos cómo una clase puede implementar múltiples interfaces para combinar comportamientos de diferentes fuentes, esta es una forma de trabajar con herencia múltiple.
+
+[source,java]
+----
+public interface Movible {
+    void mover();
+}
+
+public interface Operable {
+    void operar();
+}
+
+public class Robot implements Movible, Operable {
+    @Override
+    public void mover() {
+        System.out.println("El robot se está moviendo");
+    }
+
+    @Override
+    public void operar() {
+        System.out.println("El robot está operando");
+    }
+}
+
+public class PruebaRobot {
+    public static void main(String[] args) {
+        Robot robot = new Robot();
+        robot.mover();
+        robot.operar();
+    }
+}
+----
+
+En este ejemplo, la clase `Robot` implementa dos interfaces: `Movible` y `Operable`. Cada interfaz define un método abstracto (`mover` y `operar`, respectivamente), y la clase `Robot` proporciona implementaciones para ambos métodos. Esto demuestra cómo la herencia múltiple de interfaces permite combinar diferentes comportamientos en una sola clase. La clase `PruebaRobot` crea una instancia de `Robot` y llama a ambos métodos para mostrar cómo se combinan los comportamientos de ambas interfaces.
+
+=== Ejemplo 3:
+
+En este ejemplo, utilizaremos una interfaz `Almacenamiento` para desacoplar la implementación del almacenamiento de datos del código del cliente.
+
+[source,java]
+----
+public interface Almacenamiento {
+    void guardar(String datos);
+    String recuperar();
+}
+
+public class AlmacenamientoEnMemoria implements Almacenamiento {
+    private String memoria;
+
+    @Override
+    public void guardar(String datos) {
+        memoria = datos;
+    }
+
+    @Override
+    public String recuperar() {
+        return memoria;
+    }
+}
+
+public class PruebaAlmacenamiento {
+    private Almacenamiento almacenamiento;
+
+    public PruebaAlmacenamiento(Almacenamiento almacenamiento) {
+        this.almacenamiento = almacenamiento;
+    }
+
+    public void ejecutar() {
+        almacenamiento.guardar("Datos importantes");
+        System.out.println("Recuperando datos: " + almacenamiento.recuperar());
+    }
+
+    public static void main(String[] args) {
+        Almacenamiento almacenamiento = new AlmacenamientoEnMemoria();
+        PruebaAlmacenamiento prueba = new PruebaAlmacenamiento(almacenamiento);
+        prueba.ejecutar();
+    }
+}
+----
+
+En este ejemplo, la interfaz `Almacenamiento` define métodos para guardar y recuperar datos. La clase `AlmacenamientoEnMemoria` implementa esta interfaz almacenando los datos en una variable de instancia (`memoria`). La clase `PruebaAlmacenamiento` utiliza una referencia a la interface `Almacenamiento` para interactuar con el almacenamiento de datos. Esto permite cambiar la implementación de `Almacenamiento` sin modificar el código del cliente, demostrando cómo las interfaces facilitan el desacoplamiento y mejoran la flexibilidad del diseño del sistema.
+
+Observa la declaración del método `main()` de la clase `PruebaAlmacenamiento`, allí se crea una instancia de la clase `AlmacenamientoEnMemoria`, pero se hace indicando que es de tipo `Almacenamiento`, ¿por qué podemos hacer esto?, por simple herencia. Ya que la clase `AlmacenamientoEnMemoria` implementa la interface `Almacenamiento`, podemos decir que las instancias de `AlmacenamientoEnMemoria` son instancias tanto de esta clase como de la interface `Almacenamiento`, es decir que estamos también usando polimorfismo, el comportamiento de la instancia es tanto de la clase como de la interface.
+
+=== Ejemplo 4:
+
+En este ejemplo, mostraremos cómo las interfaces facilitan la extensión del sistema al agregar una nueva implementación de una interfaz existente.
+
+[source,java]
+----
+public interface MetodoPago {
+    void procesarPago(double monto);
+}
+
+public class TarjetaCredito implements MetodoPago {
+    @Override
+    public void procesarPago(double monto) {
+        System.out.println("Procesando pago con tarjeta de crédito: " + monto);
+    }
+}
+
+public class PayPal implements MetodoPago {
+    @Override
+    public void procesarPago(double monto) {
+        System.out.println("Procesando pago con PayPal: " + monto);
+    }
+}
+
+public class PruebaPagos {
+    public static void main(String[] args) {
+        MetodoPago pagoTarjeta = new TarjetaCredito();
+        MetodoPago pagoPayPal = new PayPal();
+
+        pagoTarjeta.procesarPago(100.0);
+        pagoPayPal.procesarPago(150.0);
+    }
+}
+----
+
+En este ejemplo, la interface `MetodoPago` define un método `procesarPago`. Las clases `TarjetaCredito` y `PayPal` implementan esta interfaz y proporcionan sus propias implementaciones del método `procesarPago`. La clase `PruebaPagos` utiliza referencias a la interface `MetodoPago` para procesar pagos utilizando diferentes métodos de pago. Si más adelante se necesita agregar un nuevo método de pago, se puede crear una nueva clase que implemente `MetodoPago` sin afectar al código existente, demostrando cómo las interfaces facilitan la extensibilidad del sistema.
+
+Al igual que el ejemplo anterior las instancias usadas en `PruebaPagos` son del tipo de la interface, pero el comportamiento particular lo define el constructor de la clase usada para la instanciación, ¡¡ polimorfismo en su máxima expresión!!
+
+=== Ejemplo 5:
+
+En este ejemplo, utilizaremos interfaces para mejorar la interoperabilidad entre diferentes componentes de un sistema.
+
+[source,java]
+----
+public interface ServicioInventario {
+    void agregarProducto(String producto);
+    void eliminarProducto(String producto);
+    boolean verificarProducto(String producto);
+}
+
+public class InventarioLocal implements ServicioInventario {
+    private List<String> productos = new ArrayList<>();
+
+    @Override
+    public void agregarProducto(String producto) {
+        productos.add(producto);
+        System.out.println("Producto agregado: " + producto);
+    }
+
+    @Override
+    public void eliminarProducto(String producto) {
+        productos.remove(producto);
+        System.out.println("Producto eliminado: " + producto);
+    }
+
+    @Override
+    public boolean verificarProducto(String producto) {
+        return productos.contains(producto);
+    }
+}
+
+public class PruebaInventario {
+    public static void main(String[] args) {
+        ServicioInventario inventario = new InventarioLocal();
+        inventario.agregarProducto("Laptop");
+        inventario.agregarProducto("Mouse");
+
+        System.out.println("Verificando producto 'Laptop': " + inventario.verificarProducto("Laptop"));
+        inventario.eliminarProducto("Laptop");
+        System.out.println("Verificando producto 'Laptop': " + inventario.verificarProducto("Laptop"));
+    }
+}
+----
+
+En este ejemplo, la interfaz `ServicioInventario` define métodos para agregar, eliminar y verificar productos en un inventario, lo que hace es definir el contrato que deben cumplir las clases que la implementen. La clase `InventarioLocal` implementa esta interface utilizando una lista para almacenar los productos, que para este caso se usará como base de datos. La clase `PruebaInventario` interactúa con el inventario a través de la interface `ServicioInventario`, demostrando cómo las interfaces mejoran la interoperabilidad al permitir que diferentes componentes interactúen de manera coherente y uniforme.
+
+Observa además como la declaración del ArrayList se vale del uso de genéricos, para evitar conflictos con diferentes tipos de datos, diferentes al definido. No solo se ha aplicado la interoperatividad, sino que además le agregamos seguridad al código.
+
+Esta forma de trabajo nos puede servir de prueba de concepto de nuestro sistema, y al avanzar el desarrollo, substituir la clase `InventarioLocal`, por una clase que se maneje con una base de datos, y el cambio sería casi que automático.
+
+== Métodos Predeterminados y Estáticos, y Uso de `static` y `final` en Java
+
+Vamos a explorar los conceptos de métodos predeterminados y estáticos en las interfaces, así como el uso de las palabras clave `static` y `final` en Java. Estos conceptos son fundamentales para entender cómo se pueden definir comportamientos y constantes en interfaces y clases abstractas. A continuación, se explican estos conceptos en detalle y se proporcionan ejemplos que ilustran su uso.
+
+=== Métodos Predeterminados en Interfaces
+
+A partir de Java 8, las interfaces pueden contener métodos predeterminados, también conocidos como `default methods`. Un método predeterminado es un método en una interface que tiene una implementación. Esto permite a las interfaces evolucionar sin romper las implementaciones existentes, ya que las clases que implementan la interfaz no están obligadas a proporcionar una implementación para los métodos predeterminados.
+
+[source,java]
+----
+public interface Vehiculo {
+    void mover();
+
+    default void arrancar() {
+        System.out.println("El vehículo está arrancando");
+    }
+}
+----
+
+En este ejemplo, la interfaz `Vehiculo` define un método abstracto `mover` y un método predeterminado `arrancar`. Cualquier clase que implemente `Vehiculo` puede usar la implementación predeterminada de `arrancar` o sobrescribirla si es necesario.
+
+=== Métodos Estáticos en Interfaces
+
+También a partir de Java 8, las interfaces pueden contener métodos estáticos. Los métodos estáticos en interfaces son métodos que pertenecen a la interfaz en sí y no a las instancias de la interfaz. Esto permite definir métodos de utilidad relacionados con la interfaz que se pueden llamar directamente en la interfaz.
+
+[source,java]
+----
+public interface Calculadora {
+    static int sumar(int a, int b) {
+        return a + b;
+    }
+}
+----
+
+En este ejemplo, la interfaz `Calculadora` define un método estático `sumar` que puede ser llamado directamente en la interfaz sin necesidad de una instancia.
+
+[source,java]
+----
+public class PruebaCalculadora {
+    public static void main(String[] args) {
+        int resultado = Calculadora.sumar(5, 3);
+        System.out.println("Resultado: " + resultado);
+    }
+}
+----
+
+En la clase `PruebaCalculadora`, se llama al método estático `sumar` directamente en la interfaz `Calculadora`, demostrando cómo se pueden utilizar los métodos estáticos en interfaces.
+
+=== Uso de `static` en Java
+
+La palabra clave `static` en Java se utiliza para definir miembros de clase que pertenecen a la clase en sí y no a instancias específicas de la clase. Esto incluye variables estáticas y métodos estáticos.
+
+[source,java]
+----
+public class Contador {
+    private static int cuenta = 0;
+
+    public Contador() {
+        cuenta++;
+    }
+
+    public static int getCuenta() {
+        return cuenta;
+    }
+}
+----
+
+En este ejemplo, la clase `Contador` tiene una variable estática `cuenta` que se incrementa cada vez que se crea una nueva instancia de `Contador`. El método estático `getCuenta` devuelve el valor de `cuenta`.
+
+[source,java]
+----
+public class PruebaContador {
+    public static void main(String[] args) {
+        new Contador();
+        new Contador();
+        new Contador();
+        System.out.println("Número de instancias creadas: " + Contador.getCuenta());
+    }
+}
+----
+
+En la clase `PruebaContador`, se crean tres instancias de `Contador` y se llama al método estático `getCuenta` para obtener el número de instancias creadas.
+
+=== Uso de `final` en Java
+
+La palabra clave `final` en Java se utiliza para definir constantes, prevenir la sobrescritura de métodos y evitar la herencia de clases.
+
+==== Variables Finales
+
+Una variable `final` es una constante que no puede ser modificada una vez inicializada.
+
+[source,java]
+----
+public class Constantes {
+    public static final double PI = 3.14159;
+}
+----
+
+En este ejemplo, `PI` es una constante que no puede ser modificada.
+
+==== Métodos Finales
+
+Un método `final` no puede ser sobrescrito por las subclases.
+
+[source,java]
+----
+public class Base {
+    public final void metodoFinal() {
+        System.out.println("Este método no puede ser sobrescrito");
+    }
+}
+
+public class Derivada extends Base {
+    // public void metodoFinal() { // Esto causaría un error de compilación
+    //     System.out.println("Intentando sobrescribir un método final");
+    // }
+}
+----
+
+En este ejemplo, `metodoFinal` en la clase `Base` no puede ser sobrescrito por la clase `Derivada`.
+
+==== Clases Finales
+
+Una clase `final` no puede ser heredada.
+
+[source,java]
+----
+public final class ClaseFinal {
+    // Contenido de la clase
+}
+
+// public class SubClase extends ClaseFinal { // Esto causaría un error de compilación
+//     // Contenido de la subclase
+// }
+----
+
+En este ejemplo, la clase `ClaseFinal` no puede ser heredada por ninguna otra clase.
+
+=== Resumen
+
+En resumen, los métodos predeterminados y estáticos en interfaces, así como el uso de las palabras clave `static` y `final`, proporcionan herramientas poderosas para definir comportamientos y constantes en Java. Los métodos predeterminados permiten a las interfaces evolucionar sin romper las implementaciones existentes, mientras que los métodos estáticos proporcionan utilidades relacionadas con la interfaz. La palabra clave `static` se utiliza para definir miembros de clase que pertenecen a la clase en sí, y `final` se utiliza para definir constantes y prevenir la sobrescritura y la herencia. Estos conceptos son esenciales para escribir código Java robusto y mantenible.

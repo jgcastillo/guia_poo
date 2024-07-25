@@ -1,0 +1,127 @@
+== Patrón Adapter
+
+=== Grupo y Definición
+
+El patrón Adapter pertenece al grupo de patrones estructurales. Este patrón permite que la interfaz de una clase existente se convierta en otra interfaz que el cliente espera. El Adapter actúa como un puente entre dos interfaces incompatibles.
+
+El patrón Adapter surge de la necesidad de integrar clases con interfaces incompatibles en un sistema. A menudo, en el desarrollo de software, nos encontramos con la necesidad de utilizar una clase existente que no se ajusta a la interfaz requerida por un nuevo cliente. En lugar de modificar la clase existente (lo cual puede no ser posible si no se tiene acceso al código fuente), se utiliza un Adapter para crear una interfaz compatible.
+
+Para implementar el patrón Adapter, se define una clase Adapter que implementa la interfaz esperada por el cliente y traduce las llamadas a métodos a la interfaz de la clase adaptada.
+
+=== Ejemplo
+
+El siguiente es un ejemplo de cómo se puede definir y usar el patrón Adapter en Java para adaptar una clase existente a una nueva interfaz.
+
+[source, java]
+----
+interface MediaPlayer {
+    void play(String audioType, String fileName);
+}
+
+class AudioPlayer implements MediaPlayer {
+    @Override
+    public void play(String audioType, String fileName) {
+        if (audioType.equalsIgnoreCase("mp3")) {
+            System.out.println("Playing mp3 file. Name: " + fileName);
+        } else {
+            System.out.println("Invalid media. " + audioType + " format not supported");
+        }
+    }
+}
+
+interface AdvancedMediaPlayer {
+    void playVlc(String fileName);
+    void playMp4(String fileName);
+}
+
+class VlcPlayer implements AdvancedMediaPlayer {
+    @Override
+    public void playVlc(String fileName) {
+        System.out.println("Playing vlc file. Name: " + fileName);
+    }
+
+    @Override
+    public void playMp4(String fileName) {
+        // No hace nada
+    }
+}
+
+class Mp4Player implements AdvancedMediaPlayer {
+    @Override
+    public void playVlc(String fileName) {
+        // No hace nada
+    }
+
+    @Override
+    public void playMp4(String fileName) {
+        System.out.println("Playing mp4 file. Name: " + fileName);
+    }
+}
+
+class MediaAdapter implements MediaPlayer {
+    AdvancedMediaPlayer advancedMusicPlayer;
+
+    public MediaAdapter(String audioType) {
+        if (audioType.equalsIgnoreCase("vlc")) {
+            advancedMusicPlayer = new VlcPlayer();
+        } else if (audioType.equalsIgnoreCase("mp4")) {
+            advancedMusicPlayer = new Mp4Player();
+        }
+    }
+
+    @Override
+    public void play(String audioType, String fileName) {
+        if (audioType.equalsIgnoreCase("vlc")) {
+            advancedMusicPlayer.playVlc(fileName);
+        } else if (audioType.equalsIgnoreCase("mp4")) {
+            advancedMusicPlayer.playMp4(fileName);
+        }
+    }
+}
+
+class AudioPlayerWithAdapter implements MediaPlayer {
+    MediaAdapter mediaAdapter;
+
+    @Override
+    public void play(String audioType, String fileName) {
+        if (audioType.equalsIgnoreCase("mp3")) {
+            System.out.println("Playing mp3 file. Name: " + fileName);
+        } else if (audioType.equalsIgnoreCase("vlc") || audioType.equalsIgnoreCase("mp4")) {
+            mediaAdapter = new MediaAdapter(audioType);
+            mediaAdapter.play(audioType, fileName);
+        } else {
+            System.out.println("Invalid media. " + audioType + " format not supported");
+        }
+    }
+}
+----
+
+En este ejemplo, `MediaPlayer` es la interfaz que espera el cliente. `AudioPlayer` es una clase que implementa `MediaPlayer` pero solo soporta archivos MP3. `AdvancedMediaPlayer`, `VlcPlayer` y `Mp4Player` representan la interfaz avanzada y sus implementaciones que soportan archivos VLC y MP4 respectivamente. `MediaAdapter` actúa como el adaptador que convierte la interfaz `MediaPlayer` en `AdvancedMediaPlayer`, permitiendo a `AudioPlayerWithAdapter` reproducir múltiples formatos de audio.
+
+Para usar este patrón, se puede escribir el siguiente código:
+
+[source, java]
+----
+public class Main {
+    public static void main(String[] args) {
+        AudioPlayerWithAdapter audioPlayer = new AudioPlayerWithAdapter();
+
+        audioPlayer.play("mp3", "song.mp3");
+        audioPlayer.play("mp4", "video.mp4");
+        audioPlayer.play("vlc", "movie.vlc");
+        audioPlayer.play("avi", "myMovie.avi");
+    }
+}
+----
+
+En este código, `AudioPlayerWithAdapter` utiliza `MediaAdapter` para reproducir archivos en diferentes formatos. Si se intenta reproducir un formato no soportado, se muestra un mensaje de error.
+
+=== Consideraciones y Mejores Prácticas
+
+El patrón Adapter es útil cuando se necesita utilizar una clase existente que no cumple con la interfaz requerida por un nuevo sistema. Sin embargo, es importante asegurarse de que el Adapter no añada una complejidad innecesaria. Además, es vital que el Adapter mantenga la consistencia en la interfaz, garantizando que todas las llamadas se traduzcan correctamente.
+
+Un ejemplo común del uso del patrón Adapter es en sistemas de pago donde diferentes métodos de pago deben integrarse con una interfaz de procesamiento de pagos unificada. Utilizando el patrón Adapter, se pueden integrar diferentes proveedores de servicios de pago sin cambiar el código del sistema principal.
+
+
+
+

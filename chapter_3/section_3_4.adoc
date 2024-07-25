@@ -1,0 +1,202 @@
+= Polimorfismo Paramétrico y Genéricos
+
+El polimorfismo paramétrico y los genéricos son conceptos avanzados en la Programación Orientada a Objetos (POO) que permiten escribir código más flexible, reutilizable y seguro. Estos conceptos se utilizan para crear estructuras de datos y algoritmos que pueden operar con cualquier tipo de datos, proporcionando una manera eficiente de manejar tipos de datos múltiples sin sacrificar la seguridad de tipos.
+
+== Genéricos en Java
+
+Antes de hablar sobre la implementación del polimorfismo paramétrico es importante manejar el concepto de genéricos. Los genéricos en Java son una característica poderosa que permite a los desarrolladores definir clases, interfaces y métodos parametrizados por tipos. Introducidos en Java 5, los genéricos proporcionan una manera de escribir código más flexible y seguro, permitiendo que las estructuras de datos y los algoritmos sean independientes del tipo de datos con los que operan.
+
+== Características de los Genéricos
+
+1. **Seguridad de Tipos:** Proporcionan seguridad de tipos en tiempo de compilación, lo que ayuda a prevenir errores en tiempo de ejecución al garantizar que solo los tipos correctos de datos se manipulen.
+2. **Reutilización de Código:** Permiten la creación de clases, interfaces y métodos que pueden operar con cualquier tipo de datos, mejorando la reutilización del código.
+3. **Legibilidad y Mantenimiento:** Hacen que el código sea más legible y fácil de mantener, ya que el tipo de datos se especifica claramente y las conversiones de tipo no son necesarias.
+
+La justificación principal para el uso de genéricos es mejorar la seguridad y la reutilización del código. Sin genéricos, los desarrolladores deben utilizar tipos generales como `Object`, lo que requiere conversiones de tipo explícitas (casting) y puede llevar a errores en tiempo de ejecución. Los genéricos eliminan esta necesidad y garantizan que los errores se detecten en tiempo de compilación.
+
+
+El fundamento de los genéricos se basa en la capacidad de parametrizar tipos. Esto significa que se puede definir una clase, interfaz o método que opere sobre tipos específicos que se especifican en el momento de la instanciación o invocación. Los genéricos utilizan el concepto de parámetros de tipo, que se representan mediante letras entre corchetes angulares (por ejemplo, `<T>`).
+
+=== Sintaxis de los Genéricos
+
+La sintaxis de los genéricos en Java incluye el uso de parámetros de tipo en la definición de clases, interfaces y métodos. A continuación se presenta un ejemplo básico de la sintaxis de los genéricos:
+
+[source,java]
+----
+public class ClaseGenerica<T> {
+    private T atributo;
+
+    public ClaseGenerica(T atributo) {
+        this.atributo = atributo;
+    }
+
+    public T getAtributo() {
+        return atributo;
+    }
+
+    public void setAtributo(T atributo) {
+        this.atributo = atributo;
+    }
+}
+----
+
+En este ejemplo, `T` es un parámetro de tipo que representa un tipo genérico. Al instanciar `ClaseGenerica`, se especifica el tipo real que `T` representará.
+
+Los genéricos funcionan permitiendo que las clases, interfaces y métodos operen sobre cualquier tipo de datos, especificado en el momento de la instanciación o invocación. El compilador verifica que solo los tipos correctos de datos se usen con la clase, interfaz o método genérico, proporcionando seguridad de tipos en tiempo de compilación.
+
+=== Ejemplo: La Clase `Caja`
+
+A continuación, vamos a explorar en detalle el ejemplo de la clase `Caja` para entender mejor el uso y la importancia de los genéricos en Java.
+
+[source,java]
+----
+public class Caja<T> {
+    private T contenido;
+
+    public void guardar(T item) {
+        contenido = item;
+    }
+
+    public T abrir() {
+        return contenido;
+    }
+}
+----
+
+En esta definición:
+
+- `Caja<T>` es una clase genérica que utiliza el parámetro de tipo `T`.
+- `T` puede representar cualquier tipo de datos, permitiendo que `Caja` sea utilizada para almacenar cualquier tipo de objeto.
+- El método `guardar` almacena un objeto de tipo `T` en la variable `contenido`.
+- El método `abrir` devuelve el objeto almacenado de tipo `T`.
+
+Ahora podemos hacer uso de la clase genérica Caja, en el siguiente implementación:
+
+[source,java]
+----
+public class Main {
+    public static void main(String[] args) {
+        // Crear una caja para almacenar cadenas
+        Caja<String> cajaDeCadenas = new Caja<>();
+        cajaDeCadenas.guardar("Hola Mundo");
+        System.out.println(cajaDeCadenas.abrir());
+
+        // Crear una caja para almacenar enteros
+        Caja<Integer> cajaDeEnteros = new Caja<>();
+        cajaDeEnteros.guardar(123);
+        System.out.println(cajaDeEnteros.abrir());
+    }
+}
+----
+
+En este código:
+
+- Se crea una instancia de `Caja` para almacenar cadenas (`Caja<String>`). 
+- El método `guardar` almacena la cadena "Hola Mundo" en la caja, y el método `abrir` la devuelve.
+- Se crea otra instancia de `Caja` para almacenar enteros (`Caja<Integer>`).
+- El método `guardar` almacena el entero `123` en la caja, y el método `abrir` lo devuelve.
+
+==== Explicación
+
+1. **Definición Genérica:** La clase `Caja` se define utilizando el parámetro de tipo `T`, lo que permite que `Caja` sea una clase genérica que puede almacenar cualquier tipo de datos.
+2. **Instanciación:** Al instanciar `Caja`, se especifica el tipo de datos real que `T` representará. En el ejemplo, `Caja<String>` y `Caja<Integer>` son instancias de `Caja` que almacenan cadenas y enteros, respectivamente.
+3. **Seguridad de Tipos:** El uso de genéricos garantiza que solo se almacenen y se devuelvan objetos del tipo especificado, eliminando la necesidad de conversiones de tipo y proporcionando seguridad de tipos en tiempo de compilación.
+4. **Reutilización:** La misma clase `Caja` se reutiliza para diferentes tipos de datos, demostrando la flexibilidad y reutilización del código que los genéricos permiten.
+
+
+== Polimorfismo Paramétrico
+
+El polimorfismo paramétrico es una característica avanzada en la Programación Orientada a Objetos (POO) que permite escribir código genérico y reutilizable mediante el uso de parámetros de tipo. Al utilizar genéricos, los desarrolladores pueden definir clases, interfaces y métodos que operan sobre tipos especificados por el usuario, mejorando la flexibilidad y la reutilización del código.
+
+El polimorfismo paramétrico permite que los algoritmos y las estructuras de datos sean independientes del tipo de datos con los que operan. En términos simples, permite que una función o un tipo de datos maneje valores de forma genérica sin importar su tipo específico.
+
+El polimorfismo paramétrico es muy importante porque:
+
+- **Reutilización de Código:** Permite escribir funciones y estructuras de datos que pueden reutilizarse para diferentes tipos de datos.
+- **Seguridad de Tipos:** Proporciona una forma de mantener la seguridad de tipos al tiempo que se permite la flexibilidad del tipo.
+- **Flexibilidad:** Facilita la creación de APIs y bibliotecas que pueden trabajar con una variedad de tipos de datos.
+
+Además la utilización del polimorfismo paramétrico, tiene sus ventajas, entre las que podemos mencionar:
+
+1. **Generalización:** Permite que las funciones y las estructuras de datos se generalicen para operar con cualquier tipo de datos.
+2. **Reutilización:** Facilita la reutilización del código para diferentes tipos de datos sin duplicación de código.
+3. **Mantenimiento:** Reduce la duplicación de código, lo que facilita el mantenimiento y la evolución del software.
+
+Pero también tiene algunas desventajas:
+
+1. **Complejidad:** Puede añadir complejidad al código y hacerlo más difícil de entender para los desarrolladores sin experiencia.
+2. **Errores en Tiempo de Compilación:** Aunque mejora la seguridad de tipos, puede generar errores complejos de resolver en tiempo de compilación.
+
+Para ilustrar el polimorfismo paramétrico, crearemos una clase genérica `Par` que puede manejar dos tipos diferentes. Esta clase almacenará un par de valores de tipos genéricos y proporcionará métodos para acceder y modificar estos valores.
+
+[source,java]
+----
+public class Par<K, V> {
+    private K clave;
+    private V valor;
+
+    public Par(K clave, V valor) {
+        this.clave = clave;
+        this.valor = valor;
+    }
+
+    public K getClave() {
+        return clave;
+    }
+
+    public void setClave(K clave) {
+        this.clave = clave;
+    }
+
+    public V getValor() {
+        return valor;
+    }
+
+    public void setValor(V valor) {
+        this.valor = valor;
+    }
+}
+----
+
+En esta definición:
+
+- `Par<K, V>` es una clase genérica que utiliza dos parámetros de tipo `K` y `V`.
+- `K` representa el tipo de la clave, y `V` representa el tipo del valor.
+- La clase proporciona un constructor para inicializar los valores de `clave` y `valor`, y métodos para acceder y modificar estos valores.
+
+=== Uso y explicación del ejemplo
+
+A continuación, veamos cómo utilizar la clase `Par` para manejar diferentes tipos de datos.
+
+[source,java]
+----
+public class Main {
+    public static void main(String[] args) {
+        // Crear un par de tipo <String, Integer>
+        Par<String, Integer> par1 = new Par<>("Edad", 30);
+        System.out.println("Clave: " + par1.getClave() + ", Valor: " + par1.getValor());
+
+        // Crear un par de tipo <Integer, String>
+        Par<Integer, String> par2 = new Par<>(1, "Uno");
+        System.out.println("Clave: " + par2.getClave() + ", Valor: " + par2.getValor());
+
+        // Crear un par de tipo <String, String>
+        Par<String, String> par3 = new Par<>("Nombre", "Juan");
+        System.out.println("Clave: " + par3.getClave() + ", Valor: " + par3.getValor());
+    }
+}
+----
+
+En este código:
+
+- Se crea una instancia de `Par` de tipo `<String, Integer>`, donde `K` es `String` y `V` es `Integer`. Se almacenan la clave "Edad" y el valor `30`.
+- Se crea otra instancia de `Par` de tipo `<Integer, String>`, donde `K` es `Integer` y `V` es `String`. Se almacenan la clave `1` y el valor "Uno".
+- Se crea una tercera instancia de `Par` de tipo `<String, String>`, donde tanto `K` como `V` son `String`. Se almacenan la clave "Nombre" y el valor "Juan".
+
+**Explicación Detallada**:
+
+1. **Definición Genérica:** La clase `Par` se define utilizando dos parámetros de tipo `K` y `V`, lo que permite que `Par` sea una clase genérica que puede manejar pares de cualquier tipo de datos.
+2. **Instanciación:** Al instanciar `Par`, se especifican los tipos de datos reales que `K` y `V` representarán. En el ejemplo, `Par<String, Integer>`, `Par<Integer, String>` y `Par<String, String>` son instancias de `Par` que manejan diferentes tipos de datos.
+3. **Seguridad de Tipos:** El uso de genéricos garantiza que solo se almacenen y se devuelvan objetos de los tipos especificados, eliminando la necesidad de conversiones de tipo y proporcionando seguridad de tipos en tiempo de compilación.
+4. **Reutilización:** La misma clase `Par` se reutiliza para diferentes combinaciones de tipos de datos, demostrando la flexibilidad y reutilización del código que los genéricos permiten.
+

@@ -1,0 +1,104 @@
+= Jerarquía de Clases de Excepciones y Tipos de Excepciones en Java
+
+== Jerarquía de Clases
+
+En Java, la jerarquía de clases de excepciones es un sistema bien estructurado que permite a los desarrolladores manejar errores de manera organizada y específica. Todas las excepciones derivan de la clase base `Throwable`, que tiene dos subclases principales: `Error` y `Exception`.
+
+image::exceptions_throwable.gif[]
+
+La clase `Throwable` es la clase raíz para todos los objetos que pueden ser "lanzados" (thrown) mediante la palabra clave `throw`. Esta clase tiene dos subclases directas: `Error` y `Exception`.
+
+=== `Error`
+
+La clase `Error` representa problemas graves que una aplicación normalmente no debería intentar manejar. Estos errores indican problemas que son generalmente externos al control del programa y no deberían ser capturados por las aplicaciones. Ejemplos comunes incluyen `OutOfMemoryError` y `StackOverflowError`.
+
+[source, java]
+----
+try {
+    // Código que puede causar un error crítico
+} catch (OutOfMemoryError e) {
+    System.out.println("Error: Memoria insuficiente.");
+}
+----
+
+=== `Exception`
+
+La clase `Exception` es la base para todas las excepciones que un programa debería manejar. Dentro de esta clase, existen dos subcategorías importantes: las excepciones chequeadas (`Checked Exceptions`) y las excepciones no chequeadas (`Unchecked Exceptions`).
+
+== Tipos de Excepciones
+
+En Java, las excepciones se dividen en diferentes tipos, cada una con su propósito y uso específico. Entender estos tipos es fundamental para manejar las excepciones de manera efectiva y escribir código de calidad. Los tipos de excepciones se pueden categorizar en:
+
+=== Excepciones Chequeadas (`Checked Exceptions`)
+
+Las excepciones chequeadas son aquellas que el compilador exige que sean manejadas explícitamente. Estas excepciones deben ser capturadas utilizando bloques `try-catch` o declaradas en la cláusula `throws` del método. El objetivo de las excepciones chequeadas es forzar al programador a manejar situaciones excepcionales que son previsibles y recuperables. Ejemplos comunes incluyen `IOException`, `SQLException`, y `ClassNotFoundException`.
+
+Ejemplo 1:
+[source, java]
+----
+try {
+    FileInputStream file = new FileInputStream("archivo.txt");
+} catch (IOException e) {
+    System.out.println("Error: Archivo no encontrado.");
+}
+----
+
+Ejemplo 2:
+[source, java]
+----
+public void readFile(String fileName) throws IOException {
+    FileInputStream file = new FileInputStream(fileName);
+    // Lectura del archivo
+}
+----
+
+=== Excepciones No Chequeadas (`Unchecked Exceptions`)
+
+Las excepciones no chequeadas son subclases de `RuntimeException` y no requieren ser manejadas o declaradas explícitamente. Estas excepciones generalmente resultan de errores de programación, como lógica incorrecta o suposiciones inválidas, y no necesariamente necesitan ser previstas por el programador. Ejemplos incluyen `NullPointerException`, `ArrayIndexOutOfBoundsException`, y `ArithmeticException`.
+
+Ejemplo 3:
+[source, java]
+----
+try {
+    int[] array = new int[5];
+    int value = array[10]; // Esto causará ArrayIndexOutOfBoundsException
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("Error: Índice fuera de límites.");
+}
+----
+
+Ejemplo 4:
+[source, java]
+----
+public void divide(int a, int b) {
+    if (b == 0) {
+        throw new ArithmeticException("División por cero.");
+    }
+    int result = a / b;
+}
+----
+
+=== Errores (Errors)
+
+Los errores son subclases de `Error` y representan problemas graves que una aplicación normalmente no debería intentar manejar. Estos problemas generalmente indican fallos en el entorno de ejecución, como `OutOfMemoryError` y `StackOverflowError`, y son externos al control del programa.
+
+[source, java]
+----
+try {
+    // Código que puede causar un error crítico
+} catch (OutOfMemoryError e) {
+    System.out.println("Error: Memoria insuficiente.");
+}
+----
+
+
+=== Excepciones Comunes
+
+A continuación, se mencionan algunas de las excepciones más conocidas y utilizadas en Java:
+
+* `NullPointerException`: Ocurre cuando una aplicación intenta utilizar `null` en un caso donde se requiere un objeto.
+* `IndexOutOfBoundsException`: Ocurre cuando un índice está fuera de rango.
+* `IllegalArgumentException`: Señala que un método ha sido invocado con un argumento inapropiado.
+* `ClassCastException`: Indica que se ha intentado convertir un objeto a una subclase de la que no es una instancia.
+* `NumberFormatException`: Ocurre cuando un método que convierte una cadena de texto en un número falla.
+

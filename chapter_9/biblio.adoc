@@ -1,0 +1,7 @@
+== Referencias del capítulo
+
+* Freeman, E., & Robson, E. (2020). _Head First Design Patterns: A Brain-Friendly Guide_ (2nd ed.). O'Reilly Media.
+* Gamma, E., Helm, R., Johnson, R., & Vlissides, J. (1994). _Design Patterns: Elements of Reusable Object-Oriented Software_. Addison-Wesley Professional.
+* Alexander, C., Ishikawa, S., & Silverstein, M. (1977). _A Pattern Language: Towns, Buildings, Construction_. Oxford University Press.
+* Refactoring Guru. (n.d.). _Patrones de Diseño en Java_. Retrieved from https://refactoring.guru/es/design-patterns/java
+

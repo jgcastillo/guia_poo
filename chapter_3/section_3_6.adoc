@@ -1,0 +1,458 @@
+= Parte Práctica Polimorfismo
+
+En esta sección, proporcionaremos dos ejemplos prácticos de genéricos y polimorfismo paramétrico en Java. El primer ejemplo será explicado en detalle, mientras que el segundo se presentará sin explicación para que el estudiante lo interprete. Al final, se propondrán varios ejercicios para que el alumno practique. Aunque al final están las soluciones, estas se muestran para que una vez realizados los ejercicios puedan verificar sus respuestas.
+
+== Ejemplo 1:
+
+Vamos a crear una clase genérica `ParCoordenadas` que almacenará un par de coordenadas de cualquier tipo. Esta clase permitirá almacenar y recuperar los valores de dos coordenadas genéricas, `X` e `Y`.
+
+[source,java]
+----
+public class ParCoordenadas<X, Y> {
+    private X coordenadaX;
+    private Y coordenadaY;
+
+    public ParCoordenadas(X coordenadaX, Y coordenadaY) {
+        this.coordenadaX = coordenadaX;
+        this.coordenadaY = coordenadaY;
+    }
+
+    public X getCoordenadaX() {
+        return coordenadaX;
+    }
+
+    public void setCoordenadaX(X coordenadaX) {
+        this.coordenadaX = coordenadaX;
+    }
+
+    public Y getCoordenadaY() {
+        return coordenadaY;
+    }
+
+    public void setCoordenadaY(Y coordenadaY) {
+        this.coordenadaY = coordenadaY;
+    }
+}
+----
+
+En esta definición:
+
+- `ParCoordenadas<X, Y>` es una clase genérica que utiliza dos parámetros de tipo `X` y `Y`.
+- La clase proporciona un constructor para inicializar los valores de `coordenadaX` y `coordenadaY`, y métodos para acceder y modificar estos valores.
+
+=== Uso de la Clase `ParCoordenadas`
+
+[source,java]
+----
+public class Main {
+    public static void main(String[] args) {
+        // Crear un par de coordenadas de tipo <Integer, Integer>
+        ParCoordenadas<Integer, Integer> coordenadasEnteras = new ParCoordenadas<>(10, 20);
+        System.out.println("Coordenada X: " + coordenadasEnteras.getCoordenadaX() + ", Coordenada Y: " + coordenadasEnteras.getCoordenadaY());
+
+        // Crear un par de coordenadas de tipo <Double, Double>
+        ParCoordenadas<Double, Double> coordenadasDobles = new ParCoordenadas<>(10.5, 20.5);
+        System.out.println("Coordenada X: " + coordenadasDobles.getCoordenadaX() + ", Coordenada Y: " + coordenadasDobles.getCoordenadaY());
+
+        // Crear un par de coordenadas de tipo <String, String>
+        ParCoordenadas<String, String> coordenadasTexto = new ParCoordenadas<>("X", "Y");
+        System.out.println("Coordenada X: " + coordenadasTexto.getCoordenadaX() + ", Coordenada Y: " + coordenadasTexto.getCoordenadaY());
+    }
+}
+----
+
+En este código:
+
+- Se crea una instancia de `ParCoordenadas` de tipo `<Integer, Integer>`, donde `X` e `Y` son de tipo `Integer`. Se almacenan las coordenadas `10` y `20`.
+- Se crea otra instancia de `ParCoordenadas` de tipo `<Double, Double>`, donde `X` e `Y` son de tipo `Double`. Se almacenan las coordenadas `10.5` y `20.5`.
+- Se crea una tercera instancia de `ParCoordenadas` de tipo `<String, String>`, donde `X` e `Y` son de tipo `String`. Se almacenan las coordenadas `"X"` y `"Y"`.
+
+=== Explicación en Detalle:
+
+1. **Definición Genérica:** La clase `ParCoordenadas` se define utilizando dos parámetros de tipo `X` y `Y`, lo que permite que `ParCoordenadas` sea una clase genérica que puede manejar pares de cualquier tipo de datos.
+2. **Instanciación:** Al instanciar `ParCoordenadas`, se especifican los tipos de datos reales que `X` y `Y` representarán. En el ejemplo, `ParCoordenadas<Integer, Integer>`, `ParCoordenadas<Double, Double>` y `ParCoordenadas<String, String>` son instancias de `ParCoordenadas` que manejan diferentes tipos de datos.
+3. **Seguridad de Tipos:** El uso de genéricos garantiza que solo se almacenen y se devuelvan objetos de los tipos especificados, eliminando la necesidad de conversiones de tipo y proporcionando seguridad de tipos en tiempo de compilación.
+4. **Reutilización:** La misma clase `ParCoordenadas` se reutiliza para diferentes combinaciones de tipos de datos, demostrando la flexibilidad y reutilización del código que los genéricos permiten.
+
+
+== Ejemplo 2
+
+[source,java]
+----
+public class ParGenerico<T, U> {
+    private T primero;
+    private U segundo;
+
+    public ParGenerico(T primero, U segundo) {
+        this.primero = primero;
+        this.segundo = segundo;
+    }
+
+    public T getPrimero() {
+        return primero;
+    }
+
+    public void setPrimero(T primero) {
+        this.primero = primero;
+    }
+
+    public U getSegundo() {
+        return segundo;
+    }
+
+    public void setSegundo(U segundo) {
+        this.segundo = segundo;
+    }
+
+    public void imprimirPar() {
+        System.out.println("Primero: " + primero + ", Segundo: " + segundo);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ParGenerico<String, Double> par1 = new ParGenerico<>("Peso", 70.5);
+        par1.imprimirPar();
+
+        ParGenerico<Integer, Boolean> par2 = new ParGenerico<>(123, true);
+        par2.imprimirPar();
+
+        ParGenerico<Character, String> par3 = new ParGenerico<>('A', "Letra A");
+        par3.imprimirPar();
+    }
+}
+----
+
+== Ejercicios
+
+A continuación, se presentan varios ejercicios para que el estudiante practique los diferentes tipos de polimorfismo estudiados en el capítulo.
+
+=== Ejercicio 1:
+
+Cree una jerarquía de clases que incluya una superclase `Figura` y subclases `Circulo` y `Rectangulo`. Defina un método `dibujar` en la superclase que sea sobrescrito por las subclases. Use polimorfismo de tipo para crear una lista de `Figura` que contenga objetos de tipo `Circulo` y `Rectangulo`.
+
+=== Ejercicio 2:
+
+Cree una clase `Calculadora` con métodos sobrecargados `sumar` que acepten diferentes números y tipos de parámetros (por ejemplo, dos enteros, tres enteros, dos dobles).
+
+=== Ejercicio 3:
+
+Cree una superclase `Empleado` con un método `calcularSalario`. Cree subclases `EmpleadoTiempoCompleto` y `EmpleadoMedioTiempo` que sobrescriban el método `calcularSalario` para proporcionar implementaciones específicas.
+
+=== Ejercicio 4:
+
+Cree una clase genérica `Pareja` que almacene un par de valores de tipos genéricos. Proporcione métodos para acceder y modificar cada valor.
+
+=== Ejercicio 5:
+
+Cree una jerarquía de clases con una superclase `Animal` y subclases `Perro` y `Gato`. Sobrescriba el método `hacerSonido` en las subclases y use polimorfismo de tipo para invocar el método `hacerSonido` en una lista de `Animal`.
+
+=== Ejercicio 6:
+
+Cree una clase `Vehiculo` con un método `mover` y sobrescríbalo en subclases `Carro` y `Bicicleta`. Además, sobrecargue el método `mover` en cada subclase para aceptar diferentes parámetros.
+
+=== Ejercicio 7: 
+
+Cree una clase genérica `Triple` que almacene tres valores de tipos genéricos. Proporcione métodos para acceder y modificar cada valor. Use la clase `Triple` en un contexto de polimorfismo paramétrico.
+
+== Soluciones
+
+=== Solución Ejercicio 1
+
+[source,java]
+----
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Figura {
+    public abstract void dibujar();
+}
+
+public class Circulo extends Figura {
+    @Override
+    public void dibujar() {
+        System.out.println("Dibujando un círculo");
+    }
+}
+
+public class Rectangulo extends Figura {
+    @Override
+    public void dibujar() {
+        System.out.println("Dibujando un rectángulo");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Figura> figuras = new ArrayList<>();
+        figuras.add(new Circulo());
+        figuras.add(new Rectangulo());
+
+        for (Figura figura : figuras) {
+            figura.dibujar();
+        }
+    }
+}
+----
+
+=== Solución Ejercicio 2
+
+[source,java]
+----
+public class Calculadora {
+    public int sumar(int a, int b) {
+        return a + b;
+    }
+
+    public int sumar(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    public double sumar(double a, double b) {
+        return a + b;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Calculadora calc = new Calculadora();
+        System.out.println(calc.sumar(1, 2));         // Output: 3
+        System.out.println(calc.sumar(1, 2, 3));      // Output: 6
+        System.out.println(calc.sumar(1.5, 2.5));     // Output: 4.0
+    }
+}
+----
+
+=== Solución Ejercicio 3
+
+[source,java]
+----
+public class Empleado {
+    protected String nombre;
+    protected double salarioBase;
+
+    public Empleado(String nombre, double salarioBase) {
+        this.nombre = nombre;
+        this.salarioBase = salarioBase;
+    }
+
+    public double calcularSalario() {
+        return salarioBase;
+    }
+}
+
+public class EmpleadoTiempoCompleto extends Empleado {
+    public EmpleadoTiempoCompleto(String nombre, double salarioBase) {
+        super(nombre, salarioBase);
+    }
+
+    @Override
+    public double calcularSalario() {
+        return salarioBase;
+    }
+}
+
+public class EmpleadoMedioTiempo extends Empleado {
+    private int horasTrabajadas;
+    private double tarifaPorHora;
+
+    public EmpleadoMedioTiempo(String nombre, double salarioBase, int horasTrabajadas, double tarifaPorHora) {
+        super(nombre, salarioBase);
+        this.horasTrabajadas = horasTrabajadas;
+        this.tarifaPorHora = tarifaPorHora;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return horasTrabajadas * tarifaPorHora;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Empleado emp1 = new EmpleadoTiempoCompleto("Juan", 3000);
+        Empleado emp2 = new EmpleadoMedioTiempo("Ana", 0, 20, 15);
+
+        System.out.println("Salario de Juan: " + emp1.calcularSalario());
+        System.out.println("Salario de Ana: " + emp2.calcularSalario());
+    }
+}
+----
+
+=== Solución Ejercicio 4
+
+[source,java]
+----
+public class Pareja<T, U> {
+    private T primero;
+    private U segundo;
+
+    public Pareja(T primero, U segundo) {
+        this.primero = primero;
+        this.segundo = segundo;
+    }
+
+    public T getPrimero() {
+        return primero;
+    }
+
+    public void setPrimero(T primero) {
+        this.primero = primero;
+    }
+
+    public U getSegundo() {
+        return segundo;
+    }
+
+    public void setSegundo(U segundo) {
+        this.segundo = segundo;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Pareja<String, Integer> pareja = new Pareja<>("Edad", 30);
+        System.out.println("Primero: " + pareja.getPrimero() + ", Segundo: " + pareja.getSegundo());
+
+        pareja.setPrimero("Nuevo Edad");
+        pareja.setSegundo(31);
+        System.out.println("Primero: " + pareja.getPrimero() + ", Segundo: " + pareja.getSegundo());
+    }
+}
+----
+
+=== Solución Ejercicio 5
+
+[source,java]
+----
+public class Animal {
+    public void hacerSonido() {
+        System.out.println("El animal hace un sonido");
+    }
+}
+
+public class Perro extends Animal {
+    @Override
+    public void hacerSonido() {
+        System.out.println("El perro ladra");
+    }
+}
+
+public class Gato extends Animal {
+    @Override
+    public void hacerSonido() {
+        System.out.println("El gato maúlla");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Animal> animales = new ArrayList<>();
+        animales.add(new Perro());
+        animales.add(new Gato());
+
+        for (Animal animal : animales) {
+            animal.hacerSonido();
+        }
+    }
+}
+----
+
+=== Solución Ejercicio 6
+
+[source,java]
+----
+public class Vehiculo {
+    public void mover() {
+        System.out.println("El vehículo se está moviendo");
+    }
+}
+
+public class Carro extends Vehiculo {
+    @Override
+    public void mover() {
+        System.out.println("El carro se está moviendo");
+    }
+
+    public void mover(int velocidad) {
+        System.out.println("El carro se está moviendo a " + velocidad + " km/h");
+    }
+}
+
+public class Bicicleta extends Vehiculo {
+    @Override
+    public void mover() {
+        System.out.println("La bicicleta se está moviendo");
+    }
+
+    public void mover(String terreno) {
+        System.out.println("La bicicleta se está moviendo en " + terreno);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Vehiculo miCoche = new Coche();
+        Vehiculo miBicicleta = new Bicicleta();
+
+        miCoche.mover();
+        ((Coche) miCoche).mover(60);
+
+        miBicicleta.mover();
+        ((Bicicleta) miBicicleta).mover("montaña");
+    }
+}
+----
+
+=== Solución Ejercicio 7
+
+[source,java]
+----
+public class Triple<A, B, C> {
+    private A primero;
+    private B segundo;
+    private C tercero;
+
+    public Triple(A primero, B segundo, C tercero) {
+        this.primero = primero;
+        this.segundo = segundo;
+        this.tercero = tercero;
+    }
+
+    public A getPrimero() {
+        return primero;
+    }
+
+    public void setPrimero(A primero) {
+        this.primero = primero;
+    }
+
+    public B getSegundo() {
+        return segundo;
+    }
+
+    public void setSegundo(B segundo) {
+        this.segundo = segundo;
+    }
+
+    public C getTercero() {
+        return tercero;
+    }
+
+    public void setTercero(C tercero) {
+        this.tercero = tercero;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Triple<String, Integer, Boolean> triple = new Triple<>("Edad", 30, true);
+        System.out.println("Primero: " + triple.getPrimero() + ", Segundo: " + triple.getSegundo() + ", Tercero: " + triple.getTercero());
+
+        triple.setPrimero("Nuevo Edad");
+        triple.setSegundo(31);
+        triple.setTercero(false);
+        System.out.println("Primero: " + triple.getPrimero() + ", Segundo: " + triple.getSegundo() + ", Tercero: " + triple.getTercero());
+    }
+}
+----

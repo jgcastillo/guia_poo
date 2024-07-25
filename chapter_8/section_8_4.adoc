@@ -1,0 +1,82 @@
+= Principio Abierto-Cerrado (OCP)
+
+El Principio Abierto-Cerrado (OCP) es uno de los cinco principios fundamentales de diseño SOLID. Este principio establece que las entidades de software (clases, módulos, funciones, etc.) deben estar abiertas para su extensión, pero cerradas para su modificación. En otras palabras, se debe poder añadir nueva funcionalidad a una clase sin cambiar su código existente.
+
+El OCP existe para mejorar la estabilidad y flexibilidad del software. Cuando se siguen sus directrices, el software puede adaptarse a nuevos requisitos sin alterar el código existente, minimizando así el riesgo de introducir errores. Al mantener las clases cerradas para modificación pero abiertas para extensión, se promueve un diseño que permite la evolución del sistema sin comprometer su integridad.
+
+Aplicar el OCP implica diseñar el sistema de tal manera que nuevas funcionalidades puedan ser añadidas mediante la extensión de clases existentes en lugar de modificar su código. Esto generalmente se logra a través del uso de interfaces, clases abstractas y la herencia. La clave es permitir que el comportamiento de una clase pueda ser extendido sin tocar su implementación actual.
+
+== Ejemplo de Uso
+
+A continuación se presenta un ejemplo donde no se aplica el OCP. En este ejemplo, una clase `PaymentProcessor` maneja diferentes tipos de pagos (tarjeta de crédito y PayPal) y debe ser modificada cada vez que se añade un nuevo tipo de pago.
+
+[source, java]
+----
+public class PaymentProcessor {
+    public void processPayment(String type) {
+        if (type.equals("creditcard")) {
+            System.out.println("Processing credit card payment");
+        } else if (type.equals("paypal")) {
+            System.out.println("Processing PayPal payment");
+        }
+    }
+
+    public static void main(String[] args) {
+        PaymentProcessor processor = new PaymentProcessor();
+        processor.processPayment("creditcard");
+        processor.processPayment("paypal");
+    }
+}
+----
+
+Como se observa, la clase `PaymentProcessor` debe ser modificada cada vez que se añade un nuevo tipo de pago, lo cual viola el OCP.
+
+
+Ahora, refactorizaremos el ejemplo anterior para que sea extensible sin necesidad de modificar la clase `PaymentProcessor`.
+
+[source, java]
+----
+interface PaymentMethod {
+    void processPayment();
+}
+
+class CreditCardPayment implements PaymentMethod {
+    @Override
+    public void processPayment() {
+        System.out.println("Processing credit card payment");
+    }
+}
+
+class PayPalPayment implements PaymentMethod {
+    @Override
+    public void processPayment() {
+        System.out.println("Processing PayPal payment");
+    }
+}
+
+class PaymentProcessor {
+    public void processPayment(PaymentMethod paymentMethod) {
+        paymentMethod.processPayment();
+    }
+
+    public static void main(String[] args) {
+        PaymentProcessor processor = new PaymentProcessor();
+        PaymentMethod creditCard = new CreditCardPayment();
+        PaymentMethod paypal = new PayPalPayment();
+
+        processor.processPayment(creditCard);
+        processor.processPayment(paypal);
+    }
+}
+----
+
+En esta refactorización, hemos separado los tipos de pago en clases individuales que implementan la interfaz `PaymentMethod`. La clase `PaymentProcessor` ahora utiliza la interfaz para procesar los pagos, lo cual permite añadir nuevos tipos de pago sin modificar su código. Además observa el comportamiento polimorfico de los objetos `creditCard` y `paypal` en el métod `main()` de la clase `PaymentProcessor`.
+
+La refactorización según el OCP, aunque implica la creación de más clases, trae consigo múltiples ventajas en términos de manejo, eficiencia, mantenimiento y ampliación:
+
+- **Manejo**: Cada tipo de pago se maneja de manera independiente a través de clases específicas, lo que facilita la comprensión y administración del código.
+- **Eficiencia**: La lógica de procesamiento de pagos está encapsulada en clases concretas, lo que permite a `PaymentProcessor` delegar el procesamiento sin preocuparse por los detalles de implementación.
+- **Mantenimiento**: Añadir un nuevo tipo de pago no requiere cambios en la clase `PaymentProcessor`, reduciendo el riesgo de errores y facilitando el mantenimiento.
+- **Ampliación**: Nuevas funcionalidades pueden ser añadidas simplemente creando nuevas clases que implementen `PaymentMethod`, lo que mejora la escalabilidad del sistema.
+
+

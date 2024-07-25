@@ -1,0 +1,326 @@
+= Diagrama de Casos de Uso en UML
+
+El diagrama de casos de uso es uno de los diagramas de comportamiento más utilizados en UML. Un diagrama de casos de uso proporciona una representación visual de las interacciones entre los actores externos y el sistema, destacando los diferentes casos de uso o funcionalidades que el sistema proporciona.
+
+image::use_case_7_demo.png[]
+
+== Artefactos
+
+En UML, los artefactos principales en un diagrama de casos de uso son:
+
+- **Actores**: Representan entidades externas que interactúan con el sistema. Pueden ser usuarios, otros sistemas o dispositivos.
+- **Casos de Uso**: Representan las funcionalidades o servicios que el sistema ofrece a los actores.
+- **Sistema**: Representa el límite del sistema, dentro del cual se encuentran los casos de uso.
+
+=== Definiciones
+
+- **Actor**: Un actor es una entidad externa que interactúa con el sistema. Los actores pueden ser humanos, sistemas externos o dispositivos que utilizan los servicios proporcionados por el sistema.
+- **Caso de Uso**: Un caso de uso describe una secuencia de acciones que proporciona un resultado observable de valor para un actor específico. Representa una funcionalidad completa que el sistema ofrece.
+- **Sistema**: El sistema se representa como un rectángulo que contiene todos los casos de uso. Define el alcance del sistema y muestra qué casos de uso están incluidos en él.
+
+=== Usos e Importancia
+
+Los diagramas de casos de uso son fundamentales para:
+
+- **Capturan Requisitos Funcionales**: Permiten capturar y definir los requisitos funcionales del sistema desde la perspectiva de los usuarios finales y otros actores.
+- **Comunicación**: Facilitan la comunicación entre los desarrolladores y los _stakeholders_ (promotores o dueños del proyecto), asegurando que todos tengan una comprensión común de las funcionalidades del sistema.
+- **Planificación**: Ayudan en la planificación y el diseño del sistema, proporcionando una visión clara de qué funcionalidades se deben implementar y cómo interactúan con los actores.
+
+=== Tipos de Relaciones en Casos de Uso
+
+Existen varios tipos de relaciones en los diagramas de casos de uso:
+
+- **Inclusión**: Una relación de inclusión indica que un caso de uso incluye el comportamiento de otro caso de uso. Se utiliza para reutilizar comportamientos comunes.
+- **Extensión**: Una relación de extensión indica que un caso de uso puede extender el comportamiento de otro caso de uso bajo ciertas condiciones. Se utiliza para manejar variantes o excepciones.
+- **Generalización**: Una relación de generalización indica que un caso de uso general puede ser especializado en uno o más casos de uso específicos. Se utiliza para organizar los casos de uso en una jerarquía.
+
+==== Inclusión
+
+La relación de inclusión se denota con una línea discontinua y una flecha con la etiqueta `\<<include>>`.
+
+image::use_case_2.png[]
+
+==== Extensión
+
+La relación de extensión se denota con una línea discontinua y una flecha con la etiqueta `\<<extend>>`.
+
+image::use_case_6_extends.png[]
+
+==== Generalización
+
+La relación de generalización se denota con una línea continua y una flecha con un triángulo vacío.
+
+image::use_case_3.png[]
+
+=== Ejemplos de Diagramas de Casos de Uso
+
+==== Caso de Uso de Sistema de Biblioteca
+
+image::use_case_4.png[]
+
+En este ejemplo, los actores `Usuario` y `Bibliotecario` interactúan con el sistema de biblioteca. El usuario puede buscar y reservar libros, mientras que el bibliotecario puede registrar préstamos y devoluciones. La relación `\<<include>>` indica que el caso de uso "Reservar Libro" incluye el comportamiento del caso de uso "Buscar Libro".
+
+==== Caso de Uso de Sistema de Ventas
+
+image::use_case_5.png[]
+
+En este ejemplo, los actores `Cliente` y `Cajero` interactúan con el sistema de ventas. El cliente puede comprar y consultar productos, mientras que el cajero puede procesar ventas y anular ventas. La relación `\<<include>>` indica que el caso de uso "Comprar Producto" incluye el comportamiento del caso de uso "Consultar Producto". La relación `\<<extend>>` indica que el caso de uso "Anular Venta" extiende el comportamiento del caso de uso "Procesar Venta" bajo ciertas condiciones.
+
+== Ejemplo 1
+
+Basándonos en el ejemplo del Sistema de Biblioteca, vamos a ver cómo se procede desde la definición de los casos de uso hasta la codificación en Java. Así se podrá ver con mayor claridad el poder de esta herramienta.
+
+=== Definición de los Casos de Uso
+
+Identificados los casos de uso, tenemos:
+
+- **Buscar Libro**: Permite a los usuarios buscar libros en la biblioteca.
+- **Reservar Libro**: Permite a los usuarios reservar libros.
+- **Registrar Préstamo**: Permite a los bibliotecarios registrar el préstamo de libros.
+- **Registrar Devolución**: Permite a los bibliotecarios registrar la devolución de libros.
+
+El diagrama de casos de uso lo vamos a repetir aquí, para que lo tengas presente
+
+image::use_case_4.png[]
+
+En el diagrama, los actores `Usuario` y `Bibliotecario` interactúan con el sistema de biblioteca. Los usuarios pueden buscar y reservar libros, mientras que los bibliotecarios pueden registrar préstamos y devoluciones. La relación `\<<include>>` entre "Reservar Libro" y "Buscar Libro" indica que el proceso de reserva de libros incluye la búsqueda de libros.
+
+=== Diagrama de Secuencia para "Reservar Libro"
+
+image::complete_secuencia_1.png[]
+
+Detallando el diagramos tenemos que:
+
+1. **Inicio de la Reserva**:
+
+* El `Usuario` inicia la interacción enviando el mensaje `reservarLibro()` al `Sistema`.
+* Esto indica que el usuario desea reservar un libro.
+
+2. **Búsqueda del Libro**:
+
+* El `Sistema` envía el mensaje `buscarLibro()` al `Libro`.
+* Aquí, el sistema busca el libro en la base de datos o el catálogo.
+
+3. **Devolución del Libro**:
+
+* El `Libro` devuelve la información del libro al `Sistema` con el mensaje `devolverLibro()`.
+
+4. **Confirmación de la Reserva**:
+
+* El Sistema envía el mensaje `confirmarReserva()` al `Usuario`.
+* Esto confirma que el libro ha sido reservado exitosamente.
+
+=== Codificación en Java
+
+A continuación, implementamos los casos de uso definidos anteriormente en código Java.
+
+[source,java]
+----
+public class SistemaBiblioteca {
+    public static void main(String[] args) {
+        Usuario usuario = new Usuario();
+        usuario.reservarLibro("El Quijote");
+    }
+}
+
+class Usuario {
+    public void reservarLibro(String titulo) {
+        Sistema sistema = new Sistema();
+        sistema.reservarLibro(titulo);
+    }
+}
+
+class Sistema {
+    public void reservarLibro(String titulo) {
+        Libro libro = buscarLibro(titulo);
+        if (libro != null && libro.reservar()) {
+            System.out.println("Reserva del libro '" + titulo + "' confirmada.");
+        } else {
+            System.out.println("No se pudo reservar el libro '" + titulo + "'.");
+    }
+}
+
+class Libro {
+    private String titulo;
+    private boolean reservado;
+
+    public Libro(String titulo) {
+        this.titulo = titulo;
+        this.reservado = false;
+    }
+
+    public boolean reservar() {
+        if (!reservado) {
+            reservado = true;
+            return true;
+        }
+        return false;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public boolean isReservado() {
+        return reservado;
+    }
+}
+----
+
+=== Explicación del Código
+
+1. **Clase `SistemaBiblioteca`**:
+
+* Contiene el método `main` que inicia el sistema y permite a un usuario reservar un libro.
+
+2. **Clase `Usuario`**:
+
+* Representa al usuario del sistema. Tiene un método `reservarLibro` que interactúa con el sistema para reservar un libro.
+
+3. **Clase `Sistema`**:
+
+* Representa el sistema de biblioteca. Tiene métodos para reservar un libro y buscar un libro. El método `reservarLibro` busca el libro y, si está disponible, lo reserva.
+
+4. Clase Libro:
+
+* Representa un libro en la biblioteca. Tiene atributos para el título y el estado de reserva del libro. El método `reservar`` marca el libro como reservado si no está ya reservado.
+
+== EJemplo 2
+
+En este caso veremos un sencillo caso de un sistema de gestión de pedidos como ejemplo para mostrar cómo se modelan los casos de uso, se representan en diagramas UML y finalmente se codifican en Java.
+
+=== Definición de los Casos de Uso
+
+Para este ejemplo, definiremos los siguientes casos de uso para un sistema de gestión de pedidos:
+
+- **Crear Pedido**: Permite a los usuarios crear un nuevo pedido.
+- **Actualizar Pedido**: Permite a los usuarios actualizar un pedido existente.
+- **Eliminar Pedido**: Permite a los usuarios eliminar un pedido.
+- **Ver Pedido**: Permite a los usuarios ver los detalles de un pedido.
+
+=== Diagrama de Casos de Uso
+
+image::ejemplo_2_1.png[]
+
+En el diagrama, el actor `Usuario` interactúa con el "Sistema de Gestión de Pedidos". Los usuarios pueden crear, actualizar, eliminar y ver pedidos. Cada uno de estos casos de uso representa una funcionalidad que el sistema proporciona al usuario.
+
+=== Diagrama de Secuencia para "Crear Pedido"
+
+image::ejemplo_2_2.png[]
+
+Analicemos lo que se hace aqui:
+
+1. **Inicio de la Creación del Pedido**:
+
+* El `Usuario` inicia la interacción enviando el mensaje `crearPedido()` al Sistema.
+* Esto indica que el usuario desea crear un nuevo pedido.
+
+2. *Validación de Datos*:
+
+* El `Sistema` envía el mensaje `validarDatos()` al `Pedido`.
+* Aquí, el sistema valida los datos del pedido antes de guardarlo.
+
+3. **Guardado del Pedido**:
+
+* El `Pedido` ejecuta su propio método `guardar()`.
+* Este mensaje se muestra como una llamada interna dentro del objeto `Pedido``, indicando que los datos del pedido se están guardando.
+
+4. **Confirmación de la Creación del Pedido**:
+
+* El `Sistema` envía el mensaje `confirmarCreación()` al `Usuario`.
+* Esto confirma que el pedido ha sido creado exitosamente.
+
+Ahora que ya sabemos lo que queremos que el sistema haga, procedemos a codificar en Java:
+
+[source,java]
+----
+public class SistemaGestionPedidos {
+    public static void main(String[] args) {
+        Usuario usuario = new Usuario();
+        usuario.crearPedido("Pedido123");
+    }
+}
+
+class Usuario {
+    public void crearPedido(String id) {
+        Sistema sistema = new Sistema();
+        sistema.crearPedido(id);
+    }
+}
+
+class Sistema {
+    public void crearPedido(String id) {
+        Pedido pedido = new Pedido(id);
+        if (pedido.validarDatos()) {
+            pedido.guardar();
+            System.out.println("Pedido '" + id + "' creado con éxito.");
+        } else {
+            System.out.println("Error al crear el pedido '" + id + "'.");
+        }
+    }
+}
+
+class Pedido {
+    private String id;
+    private boolean datosValidos;
+
+    public Pedido(String id) {
+        this.id = id;
+    }
+
+    public boolean validarDatos() {
+        // Simulación de validación de datos
+        this.datosValidos = !id.isEmpty();
+        return datosValidos;
+    }
+
+
+    public void guardar() {
+        if (datosValidos) {
+            // Simulación de guardado de pedido
+            System.out.println("Pedido '" + id + "' guardado.");
+        }
+}
+----
+
+A continuación se indica lo que hace el código:
+
+1. **Clase `SistemaGestionPedidos`**:
+
+* Contiene el método `main` que inicia el sistema y permite a un usuario crear un pedido.
+
+2. **Clase `Usuario`**:
+
+* Representa al usuario del sistema. Tiene un método `crearPedido` que interactúa con el sistema para crear un pedido.
+
+3. **Clase Sistema**:
+
+* Representa el sistema de gestión de pedidos. Tiene métodos para crear un pedido. El método `crearPedido` crea un nuevo pedido, valida los datos y, si son correctos, guarda el pedido.
+
+4. **Clase `Pedido`**:
+
+* Representa un pedido en el sistema. Tiene atributos para el `ID` del pedido y el estado de validación de los datos. Los métodos `validarDatos` y `guardar` manejan la validación y el almacenamiento del pedido, respectivamente.
+
+Como has notado los diagramas UML usados en el ejemplo nos dan una visión muy clara de lo que queremos realizar, permitiendo hacer la "arquitectura" del sistema antes de comenzar a escribir código y detectar todas las alternativas a que no vamos a enfrentar.
+
+== Pasos para pasar de Diagramas a código Java:
+1. Definición de Casos de Uso:
+
+* Identificar las funcionalidades principales del sistema y representarlas como casos de uso en el diagrama de casos de uso.
+
+2. Diagrama de Secuencia:
+
+* Para cada caso de uso, crear un diagrama de secuencia que muestre la interacción entre el usuario, el sistema y otros objetos relevantes.
+
+3. Identificación de Clases y Métodos:
+
+* Basado en los diagramas de secuencia, identificar las clases y métodos necesarios para implementar los casos de uso.
+
+4. Codificación:
+
+* Implementar las clases y métodos en Java, asegurándose de seguir las interacciones y flujos definidos en los diagramas.
+
+5. Validación y Prueba:
+
+* Probar la implementación para asegurarse de que los casos de uso se cumplen correctamente y que el sistema funciona como se espera.
+

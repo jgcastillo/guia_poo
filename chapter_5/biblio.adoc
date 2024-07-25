@@ -1,0 +1,7 @@
+== Referencias del capítulo
+* Booch, G., Rumbaugh, J., & Jacobson, I. (2005). The Unified Modeling Language User Guide (2nd ed.). Addison-Wesley Professional.
+* Fowler, M. (2004). UML Distilled: A Brief Guide to the Standard Object Modeling Language (3rd ed.). Addison-Wesley Professional.
+* Object Management Group (OMG). (2022). Unified Modeling Language (UML) Specification. Recuperado de https://www.omg.org/spec/UML/
+* UML Resources. Recuperado de https://www.uml.org/resource-hub.htm
+* Diagramas UML. (2022). Diagrama de Clases. Recuperado de https://diagramasuml.com/
+* IONOS. (2022). UML: Lenguaje Unificado de Modelado Orientado a Objetos. Recuperado de https://www.ionos.com/es-us/digitalguide/paginas-web/desarrollo-web/uml-lenguaje-unificado-de-modelado-orientado-a-objetos/

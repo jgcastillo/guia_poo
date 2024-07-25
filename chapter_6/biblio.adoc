@@ -1,0 +1,10 @@
+== Referencias del capítulo
+
+- Bloch, J. (2008). _Effective Java_ (2nd ed.). Addison-Wesley.
+- Sommerville, I. (2011). _Software Engineering_ (9th ed.). Addison-Wesley.
+- Deitel, P., & Deitel, H. (2014). _Cómo programar en Java_ (9na ed.). Pearson.
+- GeeksforGeeks. (n.d.). _Exceptions in Java_. Retrieved from https://www.geeksforgeeks.org/exceptions-in-java/
+- Oracle. (n.d.). _The Java™ Tutorials: Essential Classes: Exceptions_. Retrieved from https://docs.oracle.com/javase/tutorial/essential/exceptions/index.html
+- Javatpoint. (n.d.). _Exception Handling in Java_. Retrieved from https://www.javatpoint.com/exception-handling-in-java
+- Shakeel, H. (n.d.). _Exception Handling in Object Oriented Programming_. Medium. Retrieved from https://medium.com/@hanzalashakeel16/exception-handling-in-object-oriented-programming-612625dd0296
+

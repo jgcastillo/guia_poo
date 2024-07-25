@@ -1,0 +1,404 @@
+= Mónadas y la POO
+
+Para poder entener el concepto y uso de mónadas en la POO, debemos primero entender qué es y como funciona la programación funcional.
+
+== Teoría de la Programación Funcional en Java
+
+La programación funcional es un paradigma de programación que trata la computación como la evaluación de funciones matemáticas y evita cambiar el estado y los datos mutables. Este paradigma se basa en el uso de funciones puras, la composición de funciones y la inmutabilidad. En Java, la programación funcional se introdujo de manera más formal con Java 8, que incluye características como expresiones lambda, la API de Streams y la clase `Optional`.
+
+=== Funciones Puras
+
+Las funciones puras son funciones que, para un conjunto de entradas dadas, siempre devuelven el mismo resultado y no tienen efectos secundarios observables. Es decir, no dependen ni alteran el estado externo. Las funciones puras son deterministas y facilitan la prueba, el mantenimiento y la razonabilidad del código.
+
+Un ejemplo de una función pura en Java es:
+
+[source,java]
+----
+public class FuncionesPuras {
+    public static int sumar(int a, int b) {
+        return a + b;
+    }
+}
+----
+
+En este ejemplo, la función `sumar` es pura porque siempre devuelve la suma de `a` y `b` sin alterar ningún estado externo ni depender de él.
+
+=== Funciones de Alto Nivel
+
+Las funciones de alto nivel, también conocidas como funciones de orden superior, son funciones que toman otras funciones como argumentos, devuelven funciones como resultado, o ambas cosas. Este concepto es fundamental en la programación funcional y permite construir abstracciones más potentes y flexibles.
+
+Un ejemplo de una función de alto nivel en Java es:
+
+[source,java]
+----
+import java.util.function.Function;
+
+public class FuncionesAltoNivel {
+    public static void main(String[] args) {
+        Function<Integer, Integer> sumarUno = x -> x + 1;  // uso de una lambda
+        Function<Integer, Integer> duplicar = x -> x * 2;  // uso de una lambda
+
+        Function<Integer, Integer> sumarUnoYDuplicar = sumarUno.andThen(duplicar);
+
+        int resultado = sumarUnoYDuplicar.apply(3); // Resultado: 8
+        System.out.println("Resultado: " + resultado);
+    }
+}
+----
+
+En este ejemplo, `andThen` es una función de alto nivel que compone dos funciones, aplicando primero `sumarUno` y luego `duplicar`.
+
+=== Inmutabilidad
+
+La inmutabilidad es un principio clave en la programación funcional que implica que una vez que se crea un objeto, su estado no puede cambiar. Los objetos inmutables son intrínsecamente seguros para subprocesos y facilitan el razonamiento sobre el código porque no pueden ser modificados después de su creación.
+
+Un ejemplo de inmutabilidad en Java es:
+
+[source,java]
+----
+public final class Punto {
+    private final int x;
+    private final int y;
+
+    public Punto(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public Punto mover(int dx, int dy) {
+        return new Punto(x + dx, y + dy);
+    }
+}
+----
+
+En este ejemplo, la clase `Punto` es inmutable porque sus campos `x` y `y` son finales y solo se establecen una vez a través del constructor. El método `mover` devuelve un nuevo `Punto` en lugar de modificar el existente.
+
+=== Lambdas
+
+Las expresiones lambda en Java proporcionan una manera concisa de representar una instancia de una interfaz funcional (una interfaz con un solo método abstracto). Las lambdas permiten escribir métodos y pasarlos como argumentos de una manera limpia y legible.
+
+[source,java]
+----
+import java.util.Arrays;
+import java.util.List;
+
+public class LambdaExample {
+    public static void main(String[] args) {
+        List<String> nombres = Arrays.asList("Ana", "Luis", "Carlos", "Marta");
+
+        // Uso de expresión lambda para imprimir cada nombre
+        nombres.forEach(nombre -> System.out.println(nombre));
+    }
+}
+----
+
+En este ejemplo, la expresión lambda `nombre -> System.out.println(nombre)` es una representación concisa de una instancia de `Consumer<String>` que se pasa al método `forEach`.
+
+=== Streams
+
+La API de Streams en Java proporciona una manera funcional de procesar secuencias de elementos. Los streams permiten operaciones como mapear (o dicho de otro modo, transformar), filtrar y reducir los datos de manera declarativa.
+
+[source,java]
+----
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StreamExample {
+    public static void main(String[] args) {
+        List<String> nombres = Arrays.asList("Ana", "Luis", "Carlos", "Marta");
+
+        // Uso de Streams para filtrar nombres que comienzan con "C" y recolectarlos en una lista
+        List<String> nombresFiltrados = nombres.stream()
+            .filter(nombre -> nombre.startsWith("C"))
+            .collect(Collectors.toList());
+
+        nombresFiltrados.forEach(System.out::println);
+    }
+}
+----
+
+En este ejemplo, utilizamos un stream para filtrar los nombres que comienzan con "C" y luego recolectamos los resultados en una lista. Finalmente, imprimimos los nombres filtrados. Nota el uso de `System.out::println` como una referencia de método, que es una forma de pasar el método `println` como argumento sin necesidad de una expresión lambda completa.
+
+**Uso de la Notación `::` en Java**
+
+Abras notado que en algunos ejemplos anteriores se usa el operador `::` y te preguntaras que hace. A continuación vamos a dar una eplicación para que lo tengas claro
+
+La notación `::`, también conocida como el operador de referencia a método, es una característica introducida en Java 8 que permite referenciar métodos o constructores directamente de manera compacta y legible. Este operador facilita el uso de métodos como argumentos para otras funciones, especialmente en el contexto de programación funcional con lambdas y streams.
+
+[.underline]#Definición y Uso#
+
+El operador `::` se utiliza para hacer referencia a métodos estáticos, métodos de instancia y constructores de clases. Es una forma concisa de expresar una lambda que llama a un método existente. La notación `::` puede ser utilizada en diferentes contextos:
+
+1. **Métodos Estáticos**
+2. **Métodos de Instancia**
+3. **Constructores**
+
+[.underline]#Referencia a Métodos Estáticos#
+
+Para referenciar un método estático, se utiliza la siguiente sintaxis:
+
+[source,java]
+----
+Clase::metodoEstatico
+----
+
+Por ejemplo, si tenemos una clase `MathUtils` con un método estático `doblar`, podemos referenciarlo de esta manera:
+
+[source,java]
+----
+import java.util.function.Function;
+
+public class ReferenciaMetodosEstaticos {
+    public static void main(String[] args) {
+        Function<Integer, Integer> doblar = MathUtils::doblar;
+        int resultado = doblar.apply(5);
+        System.out.println("Resultado: " + resultado); // Resultado: 10
+    }
+}
+
+class MathUtils {
+    public static int doblar(int valor) {
+        return valor * 2;
+    }
+}
+----
+
+En este ejemplo, `MathUtils::doblar` es una referencia al método estático `doblar` de la clase `MathUtils`.
+
+=== Optional
+
+La clase `Optional` en Java se utiliza para representar valores que pueden o no estar presentes, evitando el uso de `null` y previniendo errores de `NullPointerException`.
+
+[source,java]
+----
+import java.util.Optional;
+
+public class OptionalExample {
+    public static void main(String[] args) {
+        Optional<String> nombre = Optional.of("Juan");
+
+        // Uso de ifPresentOrElse para manejar la presencia o ausencia del valor
+        nombre.ifPresentOrElse(
+            n -> System.out.println("Nombre: " + n),
+            () -> System.out.println("Nombre no encontrado")
+        );
+
+        Optional<String> nombreInexistente = Optional.ofNullable(null);
+        nombreInexistente.ifPresentOrElse(
+            n -> System.out.println("Nombre: " + n),
+            () -> System.out.println("Nombre no encontrado")
+        );
+    }
+}
+----
+
+En este ejemplo, utilizamos `Optional.of` para crear un `Optional` que contiene un valor y `Optional.ofNullable` para un valor que podría ser `null`. El método `ifPresentOrElse` se utiliza para manejar ambos casos.
+
+== Uso de Mónadas en Java
+
+Ya teniendo claro algunas de las bases de la programación funcional en POO, podemos tratar el tema de las nómadas. Las mónadas son estructuras que representan cálculos como una serie de pasos. Aunque las mónadas son un concepto de la programación funcional, pueden ser aplicadas en Java para manejar efectos secundarios y controlar flujos de datos. La clase `Optional` puede ser vista como una mónada en Java.
+
+Formalmente, una mónada es un tipo con dos operaciones fundamentales: `bind` (a veces llamado `flatMap` o `>>=`) y `unit` (a veces llamado `return`). Estas operaciones permiten encadenar operaciones de manera flexible y controlada.
+
+- **`unit` (o `return`)**: Toma un valor y lo envuelve en una mónada.
+- **`bind` (o `flatMap` o `>>=`)**: Toma un valor envuelto en una mónada y una función que toma un valor normal y devuelve una mónada, y aplica esta función al valor envuelto.
+
+El propósito principal de una mónada es encapsular y gestionar efectos secundarios de una manera pura y predecible, permitiendo que los cálculos sean encadenados sin exponer estos efectos directamente.
+
+== Importancia y Utilidad de las Mónadas en POO
+
+En la POO, las mónadas pueden ser útiles para manejar efectos secundarios como errores, operaciones de entrada/salida y estados mutables. Al encapsular estos efectos, se puede mantener la pureza de las funciones y mejorar la composición del código. Algunas aplicaciones comunes de las mónadas en POO incluyen:
+
+- **Manejo de errores**: Utilizando la mónada `Maybe` o `Optional` para representar valores opcionales y evitar nulls.
+- **Transformación de listas**: Utilizando la mónada `List` para aplicar operaciones de mapeo y filtrado de manera segura.
+- **Cálculos asíncronos**: Utilizando la mónada `Future` o `CompletableFuture` para manejar operaciones asíncronas.
+
+A continuación, proporcionamos un ejemplo práctico utilizando la clase `Optional` de Java, que se comporta como una mónada para manejar valores opcionales.
+
+[source,java]
+----
+import java.util.Optional;
+
+public class MonadasEjemplo {
+
+    public static void main(String[] args) {
+        Optional<String> nombre = obtenerNombre("Juan");
+        nombre.ifPresentOrElse(
+            n -> System.out.println("Nombre: " + n),
+            () -> System.out.println("Nombre no encontrado")
+        );
+
+        Optional<String> nombreInexistente = obtenerNombre("Pedro");
+        nombreInexistente.ifPresentOrElse(
+            n -> System.out.println("Nombre: " + n),
+            () -> System.out.println("Nombre no encontrado")
+        );
+    }
+
+    public static Optional<String> obtenerNombre(String nombre) {
+        if ("Juan".equals(nombre)) {
+            return Optional.of(nombre);
+        }
+        return Optional.empty();
+    }
+}
+----
+
+En este ejemplo, utilizamos la clase `Optional` para manejar un valor que puede o no estar presente. La función `obtenerNombre` devuelve un `Optional<String>` que contiene el nombre si se encuentra, o un `Optional.empty()` si no se encuentra. Utilizamos el método `ifPresentOrElse` para manejar ambos casos de manera elegante, evitando el uso de nulls y mejorando la seguridad del código.
+
+=== Explicación Detallada del Ejemplo
+
+1. **Creación de `Optional`**:
+   - El método `obtenerNombre` devuelve un `Optional<String>`. Si el nombre proporcionado es "Juan", se devuelve `Optional.of(nombre)`, que encapsula el valor en una mónada `Optional`. Si no, se devuelve `Optional.empty()`, que representa la ausencia de un valor.
+
+2. **Manejo de `Optional`**:
+   - En el método `main`, llamamos a `obtenerNombre` con dos valores diferentes: "Juan" y "Pedro".
+   - Utilizamos el método `ifPresentOrElse` para manejar el resultado de manera segura. Si el `Optional` contiene un valor, se imprime el nombre. Si no, se imprime un mensaje indicando que el nombre no fue encontrado.
+
+3. **Ventajas del Uso de `Optional`**:
+   - Al usar `Optional`, evitamos el uso de nulls, lo que reduce el riesgo de `NullPointerException`.
+   - La lógica de manejo de errores es clara y explícita, mejorando la legibilidad y mantenibilidad del código.
+
+=== Aplicación de las Mónadas en la POO
+
+Las mónadas pueden ser aplicadas en diversos contextos dentro de la POO para mejorar la composición y el manejo de efectos secundarios. Algunos patrones comunes incluyen:
+
+- **Encadenamiento de operaciones**: Utilizando `flatMap` o `map` para encadenar operaciones sobre valores encapsulados en mónadas.
+- **Composición de funciones**: Componiendo funciones que devuelven mónadas para construir cálculos más complejos.
+- **Manejo de flujos de datos**: Utilizando mónadas para manejar flujos de datos de manera segura y predecible, especialmente en aplicaciones asíncronas o reactivas.
+
+== Exemplos en Java
+
+=== Encadenamiento de Operaciones
+
+El encadenamiento de operaciones permite aplicar una serie de transformaciones a un valor encapsulado en una mónada. En Java, esto se puede lograr utilizando la clase `Optional` y sus métodos `map` y `flatMap`.
+
+[source,java]
+----
+import java.util.Optional;
+
+public class EncadenamientoOperaciones {
+
+    public static void main(String[] args) {
+        Optional<String> nombre = Optional.of("Juan");
+
+        Optional<Integer> longitudNombre = nombre
+            .map(String::toUpperCase)
+            .map(String::length);
+
+        longitudNombre.ifPresent(longitud ->
+            System.out.println("La longitud del nombre en mayúsculas es: " + longitud)
+        );
+    }
+}
+----
+
+En este ejemplo, comenzamos con un `Optional<String>` que contiene el nombre "Juan". Utilizamos el método `map` para transformar el nombre a mayúsculas (`String::toUpperCase`) y luego para obtener la longitud del nombre (`String::length`). El resultado es un `Optional<Integer>` que contiene la longitud del nombre en mayúsculas. Finalmente, utilizamos `ifPresent` para imprimir la longitud si está presente.
+
+**Explicación Detallada:**
+
+1. **Transformación con `map`:**
+   - El primer `map(String::toUpperCase)` transforma el valor encapsulado ("Juan") en su representación en mayúsculas ("JUAN").
+   - El segundo `map(String::length)` transforma el valor en mayúsculas en su longitud (4).
+   
+2. **Uso de `ifPresent`:**
+   - Utilizamos `ifPresent` para imprimir la longitud solo si el `Optional` contiene un valor.
+
+Este ejemplo muestra cómo se pueden encadenar múltiples operaciones utilizando `map` para transformar un valor de manera segura y fluida.
+
+
+
+=== Composición de Funciones
+
+La composición de funciones implica combinar varias funciones que devuelven mónadas para construir cálculos más complejos. En Java, podemos utilizar `flatMap` para este propósito.
+
+[source,java]
+----
+import java.util.Optional;
+
+public class ComposicionFunciones {
+
+    public static void main(String[] args) {
+        Optional<String> nombre = obtenerNombre();
+        Optional<Integer> longitud = nombre.flatMap(ComposicionFunciones::calcularLongitud);
+
+        longitud.ifPresent(longitudNombre ->
+            System.out.println("La longitud del nombre es: " + longitudNombre)
+        );
+    }
+
+    public static Optional<String> obtenerNombre() {
+        return Optional.of("Carlos");
+    }
+
+    public static Optional<Integer> calcularLongitud(String nombre) {
+        return Optional.of(nombre.length());
+    }
+}
+----
+
+En este ejemplo, definimos dos funciones: `obtenerNombre`, que devuelve un `Optional<String>`, y `calcularLongitud`, que toma un `String` y devuelve un `Optional<Integer>`. Utilizamos `flatMap` para componer estas funciones y calcular la longitud del nombre.
+
+**Explicación Detallada:**
+
+1. **Composición con `flatMap`:**
+   - `flatMap` se utiliza para aplicar la función `calcularLongitud` al valor encapsulado en `Optional<String>` y aplanar el resultado.
+   
+2. **Uso de `ifPresent`:**
+   - Utilizamos `ifPresent` para imprimir la longitud solo si el `Optional` contiene un valor.
+
+Este ejemplo demuestra cómo se pueden componer funciones que devuelven mónadas para construir cálculos complejos de manera segura.
+
+=== Manejo de Flujos de Datos
+
+El manejo de flujos de datos implica trabajar con secuencias de valores de manera segura y predecible. En Java, podemos utilizar la clase `Stream` en combinación con `Optional` para manejar flujos de datos.
+
+[source,java]
+----
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class ManejoFlujosDatos {
+
+    public static void main(String[] args) {
+        List<Optional<String>> nombres = List.of(
+            Optional.of("Ana"),
+            Optional.empty(),
+            Optional.of("Luis"),
+            Optional.empty(),
+            Optional.of("Marta")
+        );
+
+        List<String> nombresFiltrados = nombres.stream()
+            .flatMap(Optional::stream)
+            .collect(Collectors.toList());
+
+        System.out.println("Nombres filtrados: " + nombresFiltrados);
+    }
+}
+----
+
+En este ejemplo, tenemos una lista de `Optional<String>`, donde algunos valores están presentes y otros están ausentes (`Optional.empty()`). Utilizamos `Stream` y `flatMap` para filtrar los valores presentes y recolectarlos en una lista.
+
+**Explicación Detallada:**
+
+1. **Uso de `flatMap` con `Optional::stream`:**
+   - `flatMap(Optional::stream)` convierte cada `Optional<String>` en un `Stream<String>`, aplanando la secuencia y filtrando los valores ausentes.
+   
+2. **Recolectar con `collect(Collectors.toList())`:**
+   - Utilizamos `collect(Collectors.toList())` para recolectar los valores presentes en una lista.
+
+Este ejemplo muestra cómo se pueden manejar flujos de datos con `Optional` y `Stream` para filtrar valores de manera segura y eficiente.
+
+

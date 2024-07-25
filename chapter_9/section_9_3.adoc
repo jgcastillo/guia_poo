@@ -1,0 +1,95 @@
+== Patrón Singleton
+
+El patrón Singleton pertenece al grupo de patrones creacionales. Este patrón asegura que una clase tenga solo una instancia y proporciona un punto de acceso global a esa instancia. Es especialmente útil en situaciones donde se necesita exactamente un objeto para coordinar acciones en todo el sistema.
+
+El patrón Singleton surge de la necesidad de controlar el acceso a recursos compartidos, como bases de datos, archivos de configuración, o cualquier recurso que deba tener una única instancia a lo largo de la aplicación. Sin este patrón, podrían crearse múltiples instancias, lo que podría llevar a inconsistencias, problemas de sincronización y mayor consumo de recursos.
+
+Para implementar el patrón Singleton en Java, se sigue un enfoque estándar que incluye un constructor *privado*, una instancia estática de la propia clase y un método público estático que devuelve la instancia única. 
+
+=== Ejemplo
+
+El siguiente es un ejemplo simple de cómo se puede definir y usar el patrón Singleton en Java.
+
+[source, java]
+----
+public class Singleton {
+    // Instancia única de la clase Singleton
+    private static Singleton instance;
+
+    // Constructor privado para evitar la instanciación externa
+    private Singleton() {
+        // Código de inicialización aquí
+    }
+
+    // Método público estático para obtener la instancia única
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+
+    // Método de ejemplo que puede ser llamado en la instancia Singleton
+    public void showMessage() {
+        System.out.println("¡Hola desde el Singleton!");
+    }
+}
+----
+
+En este ejemplo, el constructor privado `Singleton()` evita que se creen instancias adicionales de la clase desde fuera de la misma. El método `getInstance()` verifica si la instancia ya ha sido creada; si no es así, crea una nueva instancia. Este método garantiza que solo exista una única instancia de la clase Singleton.
+
+A forma de mostrar su uso, podemos escribir el siguiente código:
+
+[source, java]
+----
+public class Main {
+    public static void main(String[] args) {
+        // Obtener la única instancia de Singleton
+        Singleton singleton = Singleton.getInstance();
+
+        // Llamar al método showMessage de Singleton
+        singleton.showMessage();
+    }
+}
+----
+
+En este código, el método `getInstance()` se usa para obtener la única instancia de `Singleton`, y luego se llama al método `showMessage()` para demostrar que la instancia Singleton está funcionando correctamente.
+
+=== Consideraciones y Mejores Prácticas
+
+Es importante considerar que la implementación de un Singleton en un entorno multihilo puede requerir sincronización para evitar la creación de múltiples instancias. Una manera de lograr esto es utilizando el bloqueo sincronizado dentro del método `getInstance()`, o empleando la inicialización en el cargador de clases.
+
+==== Ejemplo de Singleton Thread-Safe
+
+[source, java]
+----
+public class Singleton {
+    // Instancia única de la clase Singleton, creada de manera segura en múltiples hilos
+    private static volatile Singleton instance;
+
+    // Constructor privado para evitar la instanciación externa
+    private Singleton() {
+        // Código de inicialización aquí
+    }
+
+    // Método público estático para obtener la instancia única
+    public static Singleton getInstance() {
+        if (instance == null) {
+            synchronized (Singleton.class) {
+                if (instance == null) {
+                    instance = new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+
+    // Método de ejemplo que puede ser llamado en la instancia Singleton
+    public void showMessage() {
+        System.out.println("¡Hola desde el Singleton!");
+    }
+}
+----
+
+En este ejemplo, el uso de `volatile` y el doble bloqueo con `synchronized` asegura que la instancia de `Singleton` se cree de manera segura en un entorno multihilo.
+

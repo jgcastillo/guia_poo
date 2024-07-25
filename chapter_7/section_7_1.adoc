@@ -1,0 +1,42 @@
+= Introducción y Conceptos
+
+La programación concurrente es una técnica avanzada en el desarrollo de software que permite ejecutar múltiples tareas de manera simultánea, optimizando así el uso de los recursos del sistema y mejorando el rendimiento general de los programas. La concurrencia es esencial en aplicaciones modernas que requieren un alto grado de eficiencia y capacidad de respuesta, como sistemas operativos, servidores web, videojuegos, y aplicaciones móviles.
+
+== Concurrencia y Paralelismo
+
+La concurrencia y el paralelismo son dos conceptos que a menudo se confunden. La concurrencia se refiere a la capacidad de un sistema para gestionar múltiples tareas al mismo tiempo, mientras que el paralelismo implica la ejecución simultánea de múltiples tareas. En términos más simples, la concurrencia es como un chef que gestiona varias órdenes de comida a la vez, mientras que el paralelismo sería tener varios chefs trabajando en diferentes órdenes simultáneamente.
+
+== Hilos (Threads)
+
+Un hilo (thread) es la unidad más pequeña de procesamiento que puede ser programada por un sistema operativo. En un programa, un hilo puede ser visualizado como un camino de ejecución separado que puede ejecutar tareas en paralelo con otros hilos. Los hilos comparten el mismo espacio de memoria dentro del proceso, lo que permite una comunicación eficiente pero también requiere una gestión cuidadosa para evitar conflictos.
+
+=== Uso de Hilos en Programación
+
+El uso de hilos permite a los desarrolladores escribir aplicaciones que pueden realizar múltiples tareas al mismo tiempo. Por ejemplo, una aplicación de servidor web puede usar hilos para manejar múltiples solicitudes de clientes simultáneamente, mejorando así su capacidad de respuesta y rendimiento. En el contexto de aplicaciones de usuario, como un editor de texto, los hilos pueden utilizarse para realizar tareas de fondo como el guardado automático o la revisión ortográfica sin interrumpir la experiencia del usuario.
+
+== Ventajas de la Programación Concurrente
+
+La programción concurrente proporciona una serie de ventajas, entre las cuales enumeramos
+
+1. **Mejora del Rendimiento**: Al utilizar múltiples hilos, las aplicaciones pueden aprovechar mejor las capacidades de los procesadores multinúcleo, distribuyendo la carga de trabajo y reduciendo los tiempos de respuesta.
+2. **Mayor Capacidad de Respuesta**: Las aplicaciones concurrentes pueden manejar tareas largas sin bloquear la interfaz de usuario, lo que resulta en una experiencia de usuario más fluida.
+3. **Utilización Óptima de Recursos**: La concurrencia permite que los recursos del sistema se utilicen de manera más eficiente, evitando que los procesos queden inactivos mientras esperan por I/O u otras operaciones.
+
+== Consideraciones y Desafíos
+
+Aunque la concurrencia ofrece muchas ventajas, también introduce complejidades adicionales en el desarrollo de software. La sincronización de hilos es determinante para evitar condiciones de carrera y otros problemas de consistencia de datos. Además, los errores en la gestión de hilos pueden llevar a situaciones de bloqueo o 'deadlocks', donde dos o más hilos quedan atrapados esperando indefinidamente por recursos.
+
+=== Condiciones de Carrera
+
+Una condición de carrera ocurre en un programa concurrente cuando el resultado de la ejecución depende de la secuencia o el cronometraje de eventos no controlados. En otras palabras, es un comportamiento indeseado que surge cuando dos o más hilos acceden y manipulan de forma compartida una misma variable o recurso sin la adecuada sincronización. Esto puede llevar a resultados impredecibles y errores difíciles de depurar.
+
+Por ejemplo, imagina dos cajeros en un banco que acceden simultáneamente a la cuenta de un cliente para retirar dinero. Si ambos cajeros leen el saldo actual al mismo tiempo y realizan la retirada basándose en ese saldo, podría ocurrir que el saldo se reduzca incorrectamente, permitiendo al cliente retirar más dinero del que realmente tiene.
+
+Para prevenir las condiciones de carrera, es esencial utilizar mecanismos de sincronización como bloqueos (locks), semáforos (semaphores) o monitores (monitors) para asegurar que solo un hilo a la vez pueda acceder a la sección crítica del código donde se manipulan los recursos compartidos.
+
+=== Casos de Uso Comunes
+
+1. **Aplicaciones Web**: Los servidores web modernos utilizan hilos para manejar múltiples conexiones de clientes simultáneamente, permitiendo que miles de usuarios interactúen con un sitio web al mismo tiempo.
+2. **Aplicaciones Gráficas**: En las interfaces de usuario, los hilos permiten realizar tareas en segundo plano como la carga de datos o el procesamiento de imágenes sin afectar la interacción del usuario.
+3. **Juegos**: Los motores de juegos utilizan hilos para gestionar diferentes componentes como la lógica del juego, la renderización gráfica, y la física, permitiendo una experiencia de juego fluida y receptiva.
+

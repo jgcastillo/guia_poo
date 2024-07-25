@@ -1,0 +1,89 @@
+= Polimorfismo de Tipo
+
+El polimorfismo de tipo, es una característica esencial de la Programación Orientada a Objetos (POO) que permite que una referencia de una superclase se utilice para referirse a objetos de cualquiera de sus subclases. En Java, este concepto se implementa principalmente a través de los genéricos, introducidos en Java 5. Este tipo de polimorfismo es crucial para escribir código flexible y reutilizable. En este subcapítulo, exploraremos los conceptos asociados al polimorfismo de tipo y proporcionaremos ejemplos prácticos en Java para ilustrar su uso.
+
+== Conceptos Asociados
+
+El polimorfismo de tipo se basa en la capacidad de las superclases para definir un comportamiento que las subclases pueden implementar o sobrescribir. Usando esta característica hace que una función o clase opere con objetos de diferentes tipos, siempre que estos tipos estén relacionados de alguna manera. Esto permite que las referencias de las superclases apunten a objetos de las subclases, lo que facilita el uso de métodos polimórficos.
+
+1. **Superclase y Subclase:** Una superclase define métodos que pueden ser sobrescritos por las subclases. Las subclases heredan estos métodos y pueden proporcionar implementaciones específicas.
+
+2. **Sobrescritura de Métodos:** La sobrescritura de métodos es una forma de polimorfismo donde una subclase proporciona una implementación específica de un método que ya está definido en su superclase.
+
+3. **Referencias de Superclase:** Una referencia de una superclase puede apuntar a un objeto de cualquier subclase. Esto permite el uso de métodos polimórficos sin conocer la clase específica del objeto en tiempo de compilación.
+
+== Ejemplo de Polimorfismo de Tipo en Java
+
+Vamos a explorar un ejemplo de polimorfismo de tipo utilizando una jerarquía de clases que incluye una superclase `Animal` y dos subclases `Perro` y `Gato`.
+
+=== Definición de Clases
+
+[source,java]
+----
+public class Animal {
+    public void hacerSonido() {
+        System.out.println("El animal hace un sonido");
+    }
+}
+
+public class Perro extends Animal {
+    @Override
+    public void hacerSonido() {
+        System.out.println("El perro ladra");
+    }
+}
+
+public class Gato extends Animal {
+    @Override
+    public void hacerSonido() {
+        System.out.println("El gato maúlla");
+    }
+}
+----
+
+En este ejemplo:
+
+- La clase `Animal` define un método `hacerSonido`.
+- La clase `Perro` sobrescribe el método `hacerSonido` para proporcionar una implementación específica.
+- La clase `Gato` también sobrescribe el método `hacerSonido`.
+
+==== Uso del Polimorfismo de Tipo
+
+Ahora, veamos cómo utilizar el polimorfismo de tipo para invocar el método `hacerSonido` en diferentes tipos de `Animal`.
+
+[source,java]
+----
+public class Main {
+    public static void main(String[] args) {
+        Animal miPerro = new Perro();
+        Animal miGato = new Gato();
+
+        miPerro.hacerSonido(); // Output: El perro ladra
+        miGato.hacerSonido();  // Output: El gato maúlla
+
+        // Uso de un array polimórfico
+        Animal[] animales = {new Perro(), new Gato(), new Animal()};
+        for (Animal animal : animales) {
+            animal.hacerSonido();
+        }
+    }
+}
+----
+
+En este código:
+
+- Se crean referencias de tipo `Animal` que apuntan a objetos de tipo `Perro` y `Gato`.
+- Cuando se llama al método `hacerSonido`, se ejecuta la implementación específica de la subclase correspondiente.
+- Se utiliza un array de `Animal` para almacenar diferentes tipos de animales y llamar al método `hacerSonido` polimórficamente.
+
+=== Ventajas del Polimorfismo de Tipo
+
+El polimorfismo de tipo ofrece varias ventajas significativas:
+
+1. **Flexibilidad:** Permite escribir código más flexible y reutilizable, ya que las operaciones pueden realizarse en cualquier objeto que pertenezca a una jerarquía de clases.
+2. **Extensibilidad:** Facilita la extensión del sistema sin modificar el código existente, permitiendo añadir nuevas subclases que implementen o sobrescriban métodos de la superclase.
+3. **Mantenimiento:** Reduce la necesidad de cambiar el código cuando se añaden nuevos tipos de objetos, lo que mejora la mantenibilidad del sistema.
+
+
+El polimorfismo de tipo es una herramienta poderosa en la POO que permite la implementación de código más genérico y reutilizable. Al permitir que las referencias de las superclases apunten a objetos de las subclases, se puede aprovechar la sobrescritura de métodos para crear sistemas flexibles y extensibles. Los ejemplos en Java ilustran cómo utilizar el polimorfismo de tipo para invocar métodos en diferentes tipos de objetos de manera polimórfica.
+

@@ -1,0 +1,118 @@
+= Sobrecarga y Sobrescritura de Métodos
+
+La sobrecarga y la sobrescritura de métodos son conceptos fundamentales en la Programación Orientada a Objetos (POO). Ambos permiten el polimorfismo, pero lo hacen de maneras diferentes y tienen distintas aplicaciones y ventajas. En este subcapítulo, exploraremos en detalle qué significa cada uno, su importancia en la programación, sus ventajas y desventajas, y proporcionaremos ejemplos prácticos en Java.
+
+== Sobrecarga de Métodos
+
+La sobrecarga de métodos ocurre cuando una clase tiene más de un método con el mismo nombre pero diferentes parámetros (tipo o número de parámetros). Este concepto permite a una clase implementar múltiples versiones de un método que realiza tareas similares pero con diferentes tipos o cantidades de datos.
+
+=== Importancia de la Sobrecarga
+
+La sobrecarga es importante porque:
+
+- **Facilita la Legibilidad:** Permite el uso de nombres de métodos coherentes para operaciones similares.
+- **Simplifica el Uso:** Los desarrolladores pueden usar el mismo nombre de método para diferentes tipos de entradas, haciendo que la interfaz de la clase sea más intuitiva.
+
+==== Ventajas de la Sobrecarga
+
+1. **Mejora la Legibilidad del Código:** Permite utilizar nombres de métodos coherentes.
+2. **Facilita la Comprensión del Código:** Hace que la clase sea más intuitiva para otros desarrolladores.
+3. **Flexibilidad:** Permite que el mismo método maneje diferentes tipos y cantidades de datos.
+
+==== Desventajas de la Sobrecarga
+
+1. **Confusión Potencial:** Si no se usa cuidadosamente, puede causar confusión sobre cuál versión del método se está llamando.
+2. **Mantenimiento:** Puede ser más difícil de mantener si hay demasiadas versiones sobrecargadas de un método.
+
+==== Ejemplo de Sobrecarga de Métodos en Java
+
+[source,java]
+----
+public class Calculadora {
+    // Sobrecarga del método sumar
+    public int sumar(int a, int b) {
+        return a + b;
+    }
+
+    public double sumar(double a, double b) {
+        return a + b;
+    }
+
+    public int sumar(int a, int b, int c) {
+        return a + b + c;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Calculadora calc = new Calculadora();
+        System.out.println(calc.sumar(1, 2));        // Output: 3
+        System.out.println(calc.sumar(1.5, 2.5));    // Output: 4.0
+        System.out.println(calc.sumar(1, 2, 3));     // Output: 6
+    }
+}
+----
+
+En este ejemplo, el método `sumar` está sobrecargado para manejar diferentes tipos y cantidades de parámetros.
+
+== Sobrescritura de Métodos
+
+La sobrescritura de métodos ocurre cuando una subclase proporciona una implementación específica de un método que ya está definido en su superclase. Este concepto permite a las subclases modificar o extender el comportamiento de los métodos heredados.
+
+=== Importancia de la Sobrescritura
+
+La sobrescritura es crucial porque:
+
+- **Permite la Especialización:** Las subclases pueden especializar o modificar el comportamiento heredado de la superclase.
+- **Facilita el Polimorfismo:** Permite que los métodos sean invocados polimórficamente en una jerarquía de clases.
+
+=== Ventajas de la Sobrescritura
+
+1. **Especialización del Comportamiento:** Permite a las subclases proporcionar comportamientos específicos.
+2. **Reutilización de Código:** Facilita la reutilización del código al extender las clases existentes.
+3. **Polimorfismo:** Facilita el uso de métodos polimórficos.
+
+=== Desventajas de la Sobrescritura
+
+1. **Complejidad:** Puede aumentar la complejidad del código si no se maneja adecuadamente.
+2. **Dependencias:** Puede introducir dependencias fuertes entre clases.
+
+=== Ejemplo de Sobrescritura de Métodos en Java
+
+[source,java]
+----
+public class Animal {
+    public void hacerSonido() {
+        System.out.println("El animal hace un sonido");
+    }
+}
+
+public class Perro extends Animal {
+    @Override
+    public void hacerSonido() {
+        System.out.println("El perro ladra");
+    }
+}
+
+public class Gato extends Animal {
+    @Override
+    public void hacerSonido() {
+        System.out.println("El gato maúlla");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal miPerro = new Perro();
+        Animal miGato = new Gato();
+
+        miPerro.hacerSonido(); // Output: El perro ladra
+        miGato.hacerSonido();  // Output: El gato maúlla
+    }
+}
+----
+
+En este ejemplo, las clases `Perro` y `Gato` sobrescriben el método `hacerSonido` de la clase `Animal` para proporcionar una implementación específica.
+
+
+La sobrecarga y la sobrescritura de métodos son técnicas fundamentales en la POO que permiten a los desarrolladores escribir código más flexible y reutilizable. La sobrecarga permite que una clase tenga múltiples métodos con el mismo nombre pero diferentes parámetros, mejorando la legibilidad y flexibilidad del código. La sobrescritura permite que las subclases proporcionen implementaciones específicas de métodos heredados, facilitando la especialización y el polimorfismo.

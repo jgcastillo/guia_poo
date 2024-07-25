@@ -1,0 +1,87 @@
+= Principio de Inversión de Dependencias (DIP)
+
+Este principio establece que los módulos de alto nivel no deben depender de los módulos de bajo nivel, sino que ambos deben depender de abstracciones. Además, las abstracciones no deben depender de los detalles, sino que los detalles deben depender de las abstracciones.
+
+El DIP existe para reducir el acoplamiento entre los módulos de software y mejorar la flexibilidad y la mantenibilidad del código. Sin el DIP, los módulos de alto nivel estarían fuertemente acoplados a los detalles de implementación de los módulos de bajo nivel, dificultando los cambios y la extensión del sistema. La aplicación del DIP permite que los módulos de alto nivel se mantengan estables y que los detalles de implementación puedan cambiar sin afectar a otras partes del sistema.
+
+Aplicar el DIP implica la creación de interfaces o abstracciones que definan el comportamiento requerido por los módulos de alto nivel. Los módulos de bajo nivel implementan estas interfaces, permitiendo que los módulos de alto nivel dependan de abstracciones en lugar de implementaciones concretas.
+
+== Ejemplo de USO
+
+A continuación se presenta un ejemplo en Java donde no se aplica el DIP. En este ejemplo, una clase `Store` depende directamente de una clase `CreditCardPayment`.
+
+[source, java]
+----
+class CreditCardPayment {
+    public void pay(double amount) {
+        System.out.println("Paying " + amount + " using Credit Card");
+    }
+}
+
+class Store {
+    private CreditCardPayment paymentProcessor;  
+
+    public Store() {
+        paymentProcessor = new CreditCardPayment(); // dependencia directa
+    }
+
+    public void purchase(double amount) {
+        paymentProcessor.pay(amount);
+    }
+
+    public static void main(String[] args) {
+        Store store = new Store();
+        store.purchase(100.0);
+    }
+}
+----
+
+En este ejemplo, la clase `Store` depende directamente de la clase `CreditCardPayment`, lo que hace difícil cambiar la forma de pago sin modificar la clase `Store`.
+
+A continuación, refactorizaremos el ejemplo anterior para que cumpla con el DIP, introduciendo una interfaz `PaymentProcessor`.
+
+[source, java]
+----
+interface PaymentProcessor {
+    void pay(double amount);
+}
+
+class CreditCardPayment implements PaymentProcessor {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paying " + amount + " using Credit Card");
+    }
+}
+
+class PayPalPayment implements PaymentProcessor {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paying " + amount + " using PayPal");
+    }
+}
+
+class Store {
+    private PaymentProcessor paymentProcessor;
+
+    public Store(PaymentProcessor paymentProcessor) {  // aquí se realiza la inyección
+        this.paymentProcessor = paymentProcessor;
+    }
+
+    public void purchase(double amount) {
+        paymentProcessor.pay(amount);
+    }
+
+    public static void main(String[] args) {
+        PaymentProcessor creditCardPayment = new CreditCardPayment();
+        Store store = new Store(creditCardPayment);
+        store.purchase(100.0);
+
+        PaymentProcessor paypalPayment = new PayPalPayment();
+        Store anotherStore = new Store(paypalPayment);
+        anotherStore.purchase(200.0);
+    }
+}
+----
+
+En esta refactorización, hemos introducido una interfaz `PaymentProcessor` que es implementada tanto por `CreditCardPayment` como por `PayPalPayment`. La clase `Store` ahora depende de la abstracción `PaymentProcessor` en lugar de una implementación concreta.
+

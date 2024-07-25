@@ -1,0 +1,91 @@
+= Encapsulamiento en la práctica
+
+Una vez entendidos los conceptos de abstracción y encapsulamiento, es esencial aprender a implementarlos en la práctica. En esta sección, nos centraremos en cómo crear clases encapsuladas en Java, explicando el uso de métodos de acceso (getters) y métodos de modificación (setters).
+
+== Métodos de Acceso (Getters)
+
+Los métodos de acceso, comúnmente conocidos como getters, son funciones públicas que permiten obtener el valor de atributos privados. Estos métodos siguen una convención de nomenclatura que generalmente comienza con la palabra "get" seguida del nombre del atributo con la primera letra en mayúscula.
+
+El propósito principal de los getters es proporcionar una manera controlada de acceder a los valores de los atributos privados desde fuera de la clase, sin exponer directamente los datos.
+
+=== Ejemplo de Getters en Java
+
+[source,java]
+----
+public class Persona {
+    private String nombre;
+    private int edad;
+
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    // Método de acceso para 'nombre'
+    public String getNombre() {
+        return nombre;
+    }
+
+    // Método de acceso para 'edad'
+    public int getEdad() {
+        return edad;
+    }
+}
+----
+En el ejemplo anterior, los métodos getNombre y getEdad permiten acceder a los valores de nombre y edad respectivamente.
+
+== Métodos de Modificación (Setters)
+
+Los métodos de modificación, o setters, son funciones públicas que permiten cambiar el valor de atributos privados. Estos métodos generalmente siguen la convención de nomenclatura que comienza con la palabra "set" seguida del nombre del atributo con la primera letra en mayúscula.
+
+Los setters permiten controlar cómo se modifican los atributos, proporcionando una oportunidad para validar los datos antes de hacer cambios.
+
+=== Ejemplo de Setters en Java
+
+[source,java]
+----
+public class Persona {
+    private String nombre;
+    private int edad;
+
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    // Método de acceso para 'nombre'
+    public String getNombre() {
+        return nombre;
+    }
+
+    // Método de acceso para 'edad'
+    public int getEdad() {
+        return edad;
+    }
+
+    // Método de modificación para 'nombre'
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    // Método de modificación para 'edad'
+    public void setEdad(int edad) {
+        if (edad > 0) {
+            this.edad = edad;
+        }
+    }
+}
+----
+En el ejemplo anterior, los métodos setNombre y setEdad permiten modificar los valores de nombre y edad. Note que el setter para edad incluye una validación para asegurarse de que la edad sea positiva antes de asignarla.
+
+== Importancia del Encapsulamiento
+
+El uso de getters y setters en la encapsulación tiene varias ventajas:
+
+* **Control de Acceso**: Los getters y setters permiten controlar cómo se accede y modifica el estado interno de un objeto, lo que ayuda a mantener la integridad de los datos.
+
+* **Flexibilidad**: Permiten cambiar la implementación interna de una clase sin afectar a las clases que la utilizan, siempre y cuando la interfaz pública se mantenga.
+
+* **Mantenimiento**: Facilitan el mantenimiento del código, ya que los métodos pueden incluir lógica adicional, como validaciones o conversiones, sin afectar el resto del sistema.
+
+El encapsulamiento, al restringir el acceso directo a los atributos, también promueve un diseño más limpio y modular, donde los detalles internos de una clase están ocultos del mundo exterior, proporcionando una interfaz clara y sencilla para interactuar con el objeto.

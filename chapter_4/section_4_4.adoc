@@ -1,0 +1,200 @@
+= Ejemplos Prácticos de Clases Abstractas
+
+A cotinuación exploraremos ejemplos prácticos de clases abstractas en Java. Veremos cómo se pueden definir clases abstractas, cómo las subclases heredan de ellas y proporcionan implementaciones específicas para los métodos abstractos, y cómo se pueden utilizar estas clases en una clase de prueba. Estos ejemplos ayudarán a consolidar los conceptos aprendidos y a entender cómo aplicar las clases abstractas en el desarrollo de software.
+
+== Ejemplo 1: Jerarquía de Figuras Geométricas
+
+En este ejemplo, crearemos una jerarquía de figuras geométricas con una clase abstracta `Figura` y dos subclases `Circulo` y `Rectangulo`.
+
+[source,java]
+----
+public abstract class Figura {
+    private String color;
+
+    public Figura(String color) {
+        this.color = color;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public abstract double calcularArea();
+}
+
+public class Circulo extends Figura {
+    private double radio;
+
+    public Circulo(String color, double radio) {
+        super(color); // Observa el uso de super
+        this.radio = radio;
+    }
+
+    @Override
+    public double calcularArea() {
+        return Math.PI * radio * radio;
+    }
+}
+
+public class Rectangulo extends Figura {
+    private double ancho;
+    private double alto;
+
+    public Rectangulo(String color, double ancho, double alto) {
+        super(color); // Observa el uso de super
+        this.ancho = ancho;
+        this.alto = alto;
+    }
+
+    @Override
+    public double calcularArea() {
+        return ancho * alto;
+    }
+}
+
+public class PruebaFiguras {
+    public static void main(String[] args) {
+        Figura circulo = new Circulo("Rojo", 5);
+        Figura rectangulo = new Rectangulo("Azul", 4, 6);
+
+        System.out.println("Área del círculo: " + circulo.calcularArea());
+        System.out.println("Área del rectángulo: " + rectangulo.calcularArea());
+    }
+}
+----
+
+En este ejemplo, `Figura` es una clase abstracta con un método abstracto `calcularArea`. Las clases `Circulo` y `Rectangulo` heredan de `Figura` y proporcionan sus propias implementaciones del método `calcularArea`. Observa el uso de `super(color)` en los constructores de `Circulo` y `Rectangulo`. La palabra clave `super` se utiliza para llamar al constructor de la clase base (`Figura`) y pasarle el parámetro `color`. Esto asegura que el constructor de la clase base se ejecute y que el atributo `color` se inicialice correctamente.
+
+Es de hacer notar que la llamada al constructor de la clase abstracta haciendo uso de `super()` debe ser la primera instrucción en el constructor de la subclase, siempre y cuado se haga uso de este recurso. 
+
+== Ejemplo 2: Sistema de Empleados
+
+En este ejemplo, crearemos una jerarquía de empleados con una clase abstracta `Empleado` y dos subclases `EmpleadoTiempoCompleto` y `EmpleadoMedioTiempo`.
+
+[source,java]
+----
+public abstract class Empleado {
+    private String nombre;
+    private String id;
+
+    public Empleado(String nombre, String id) {
+        this.nombre = nombre;
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public abstract double calcularSalario();
+}
+
+public class EmpleadoTiempoCompleto extends Empleado {
+    private double salarioBase;
+
+    public EmpleadoTiempoCompleto(String nombre, String id, double salarioBase) {
+        super(nombre, id);
+        this.salarioBase = salarioBase;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return salarioBase;
+    }
+}
+
+public class EmpleadoMedioTiempo extends Empleado {
+    private double tarifaPorHora;
+    private int horasTrabajadas;
+
+    public EmpleadoMedioTiempo(String nombre, String id, double tarifaPorHora, int horasTrabajadas) {
+        super(nombre, id);
+        this.tarifaPorHora = tarifaPorHora;
+        this.horasTrabajadas = horasTrabajadas;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return tarifaPorHora * horasTrabajadas;
+    }
+}
+
+public class PruebaEmpleados {
+    public static void main(String[] args) {
+        Empleado empleado1 = new EmpleadoTiempoCompleto("Juan", "E001", 3000);
+        Empleado empleado2 = new EmpleadoMedioTiempo("Ana", "E002", 20, 80);
+
+        System.out.println("Salario de " + empleado1.getNombre() + ": " + empleado1.calcularSalario());
+        System.out.println("Salario de " + empleado2.getNombre() + ": " + empleado2.calcularSalario());
+    }
+}
+----
+
+En este ejemplo, `Empleado` es una clase abstracta con un método abstracto `calcularSalario`. Las clases `EmpleadoTiempoCompleto` y `EmpleadoMedioTiempo` heredan de `Empleado` y proporcionan sus propias implementaciones del método `calcularSalario`. Nota el uso de `super(nombre, id)` en los constructores de `EmpleadoTiempoCompleto` y `EmpleadoMedioTiempo`. La palabra clave `super` se utiliza para llamar al constructor de la clase base (`Empleado`) y pasarle los parámetros `nombre` e `id`. Esto asegura que el constructor de la clase base se ejecute y que los atributos `nombre` e `id` se inicialicen correctamente.
+
+== Ejemplo 3: Sistema de Vehículos
+
+En este ejemplo, crearemos una jerarquía de vehículos con una clase abstracta `Vehiculo` y dos subclases `Carro` y `Bicicleta`.
+
+[source,java]
+----
+public abstract class Vehiculo {
+    private String marca;
+
+    public Vehiculo(String marca) {
+        this.marca = marca;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public abstract void mover();
+}
+
+public class Carro extends Vehiculo {
+    private int velocidadMaxima;
+
+    public Carro(String marca, int velocidadMaxima) {
+        super(marca);
+        this.velocidadMaxima = velocidadMaxima;
+    }
+
+    @Override
+    public void mover() {
+        System.out.println("El coche " + getMarca() + " se está moviendo a " + velocidadMaxima + " km/h");
+    }
+}
+
+public class Bicicleta extends Vehiculo {
+    private int numeroDeMarchas;
+
+    public Bicicleta(String marca, int numeroDeMarchas) {
+        super(marca);
+        this.numeroDeMarchas = numeroDeMarchas;
+    }
+
+    @Override
+    public void mover() {
+        System.out.println("La bicicleta " + getMarca() + " con " + numeroDeMarchas + " marchas se está moviendo");
+    }
+}
+
+public class PruebaVehiculos {
+    public static void main(String[] args) {
+        Vehiculo coche = new Coche("Toyota", 180);
+        Vehiculo bicicleta = new Bicicleta("Giant", 21);
+
+        coche.mover();
+        bicicleta.mover();
+    }
+}
+----
+
+En este ejemplo, `Vehiculo` es una clase abstracta con un método abstracto `mover`. Las clases `Coche` y `Bicicleta` heredan de `Vehiculo` y proporcionan sus propias implementaciones del método `mover`. Al igual que los ejemplos anteriores pueder ver el uso de `super(marca)` en los constructores de `Carro` y `Bicicleta`. La palabra clave `super` se utiliza para llamar al constructor de la clase base (`Vehiculo`) y pasarle el parámetro `marca`. Esto asegura que el constructor de la clase base se ejecute y que el atributo `marca` se inicialice correctamente.
+
+

@@ -1,0 +1,44 @@
+= Lenguajes de Programación Orientados a Objetos
+
+La Programación Orientada a Objetos (POO) ha influenciado profundamente el desarrollo de software, y varios lenguajes de programación han adoptado este paradigma para facilitar la creación de aplicaciones modulares, reutilizables y mantenibles. A continuación, se presentan algunos de los lenguajes de programación orientados a objetos más populares, junto con un poco de su historia, su comunidad de usuarios y las principales empresas que los utilizan.
+
+== Java
+
+Java es uno de los lenguajes de programación orientados a objetos más populares y ampliamente utilizados. Fue desarrollado por Sun Microsystems (ahora propiedad de Oracle) y lanzado en 1995. Java fue diseñado con la portabilidad en mente, permitiendo que el código Java se ejecute en cualquier dispositivo que tenga una Máquina Virtual de Java (JVM).
+
+* **Historia:** Lanzado en 1995 por Sun Microsystems.
+* **Comunidad de Usuarios:** Muy grande y activa, con una vasta cantidad de recursos educativos y de soporte disponibles en línea.
+* **Empresas que lo Usan:** Oracle, Google, Amazon, eBay, y muchas instituciones financieras y empresas de tecnología.
+
+== Python
+
+Python es un lenguaje de programación de alto nivel y multiparadigma, que incluye soporte para la programación orientada a objetos. Fue creado por Guido van Rossum y lanzado por primera vez en 1991. Python es conocido por su sintaxis sencilla y legible, lo que lo hace ideal tanto para principiantes como para desarrolladores experimentados.
+
+* **Historia:** Creado por Guido van Rossum y lanzado en 1991.
+* **Comunidad de Usuarios:** Muy activa y creciente, con un fuerte énfasis en la colaboración y la contribución abierta.
+* **Empresas que lo Usan:** Google, Facebook, Instagram, Spotify, y muchas startups y empresas en el campo de la ciencia de datos y el aprendizaje automático.
+
+== C++
+
+C\++ es un lenguaje de programación de propósito general que incluye características de programación orientada a objetos. Fue desarrollado por Bjarne Stroustrup como una extensión del lenguaje C y lanzado en 1985. C++ combina la eficiencia y control del lenguaje C con las ventajas de la programación orientada a objetos.
+
+* **Historia:** Desarrollado por Bjarne Stroustrup y lanzado en 1985.
+* **Comunidad de Usuarios:** Establecida y madura, con una amplia base de usuarios en la industria del software y la ingeniería.
+* **Empresas que lo Usan:** Microsoft, Adobe, Amazon, Bloomberg, y muchas empresas en el campo del desarrollo de sistemas y software de alto rendimiento.
+
+== C#
+
+C# es un lenguaje de programación orientado a objetos desarrollado por Microsoft como parte de su plataforma .NET. Fue lanzado en 2000 y ha sido utilizado ampliamente para desarrollar aplicaciones de escritorio, web y móviles en el ecosistema de Microsoft.
+
+* **Historia:** Desarrollado por Microsoft y lanzado en 2000.
+* **Comunidad de Usuarios:** Amplia y soportada por Microsoft, con una gran cantidad de recursos y documentación disponibles.
+* **Empresas que lo Usan:** Microsoft, Stack Overflow, Alibaba, y muchas empresas que desarrollan aplicaciones en la plataforma .NET.
+
+== Ruby
+
+Ruby es un lenguaje de programación dinámico y orientado a objetos, conocido por su simplicidad y productividad. Fue creado por Yukihiro "Matz" Matsumoto y lanzado en 1995. Ruby es particularmente conocido por el framework de desarrollo web Ruby on Rails, que ha popularizado el uso del lenguaje para el desarrollo de aplicaciones web.
+
+* **Historia:** Creado por Yukihiro "Matz" Matsumoto y lanzado en 1995.
+* **Comunidad de Usuarios:** Activa y apasionada, con un enfoque en la simplicidad y la productividad del desarrollador.
+* **Empresas que lo Usan:** GitHub, Airbnb, Shopify, y muchas startups y empresas tecnológicas que desarrollan aplicaciones web.
+

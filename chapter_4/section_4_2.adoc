@@ -1,0 +1,95 @@
+= Clases Abstractas
+
+Una clase abstracta en Java es una clase que no puede ser instanciada directamente y que está diseñada para ser heredada por otras clases. La principal característica de una clase abstracta es que puede contener métodos abstractos, que son métodos sin implementación. Las subclases que heredan de una clase abstracta están obligadas a proporcionar implementaciones para estos métodos abstractos. Las clases abstractas se utilizan para definir una estructura base común que puede ser extendida y personalizada por las subclases.
+
+Las clases abstractas han sido una característica fundamental del lenguaje Java desde su primera versión. A lo largo de las diferentes versiones de Java, el uso y las capacidades de las clases abstractas se han mantenido consistentes, aunque han sido complementadas por otras características del lenguaje, como las interfaces con métodos predeterminados y estáticos introducidas en Java 8. Estas características adicionales han proporcionado más flexibilidad a los desarrolladores para definir comportamientos comunes y contratos en sus aplicaciones.
+
+[source,java]
+----
+public abstract class Figura {
+    public abstract void dibujar();
+}
+----
+
+En este ejemplo, `Figura` es una clase abstracta con un método abstracto `dibujar`. Esto significa que cualquier subclase de `Figura` debe proporcionar una implementación para el método `dibujar`.
+
+== Uso de Clases Abstractas
+
+Las clases abstractas se utilizan para definir una base común y establecer contratos que las subclases deben cumplir. Esto permite a los desarrolladores crear una jerarquía de clases que comparten comportamientos comunes mientras permiten la personalización de ciertos aspectos en las subclases. Las clases abstractas son útiles cuando se necesita una clase base que no tiene sentido ser instanciada por sí sola, sino que solo sirve como una plantilla para otras clases.
+
+== Métodos Abstractos
+
+Un método abstracto es un método que se declara sin una implementación en una clase abstracta. Las subclases que heredan de la clase abstracta están obligadas a proporcionar una implementación para cada método abstracto. Esto asegura que las subclases implementen los comportamientos específicos que se espera de ellas.
+
+[source,java]
+----
+public abstract class Animal {
+    public abstract void hacerSonido();
+}
+----
+
+En este ejemplo, `hacerSonido` es un método abstracto. Cualquier clase que extienda `Animal` debe proporcionar una implementación para el método `hacerSonido`.
+
+== Componentes de las Clases Abstractas
+
+Las clases abstractas pueden contener tanto métodos abstractos como métodos concretos (con implementación). También pueden contener variables de instancia, constructores y bloques estáticos. Sin embargo, no se pueden instanciar directamente y deben ser extendidas por otras clases para ser utilizadas.
+
+[source,java]
+----
+public abstract class Vehiculo {
+    private String marca;
+
+    public Vehiculo(String marca) {
+        this.marca = marca;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public abstract void mover();
+}
+----
+
+En este ejemplo, `Vehiculo` es una clase abstracta con un constructor, un método concreto `getMarca` y un método abstracto `mover`.
+
+== Restricciones de las Clases Abstractas
+
+Las clases abstractas no pueden ser instanciadas directamente. Además, si una clase contiene al menos un método abstracto, la clase debe ser declarada como abstracta. Por otro lado, una clase abstracta no está obligada a contener métodos abstractos; puede contener solo métodos concretos y aún así ser abstracta.
+
+[source,java]
+----
+public abstract class Documento {
+    public void imprimir() {
+        System.out.println("Imprimiendo documento...");
+    }
+}
+----
+
+En este ejemplo, `Documento` es una clase abstracta que no contiene métodos abstractos, pero aún así no puede ser instanciada directamente.
+
+== Sintaxis de Clases Abstractas y Métodos Abstractos
+
+La sintaxis para definir una clase abstracta en Java es muy similar a la de una clase regular, con la diferencia de que se utiliza la palabra clave `abstract`. Los métodos abstractos se definen con la palabra clave `abstract` y no incluyen una implementación.
+
+[source,java]
+----
+public abstract class Figura {
+    private String color;
+
+    public Figura(String color) {
+        this.color = color;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public abstract void dibujar();
+}
+----
+
+En este ejemplo, `Figura` es una clase abstracta con un constructor, un método concreto `getColor` y un método abstracto `dibujar`.
+
+Las clases abstractas son una herramienta poderosa en la POO que permite definir una base común y establecer contratos que las subclases deben cumplir. Su uso mejora la cohesión y reduce el acoplamiento en el diseño de sistemas, facilitando la creación de código más robusto y mantenible. A lo largo de este capítulo, se explorarán ejemplos prácticos y se explicará cómo aplicar estos conceptos en la creación de sistemas de software eficientes y escalables.
+

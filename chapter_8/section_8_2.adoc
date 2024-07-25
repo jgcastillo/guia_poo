@@ -1,0 +1,36 @@
+= ¿Qué es S.O.L.I.D.?
+
+Una de las buenas prácticas de programación más reconocidas y adoptadas es el uso de los principios SOLID. Estos principios, proporcionan un marco de referencia robusto para diseñar software orientado a objetos. La aplicación de los principios SOLID ayuda a los desarrolladores a crear sistemas que son más fáciles de mantener, extender y entender, fomentando así la producción de código limpio y eficiente. En las siguientes secciones, exploraremos cada uno de estos principios en detalle, entendiendo su propósito y cómo pueden ser implementados para mejorar la calidad del software.
+
+Los principios de diseño SOLID se constituyen en un conjunto de directrices fundamentales en la ingeniería de software orientada a objetos, ideadas para mejorar la calidad, la mantenibilidad y la flexibilidad de los sistemas. Estos principios fueron promovidos por Robert C. Martin, también conocido como "Uncle Bob", y su relevancia ha crecido exponencialmente desde su introducción en la década de 2000. A lo largo de este capítulo, exploraremos cada uno de estos principios en detalle, comprendiendo su origen, propósito y las ventajas que ofrecen al desarrollo de software.
+
+== Origen de los Principios SOLID
+
+El término SOLID es un acrónimo que representa cinco principios clave: 
+
+1. **S**ingle Responsibility Principle (SRP - principio de Responsabilidad Única)
+2. **O**pen/Closed Principle (OCP - principio Abierto/Cerrado)
+3. **L**iskov Substitution Principle (LSP - Principio de Substitución de Liskov)
+4. **I**nterface Segregation Principle (ISP - Principio de Segregación de Interfaces)
+5. **D**ependency Inversion Principle (DIP - Principio de Inyección de Dependencias)
+
+Estos principios fueron formalizados por Robert C. Martin en sus escritos y conferencias, basándose en conceptos previamente establecidos en la comunidad de desarrollo de software. El objetivo principal de SOLID es proporcionar un marco de referencia que facilite la creación de sistemas robustos y fáciles de mantener.
+
+Los principios SOLID se utilizan para abordar algunos de los problemas más comunes en el diseño de software, tales como la rigidez, la fragilidad, la inmovilidad y la viscosidad del código. Al aplicar estos principios, los desarrolladores pueden crear sistemas que son:
+
+- **Más fáciles de entender y mantener**: Un código bien estructurado y con responsabilidades claramente definidas es más fácil de leer y comprender.
+- **Más flexibles y extensibles**: Permite la adición de nuevas funcionalidades con un mínimo de cambios en el código existente.
+- **Más robustos**: Reduce la probabilidad de errores al facilitar la implementación de cambios.
+
+El uso de los principios SOLID trae consigo múltiples beneficios, entre los cuales destacan:
+
+- **Mejora en la calidad del código**: Los principios SOLID fomentan la creación de código limpio y bien estructurado.
+- **Facilita el mantenimiento**: La modularidad y la clara separación de responsabilidades simplifican el mantenimiento y la evolución del sistema.
+- **Aumenta la reusabilidad**: Los componentes diseñados siguiendo SOLID tienden a ser más reutilizables en diferentes contextos.
+- **Fomenta el desarrollo ágil**: Permite responder rápidamente a los cambios en los requisitos, alineándose con las prácticas de desarrollo ágil.
+
+
+Los principios SOLID son aplicables en cualquier etapa del desarrollo de software, desde el diseño inicial hasta la refactorización de sistemas existentes. Son particularmente útiles en proyectos grandes y complejos donde la mantenibilidad y la flexibilidad son cruciales. Sin embargo, también son beneficiosos en proyectos más pequeños, ya que establecer buenas prácticas de diseño desde el principio puede prevenir problemas futuros.
+
+
+

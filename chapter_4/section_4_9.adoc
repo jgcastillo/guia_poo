@@ -1,0 +1,49 @@
+= Diferencias entre Clases Abstractas e Interfaces
+
+En el ámbito de la Programación Orientada a Objetos (POO), tanto las clases abstractas como las interfaces juegan roles cruciales, pero tienen características y usos distintos que los desarrolladores deben entender para utilizarlos de manera efectiva. A continuación, se explorarán estas diferencias en detalle.
+
+Las clases abstractas son útiles cuando se necesita proporcionar una implementación común para varias clases relacionadas. Una clase abstracta puede tener métodos con implementación concreta y métodos abstractos que deben ser implementados por las subclases. Esto permite compartir código común entre todas las subclases y, al mismo tiempo, forzar a las subclases a implementar ciertos métodos. Además, las clases abstractas pueden tener constructores, lo que permite inicializar estados comunes en las subclases. Por ejemplo, en un sistema de gestión de vehículos, una clase abstracta `Vehiculo` podría proporcionar una implementación común para métodos como `arrancar` y `detener`, y dejar métodos abstractos como `mover` para que sean implementados por las subclases `Carro` y `Bicicleta`.
+
+Por otro lado, las interfaces son ideales para definir contratos que varias clases no relacionadas pueden cumplir. Una interfaz solo puede contener métodos abstractos (antes de Java 8) y métodos predeterminados o estáticos (a partir de Java 8). Esto significa que una interfaz no puede proporcionar ninguna implementación concreta; simplemente define los métodos que las clases deben implementar. Las interfaces son especialmente útiles para lograr la herencia múltiple, ya que una clase en Java puede implementar múltiples interfaces, mientras que solo puede heredar de una sola clase abstracta. Esto permite que una clase combine comportamientos de múltiples fuentes. Por ejemplo, una interfaz `Volador` podría ser implementada por clases tan diversas como `Avion`, `Pajaro` y `Murcielago`.
+
+Una diferencia clave entre las clases abstractas e interfaces es cómo se gestionan las constantes y los métodos. En las interfaces, las variables son implícitamente `public`, `static`, y `final`, lo que significa que deben ser inicializadas en el momento de la declaración y no pueden cambiar. Esto es útil para definir constantes que deben ser compartidas entre todas las implementaciones de la interfaz. Por ejemplo, una interface `ConstantesMatematicas` podría definir una constante `PI` utilizada en diversas clases. En contraste, las clases abstractas pueden tener variables de instancia con cualquier modificador de acceso, y estas variables pueden ser inicializadas en el constructor o a través de métodos, proporcionando más flexibilidad.
+
+Otra diferencia importante radica en el uso del modificador `default` en las interfaces a partir de Java 8. Los métodos predeterminados permiten que las interfaces proporcionen una implementación predeterminada para los métodos, que las clases pueden usar o sobrescribir. Esto introduce cierta flexibilidad en el diseño de las interfaces, permitiendo la evolución de las APIs sin romper las implementaciones existentes. Las clases abstractas, sin embargo, siempre han podido tener métodos con implementación concreta y abstracta, lo que les permite proporcionar comportamientos comunes que todas las subclases pueden heredar.
+
+== Resumen de Diferencias
+
+A continuación, se presenta una tabla que resume las diferencias entre clases abstractas e interfaces en Java:
+
+[cols="1,1,1", options="header"]
+|===
+| Característica | Clases Abstractas | Interfaces
+
+| Herencia
+| Una clase abstracta puede extender solo una clase (abstracta o concreta).
+| Una interfaz puede extender múltiples interfaces.
+
+| Implementación de Métodos
+| Puede tener métodos tanto abstractos como concretos.
+| Solo métodos abstractos antes de Java 8; métodos abstractos, predeterminados y estáticos desde Java 8.
+
+| Constructores
+| Puede tener constructores.
+| No puede tener constructores.
+
+| Variables
+| Puede tener variables de instancia.
+| Solo puede tener variables `public`, `static` y `final`.
+
+| Modificadores de Acceso
+| Métodos y variables pueden tener cualquier modificador de acceso.
+| Los métodos son implícitamente `public`; las variables son `public`, `static`, `final`.
+
+| Herencia Múltiple
+| No soporta herencia múltiple de clases.
+| Soporta herencia múltiple de interfaces.
+
+| Uso Típico
+| Proveer una base común y una implementación compartida para las subclases.
+| Definir un contrato que puede ser implementado por clases no relacionadas.
+
+|===

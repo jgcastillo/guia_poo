@@ -1,0 +1,12 @@
+:stem:
+:icons: font
+//:imagesdir: figs
+:prog-lang: all
+//:sourcedir: ../examples/
+:figure-caption: Figura
+:source-highlighter: highlightjs
+:revealjs_theme: black
+:revealjs_slideNumber: true
+:pdf-page-size: letter
+:front-cover-image: image:images/portada_libro.png[]
+:notitle:

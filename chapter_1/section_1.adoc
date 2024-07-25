@@ -1,0 +1,140 @@
+= Conceptos Básicos de la POO
+
+== Historia de la POO
+
+La Programación Orientada a Objetos (POO) tiene sus raíces en los años 1960, con el lenguaje de programación Simula, creado por Ole-Johan Dahl y Kristen Nygaard en Noruega. Simula introdujo el concepto de clases y objetos, que más tarde sería perfeccionado por el lenguaje Smalltalk en los años 1970. Smalltalk, desarrollado en Xerox PARC por Alan Kay y su equipo, es considerado uno de los primeros lenguajes de programación puramente orientados a objetos.
+
+Con el tiempo, la POO ha evolucionado y se ha integrado en muchos lenguajes de programación modernos como C++, Java, Python, y más recientemente, Kotlin y Swift. La adopción de la POO ha sido impulsada por la necesidad de manejar la complejidad creciente de los sistemas de software.
+
+== Diferencias con la Programación Lineal y Estructurada
+
+La Programación Lineal, también conocida como Programación Secuencial, es un paradigma donde el flujo de ejecución del programa sigue una secuencia lineal de instrucciones. Este enfoque es sencillo pero se vuelve ineficaz para proyectos grandes y complejos debido a la falta de modularidad y reutilización de código.
+
+La Programación Estructurada, popularizada por lenguajes como C y Pascal, introdujo conceptos como funciones, bucles y estructuras de control de flujo que permiten una mejor organización del código. Aunque mejora la modularidad en comparación con la Programación Lineal, todavía puede resultar en programas difíciles de mantener y escalar.
+
+La Programación Orientada a Objetos, en cambio, organiza el código en torno a "objetos" que combinan datos y comportamientos. Esta organización refleja mejor el mundo real y promueve la reutilización y escalabilidad del código.
+
+== Por Qué de su Creación
+
+La POO fue creada para abordar varios problemas clave en el desarrollo de software:
+
+- **Modularidad:** Facilitar la división del código en partes independientes y reutilizables.
+- **Mantenimiento:** Simplificar la actualización y corrección de código.
+- **Escalabilidad:** Mejorar la capacidad de manejar proyectos grandes y complejos.
+- **Reutilización:** Permitir el uso de componentes de software existentes en nuevos proyectos.
+
+== Influencia en la Programación en los Últimos Años
+
+En los últimos años, la POO ha tenido un impacto significativo en la forma en que se desarrolla el software. Ha influenciado no solo los lenguajes de programación sino también las metodologías de desarrollo como el Desarrollo Orientado a Objetos (OOD) y el Diseño Orientado a Objetos (OOD). Además, ha llevado al desarrollo de patrones de diseño que proporcionan soluciones probadas para problemas comunes en el diseño de software.
+
+La POO ha sido fundamental en la creación de sistemas grandes y complejos, desde aplicaciones empresariales hasta videojuegos y sistemas operativos. Su enfoque en la modularidad y reutilización ha permitido a los desarrolladores crear software más robusto y mantenible.
+
+== Ventajas de la POO
+
+- **Modularidad:** El código se divide en objetos autónomos que pueden ser desarrollados y probados independientemente.
+- **Reutilización:** Los objetos y clases pueden ser reutilizados en diferentes programas.
+- **Mantenimiento:** Es más fácil actualizar y corregir el código debido a la estructura modular.
+- **Escalabilidad:** La POO permite manejar mejor la complejidad a medida que los proyectos crecen.
+- **Claridad:** El código orientado a objetos tiende a ser más intuitivo y refleja mejor los conceptos del mundo real.
+
+== Desventajas de la POO
+
+- **Complejidad:** La POO puede introducir una capa adicional de complejidad, especialmente para proyectos pequeños o sencillos.
+- **Rendimiento:** En algunos casos, la abstracción y modularidad de la POO pueden llevar a una sobrecarga en el rendimiento.
+- **Curva de Aprendizaje:** Los conceptos de POO pueden ser difíciles de dominar para los principiantes.
+
+== Evolución de los Paradigmas de Programación
+
+Para entender la evolución de los paradigmas de programación, consideremos un sencillo programa que calcula el área y el perímetro de un rectángulo. Veremos cómo se desarrollaría este programa utilizando Programación Secuencial, Programación Estructurada y Programación Orientada a Objetos. Los ejemplos en Python ilustran los paradigmas Secuencial y Estructurado, mientras que el ejemplo en Java muestra la Programación Orientada a Objetos.
+
+=== Programación Secuencial
+
+La Programación Secuencial sigue un flujo lineal de instrucciones. No hay modularidad ni reutilización de código. El siguiente ejemplo en Python muestra este enfoque:
+
+[source,python]
+----
+# Programa secuencial para calcular el área y el perímetro de un rectángulo
+# Entrada de datos
+ancho = 5
+alto = 3
+
+# Cálculos
+area = ancho * alto
+perimetro = 2 * (ancho + alto)
+
+# Salida de resultados
+print(f"Área: {area}")
+print(f"Perímetro: {perimetro}")
+----
+
+En este ejemplo, todas las operaciones se realizan en una secuencia lineal. Aunque es sencillo, este enfoque se vuelve difícil de manejar y escalar a medida que el programa crece.
+
+=== Programación Estructurada
+
+La Programación Estructurada introduce funciones para organizar el código en bloques reutilizables. Este paradigma mejora la modularidad y la legibilidad del código. El siguiente ejemplo en Python ilustra este enfoque:
+
+[source,python]
+----
+# Programa estructurado para calcular el área y el perímetro de un rectángulo
+def calcular_area(ancho, alto):
+    return ancho * alto
+
+def calcular_perimetro(ancho, alto):
+    return 2 * (ancho + alto)
+
+# Entrada de datos
+ancho = 5
+alto = 3
+
+# Cálculos
+area = calcular_area(ancho, alto)
+perimetro = calcular_perimetro(ancho, alto)
+
+# Salida de resultados
+print(f"Área: {area}")
+print(f"Perímetro: {perimetro}")
+----
+
+En este ejemplo, el uso de funciones permite dividir el problema en subproblemas más pequeños, cada uno con su propia función. Esto facilita la comprensión y el mantenimiento del código.
+
+=== Programación Orientada a Objetos
+
+La Programación Orientada a Objetos (POO) organiza el código en torno a "objetos" que encapsulan tanto datos como comportamientos. Este enfoque refleja mejor los conceptos del mundo real y promueve la reutilización y escalabilidad del código. El siguiente ejemplo en Java muestra este paradigma:
+
+[source,java]
+----
+public class Rectangulo {
+    // Atributos
+    private int ancho;
+    private int alto;
+
+    // Constructor
+    public Rectangulo(int ancho, int alto) {
+        this.ancho = ancho;
+        this.alto = alto;
+    }
+
+    // Métodos
+    public int calcularArea() {
+        return ancho * alto;
+    }
+
+    public int calcularPerimetro() {
+        return 2 * (ancho + alto);
+    }
+
+    // Método principal
+    public static void main(String[] args) {
+        // Crear objeto Rectangulo
+        Rectangulo rectangulo = new Rectangulo(5, 3);
+
+        // Calcular y mostrar resultados
+        System.out.println("Área: " + rectangulo.calcularArea());
+        System.out.println("Perímetro: " + rectangulo.calcularPerimetro());
+    }
+}
+----
+
+En este ejemplo, la clase `Rectangulo` encapsula los atributos `ancho` y `alto`, y los métodos `calcularArea` y `calcularPerimetro`. El método `main` crea una instancia de `Rectangulo` y utiliza sus métodos para realizar los cálculos. Este enfoque mejora significativamente la modularidad, la reutilización y la escalabilidad del código.
+
+Es importante mencionar que aunque en el ejemplo de Programación Orientada a Objetos se utilizan conceptos como objetos, clases, encapsulamiento, métodos y atributos, no deben preocuparse si no comprenden completamente estos términos en este momento. A lo largo del curso, exploraremos y explicaremos cada uno de estos conceptos con suficiente detalle, de manera que puedan asimilarlos y aplicarlos eficazmente en sus proyectos.

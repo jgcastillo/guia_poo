@@ -1,0 +1,69 @@
+= Cláusulas para el Manejo de Excepciones
+
+En Java, el manejo de excepciones se realiza utilizando varias cláusulas específicas diseñadas para capturar y manejar errores de manera efectiva. Estas cláusulas permiten a los desarrolladores controlar el flujo del programa cuando se produce una excepción, asegurando que el programa pueda responder de manera apropiada y continuar ejecutándose o finalizar de forma segura.
+
+== Cláusula `try`
+
+La cláusula `try` se utiliza para envolver el código que puede generar una excepción. Dentro del bloque `try`, se coloca el código que se desea monitorear para detectar posibles errores. Si se produce una excepción dentro de este bloque, el control del programa se transfiere a la correspondiente cláusula `catch`.
+
+[source, java]
+----
+try {
+    // Código que puede lanzar una excepción
+    int result = 10 / 0;
+}
+----
+
+== Cláusula catch
+
+La cláusula catch se utiliza para capturar y manejar las excepciones que se producen en el bloque try. Se puede definir múltiples cláusulas catch para manejar diferentes tipos de excepciones de manera específica. Cada cláusula catch declara un tipo de excepción que puede manejar, y cuando se lanza una excepción de ese tipo, el control se transfiere a la correspondiente cláusula catch.
+
+[source, java]
+----
+try {
+    int result = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("Error: División por cero.");
+} catch (Exception e) {
+    System.out.println("Error: Excepción general.");
+}
+----
+
+== Cláusula finally
+
+La cláusula finally se utiliza para definir un bloque de código que siempre se ejecutará después del bloque try, independientemente de si se lanzó o no una excepción. Esto es útil para liberar recursos o realizar tareas de limpieza que deben ejecutarse sin importar si ocurrió un error.
+
+[source, java]
+----
+try {
+    int result = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("Error: División por cero.");
+} finally {
+    System.out.println("Este bloque siempre se ejecuta.");
+}
+----
+
+=== Cláusula throw
+
+La cláusula throw se utiliza para lanzar explícitamente una excepción. Esto puede ser útil para crear excepciones personalizadas o para lanzar una excepción en respuesta a una condición específica en el código.
+
+[source, java]
+----
+public void checkAge(int age) {
+    if (age < 18) {
+        throw new IllegalArgumentException("La edad debe ser 18 o mayor.");
+    }
+}
+----
+
+=== Cláusula throws
+
+La cláusula throws se utiliza en la declaración de métodos para indicar que éstos pueden lanzar una o más excepciones. Esto informa a los usuarios del método sobre las excepciones que deben manejar cuando llaman al método.
+
+[source, java]
+----
+public void readFile(String fileName) throws IOException {
+    // Código que puede lanzar IOException
+}
+----

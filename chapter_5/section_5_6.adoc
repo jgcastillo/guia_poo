@@ -1,0 +1,98 @@
+= Ejercicios
+
+A continuación se presenta una serie de ejercicios diseñados para que los estudiantes puedan aplicar y demostrar sus conocimientos sobre los diferentes tipos de diagramas UML y su codificación en Java. 
+
+Estos diagramas los puedes hacer a mano, pero si quieres tener una herramienta que te permita hacerlo en la computadora puedes probar esta página web: https://app.diagrams.net/ o colocas en el buscador `draw.io`` y te lleva al mismo sitio.
+
+== Ejercicio 1: Diagrama de Clases
+
+Dibuja un diagrama de clases para un sistema de gestión de cursos que incluya las siguientes clases:
+
+- Curso
+- Profesor
+- Estudiante
+
+Las relaciones entre las clases deben incluir:
+
+- Un curso puede ser impartido por un solo profesor.
+- Un curso puede tener múltiples estudiantes.
+
+== Ejercicio 2: Diagrama de Casos de Uso
+
+Crea un diagrama de casos de uso para un sistema de gestión de tareas. Los casos de uso deben incluir:
+
+- Crear Tarea
+- Actualizar Tarea
+- Eliminar Tarea
+- Ver Tarea
+
+Tendrá un único actor:
+
+- Usuario
+
+== Ejercicio 3: Diagrama de Secuencia
+
+Dibuja un diagrama de secuencia para el caso de uso "Crear Tarea" del sistema de gestión de tareas. Asegúrate de incluir los mensajes entre el usuario y el sistema, así como la validación y guardado de la tarea.
+
+== Ejercicio 4: Diagrama de Colaboración
+
+Dibuja un diagrama de colaboración para el caso de uso "Actualizar Tarea" en el sistema de gestión de tareas. Incluye los objetos relevantes y los mensajes intercambiados entre ellos.
+
+== Ejercicio 5: Desde el Código Java al Diagrama de Clases
+
+A partir del siguiente código Java, dibuja el diagrama de clases correspondiente:
+
+[source,java]
+----
+public class Biblioteca {
+    private List<Libro> libros;
+
+    public void agregarLibro(Libro libro) {
+        libros.add(libro);
+    }
+
+    public List<Libro> obtenerLibros() {
+        return libros;
+    }
+}
+
+public class Libro {
+    private String titulo;
+    private String autor;
+
+    public Libro(String titulo, String autor) {
+        this.titulo = titulo;
+        this.autor = autor;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+}
+----
+
+== Soluciones
+
+=== Solución Ejercicio 1: Diagrama de Clases
+
+image::sol_ejercicio_1.png[]
+
+=== Solución Ejercicio 2: Diagrama de Casos de Uso
+
+image::sol_ejercicio_2.png[]
+
+=== Solución Ejercicio 3: Diagrama de Secuencia
+
+image::sol_ejercicio_3.png[]
+
+=== Solución Ejercicio 4: Diagrama de Colaboración
+
+image::sol_ejercicio_4.png[]
+
+=== Solución Ejercicio 5: Desde el Código Java al Diagrama de Clases
+
+image::sol_ejercicio_5.png[]

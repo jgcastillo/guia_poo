@@ -1,0 +1,528 @@
+= Ejemplos y ejercicios
+
+== Ejemplo 1: Sistema de Reportes
+
+Primero, presentamos un código sin aplicar los principios SOLID, y luego lo refactorizamos para aplicar los principios necesarios.
+
+[source, java]
+----
+class Report {
+    public void generateReport() {
+        // Código para generar el reporte
+        System.out.println("Generating report");
+    }
+
+    public void printReport() {
+        // Código para imprimir el reporte
+        System.out.println("Printing report");
+    }
+
+    public void saveToDatabase() {
+        // Código para guardar el reporte en la base de datos
+        System.out.println("Saving report to database");
+    }
+}
+
+public class ReportTest {
+    public static void main(String[] args) {
+        Report report = new Report();
+        report.generateReport();
+        report.printReport();
+        report.saveToDatabase();
+    }
+}
+----
+
+En este ejemplo, la clase `Report` tiene múltiples responsabilidades, violando el Principio de Responsabilidad Única (SRP). Además, la clase depende de métodos específicos para imprimir y guardar el reporte, lo cual viola el Principio de Inversión de Dependencias (DIP).
+
+Refactorizamos aplicando SRP y DIP:
+
+[source, java]
+----
+interface ReportSaver {
+    void save(String content);
+}
+
+interface ReportPrinter {
+    void print(String content);
+}
+
+class DatabaseReportSaver implements ReportSaver {
+    @Override
+    public void save(String content) {
+        // Código para guardar el reporte en la base de datos
+        System.out.println("Saving report to database");
+    }
+}
+
+class ConsoleReportPrinter implements ReportPrinter {
+    @Override
+    public void print(String content) {
+        // Código para imprimir el reporte
+        System.out.println("Printing report to console");
+    }
+}
+
+class Report {
+    public String generateReport() {
+        // Código para generar el reporte
+        return "Report content";
+    }
+}
+
+public class ReportTest {
+    public static void main(String[] args) {
+        Report report = new Report();
+        String content = report.generateReport();
+
+        ReportPrinter printer = new ConsoleReportPrinter();
+        printer.print(content);
+
+        ReportSaver saver = new DatabaseReportSaver();
+        saver.save(content);
+    }
+}
+----
+
+En esta refactorización, hemos separado las responsabilidades de guardar e imprimir el reporte en interfaces y clases específicas, aplicando SRP y DIP. Ahora, `Report` solo se encarga de generar el reporte, mientras que `ReportPrinter` y `ReportSaver` manejan la impresión y el guardado.
+
+=== Ejemplo 2: Sistema de Vehículos
+
+Presentamos un código sin aplicar los principios SOLID, y luego lo refactorizamos para aplicar los principios necesarios.
+
+[source, java]
+----
+class Vehicle {
+    public void start() {
+        // Código para arrancar el vehículo
+        System.out.println("Starting vehicle");
+    }
+
+    public void stop() {
+        // Código para detener el vehículo
+        System.out.println("Stopping vehicle");
+    }
+
+    public void fly() {
+        // Código para volar
+        System.out.println("Flying vehicle");
+    }
+}
+
+public class VehicleTest {
+    public static void main(String[] args) {
+        Vehicle car = new Vehicle();
+        car.start();
+        car.stop();
+
+        Vehicle plane = new Vehicle();
+        plane.start();
+        plane.fly();
+        plane.stop();
+    }
+}
+----
+
+En este ejemplo, la clase `Vehicle` tiene métodos que no son aplicables a todos los tipos de vehículos, violando el Principio de Segregación de Interfaces (ISP).
+
+Refactorizamos aplicando SRP e ISP:
+
+[source, java]
+----
+interface Drivable {
+    void start();
+    void stop();
+}
+
+interface Flyable {
+    void fly();
+}
+
+class Car implements Drivable {
+    @Override
+    public void start() {
+        // Código para arrancar el coche
+        System.out.println("Starting car");
+    }
+
+    @Override
+    public void stop() {
+        // Código para detener el coche
+        System.out.println("Stopping car");
+    }
+}
+
+class Plane implements Drivable, Flyable {
+    @Override
+    public void start() {
+        // Código para arrancar el avión
+        System.out.println("Starting plane");
+    }
+
+    @Override
+    public void stop() {
+        // Código para detener el avión
+        System.out.println("Stopping plane");
+    }
+
+    @Override
+    public void fly() {
+        // Código para volar
+        System.out.println("Flying plane");
+    }
+}
+
+public class VehicleTest {
+    public static void main(String[] args) {
+        Drivable car = new Car();
+        car.start();
+        car.stop();
+
+        Plane plane = new Plane();
+        plane.start();
+        plane.fly();
+        plane.stop();
+    }
+}
+----
+
+En esta refactorización, hemos creado interfaces específicas para las diferentes capacidades de los vehículos, aplicando ISP. La clase `Car` implementa solo `Drivable`, mientras que `Plane` implementa `Drivable` y `Flyable`.
+
+A continuación se te presenta una serie de ejerciciospara que practiques lo aprendido
+
+==== Ejercicio 1
+
+Dado el siguiente código, aplique los principios SOLID para mejorar su diseño:
+
+[source, java]
+----
+class Order {
+    public void calculateTotal() {
+        // Código para calcular el total del pedido
+        System.out.println("Calculating total");
+    }
+
+    public void saveToDatabase() {
+        // Código para guardar el pedido en la base de datos
+        System.out.println("Saving order to database");
+    }
+
+    public void sendEmailConfirmation() {
+        // Código para enviar confirmación por email
+        System.out.println("Sending email confirmation");
+    }
+}
+
+public class OrderTest {
+    public static void main(String[] args) {
+        Order order = new Order();
+        order.calculateTotal();
+        order.saveToDatabase();
+        order.sendEmailConfirmation();
+    }
+}
+----
+
+==== Ejercicio 2
+
+Dado el siguiente código, aplique los principios SOLID para mejorar su diseño:
+
+[source, java]
+----
+class User {
+    public void login() {
+        // Código para iniciar sesión
+        System.out.println("User logging in");
+    }
+
+    public void register() {
+        // Código para registrar usuario
+        System.out.println("User registering");
+    }
+
+    public void sendEmail() {
+        // Código para enviar email
+        System.out.println("Sending email");
+    }
+}
+
+public class UserTest {
+    public static void main(String[] args) {
+        User user = new User();
+        user.login();
+        user.register();
+        user.sendEmail();
+    }
+}
+----
+
+==== Ejercicio 3
+
+Dado el siguiente código, aplique los principios SOLID para mejorar su diseño:
+
+[source, java]
+----
+class Animal {
+    public void eat() {
+        System.out.println("Animal eating");
+    }
+
+    public void sleep() {
+        System.out.println("Animal sleeping");
+    }
+
+    public void fly() {
+        System.out.println("Animal flying");
+    }
+}
+
+public class AnimalTest {
+    public static void main(String[] args) {
+        Animal animal = new Animal();
+        animal.eat();
+        animal.sleep();
+        animal.fly();
+    }
+}
+----
+
+==== Ejercicio 4
+
+Diseñe una solución para un sistema de notificaciones donde diferentes tipos de notificaciones (SMS, Email, Push) puedan ser enviadas. Aplique los principios SOLID para asegurar un diseño flexible y mantenible.
+
+==== Soluciones
+
+=== Solución Ejercicio 1
+
+Refactorizamos aplicando SRP y DIP:
+
+[source, java]
+----
+interface OrderSaver {
+    void save(String orderDetails);
+}
+
+interface EmailSender {
+    void sendEmail(String orderDetails);
+}
+
+class DatabaseOrderSaver implements OrderSaver {
+    @Override
+    public void save(String orderDetails) {
+        System.out.println("Saving order to database");
+    }
+}
+
+class SimpleEmailSender implements EmailSender {
+    @Override
+    public void sendEmail(String orderDetails) {
+        System.out.println("Sending email confirmation");
+    }
+}
+
+class Order {
+    public String calculateTotal() {
+        System.out.println("Calculating total");
+        return "Order details";
+    }
+}
+
+public class OrderTest {
+    public static void main(String[] args) {
+        Order order = new Order();
+        String orderDetails = order.calculateTotal();
+
+        OrderSaver saver = new DatabaseOrderSaver();
+        saver.save(orderDetails);
+
+        EmailSender emailSender = new SimpleEmailSender();
+        emailSender.sendEmail(orderDetails);
+    }
+}
+----
+
+=== Solución Ejercicio 2
+
+Refactorizamos aplicando SRP:
+
+[source, java]
+----
+class User {
+    public void login() {
+        System.out.println("User logging in");
+    }
+
+    public void register() {
+        System.out.println("User registering");
+    }
+}
+
+class EmailService {
+    public void sendEmail() {
+        System.out.println("Sending email");
+    }
+}
+
+public class UserTest {
+    public static void main(String[] args) {
+        User user = new User();
+        user.login();
+        user.register();
+
+        EmailService emailService = new EmailService();
+        emailService.sendEmail();
+    }
+}
+----
+
+=== Solución Ejercicio 3
+
+Refactorizamos aplicando SRP e ISP:
+
+[source, java]
+----
+interface Eatable {
+    void eat();
+}
+
+interface Sleepable {
+    void sleep();
+}
+
+interface Flyable {
+    void fly();
+}
+
+class Bird implements Eatable, Sleepable, Flyable {
+    @Override
+    public void eat() {
+        System.out.println("Bird eating");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println("Bird sleeping");
+    }
+
+    @Override
+    public void fly() {
+        System.out.println("Bird flying");
+    }
+}
+
+class Dog implements Eatable, Sleepable {
+    @Override
+    public void eat() {
+        System.out.println("Dog eating");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println("Dog sleeping");
+    }
+}
+
+public class AnimalTest {
+    public static void main(String[] args){}
+        Bird bird = new Bird();
+        bird.eat();
+        bird.sleep();
+        bird.fly();
+
+        Dog dog = new Dog();
+        dog.eat();
+        dog.sleep();
+    }
+}
+----
+
+
+=== Solución Ejercicio 4
+
+Para diseñar un sistema de notificaciones que envíe diferentes tipos de notificaciones (SMS, Email, Push) aplicando los principios SOLID, podemos seguir los siguientes pasos:
+
+1. **Principio de Responsabilidad Única (SRP)**: Cada clase debe tener una única responsabilidad, por lo que dividiremos las responsabilidades de enviar notificaciones en clases separadas.
+2. **Principio Abierto-Cerrado (OCP)**: El sistema debe estar abierto para su extensión pero cerrado para su modificación. Podemos lograr esto definiendo interfaces que permitan añadir nuevos tipos de notificaciones sin cambiar el código existente.
+3. **Principio de Inversión de Dependencias (DIP)**: Los módulos de alto nivel no deben depender de módulos de bajo nivel. Ambos deben depender de abstracciones.
+
+=== Diseño del Sistema de Notificaciones
+
+Primero, definimos una interfaz para las notificaciones:
+
+[source, java]
+----
+interface Notification {
+    void send(String message);
+}
+----
+
+Luego, implementamos esta interfaz para los diferentes tipos de notificaciones:
+
+[source, java]
+----
+class SMSNotification implements Notification {
+    @Override
+    public void send(String message) {
+        System.out.println("Sending SMS: " + message);
+    }
+}
+
+class EmailNotification implements Notification {
+    @Override
+    public void send(String message) {
+        System.out.println("Sending Email: " + message);
+    }
+}
+
+class PushNotification implements Notification {
+    @Override
+    public void send(String message) {
+        System.out.println("Sending Push Notification: " + message);
+    }
+}
+----
+
+Creamos una clase `NotificationService` que utilice estas implementaciones para enviar notificaciones. Esta clase dependerá de la abstracción `Notification` en lugar de las implementaciones concretas:
+
+[source, java]
+----
+class NotificationService {
+    private final Notification notification;
+
+    public NotificationService(Notification notification) {
+        this.notification = notification;
+    }
+
+    public void notifyUser(String message) {
+        notification.send(message);
+    }
+}
+----
+
+Finalmente, demostramos el uso del sistema de notificaciones en una clase de prueba:
+
+[source, java]
+----
+public class NotificationTest {
+    public static void main(String[] args) {
+        Notification sms = new SMSNotification();
+        NotificationService smsService = new NotificationService(sms);
+        smsService.notifyUser("This is an SMS message");
+
+        Notification email = new EmailNotification();
+        NotificationService emailService = new NotificationService(email);
+        emailService.notifyUser("This is an Email message");
+
+        Notification push = new PushNotification();
+        NotificationService pushService = new NotificationService(push);
+        pushService.notifyUser("This is a Push Notification message");
+    }
+}
+----
+
+*Explicación*:
+
+1. **Responsabilidad Única (SRP)**: Cada clase (`SMSNotification`, `EmailNotification`, `PushNotification`, y `NotificationService`) tiene una única responsabilidad, ya sea enviar un tipo específico de notificación o coordinar el envío de notificaciones.
+2. **Abierto-Cerrado (OCP)**: El sistema puede ser extendido para soportar nuevos tipos de notificaciones simplemente implementando la interfaz `Notification` sin modificar las clases existentes.
+3. **Inversión de Dependencias (DIP)**: `NotificationService` depende de la abstracción `Notification` en lugar de las implementaciones concretas, lo que permite cambiar fácilmente el tipo de notificación utilizada.
+

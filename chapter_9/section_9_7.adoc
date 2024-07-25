@@ -1,0 +1,111 @@
+== Patrón Decorator
+
+El patrón Decorator pertenece al grupo de patrones estructurales. Este patrón permite añadir comportamiento adicional a un objeto de manera dinámica, proporcionando una alternativa flexible a la herencia para extender funcionalidades.
+
+El patrón Decorator surge de la necesidad de extender las funcionalidades de objetos individuales de manera dinámica y transparente sin afectar a otros objetos de la misma clase. En lugar de utilizar la herencia para agregar funcionalidad, lo que puede llevar a una explosión de subclases y falta de flexibilidad, el patrón Decorator permite agregar responsabilidades a los objetos en tiempo de ejecución.
+
+Para implementar el patrón Decorator, se define una interfaz o clase abstracta que será decorada, y luego se crean clases concretas que implementan o extienden esta interfaz/clase abstracta. Los decoradores también implementan o extienden esta interfaz/clase abstracta y contienen una referencia al objeto que están decorando.
+
+=== Ejemplo en Java
+
+El siguiente es un ejemplo de cómo se puede definir y usar el patrón Decorator en Java para agregar funcionalidades adicionales a un objeto de `Coffee`.
+
+[source, java]
+----
+interface Coffee {
+    String getDescription();
+    double getCost();
+}
+
+class SimpleCoffee implements Coffee {
+    @Override
+    public String getDescription() {
+        return "Simple coffee";
+    }
+
+    @Override
+    public double getCost() {
+        return 2.0;
+    }
+}
+
+abstract class CoffeeDecorator implements Coffee {
+    protected Coffee decoratedCoffee;
+
+    public CoffeeDecorator(Coffee coffee) {
+        this.decoratedCoffee = coffee;
+    }
+
+    @Override
+    public String getDescription() {
+        return decoratedCoffee.getDescription();
+    }
+
+    @Override
+    public double getCost() {
+        return decoratedCoffee.getCost();
+    }
+}
+
+class MilkDecorator extends CoffeeDecorator {
+    public MilkDecorator(Coffee coffee) {
+        super(coffee);
+    }
+
+    @Override
+    public String getDescription() {
+        return decoratedCoffee.getDescription() + ", milk";
+    }
+
+    @Override
+    public double getCost() {
+        return decoratedCoffee.getCost() + 0.5;
+    }
+}
+
+class SugarDecorator extends CoffeeDecorator {
+    public SugarDecorator(Coffee coffee) {
+        super(coffee);
+    }
+
+    @Override
+    public String getDescription() {
+        return decoratedCoffee.getDescription() + ", sugar";
+    }
+
+    @Override
+    public double getCost() {
+        return decoratedCoffee.getCost() + 0.2;
+    }
+}
+----
+
+En este ejemplo, `Coffee` es la interfaz que define los métodos `getDescription` y `getCost`. `SimpleCoffee` es una implementación concreta de `Coffee`. `CoffeeDecorator` es una clase abstracta que implementa `Coffee` y contiene una referencia a un objeto `Coffee`. `MilkDecorator` y `SugarDecorator` son decoradores concretos que añaden funcionalidades adicionales al objeto `Coffee`.
+
+Para usar este patrón, se puede escribir el siguiente código:
+
+[source, java]
+----
+public class Main {
+    public static void main(String[] args) {
+        Coffee coffee = new SimpleCoffee();
+        System.out.println(coffee.getDescription() + " $" + coffee.getCost());
+
+        coffee = new MilkDecorator(coffee);
+        System.out.println(coffee.getDescription() + " $" + coffee.getCost());
+
+        coffee = new SugarDecorator(coffee);
+        System.out.println(coffee.getDescription() + " $" + coffee.getCost());
+    }
+}
+----
+
+En este código, se crea un `SimpleCoffee` y se le agregan decoradores de `MilkDecorator` y `SugarDecorator`. Cada decorador añade su propia funcionalidad al objeto original `SimpleCoffee` y modifica su descripción y costo.
+
+=== Consideraciones y Mejores Prácticas
+
+El patrón Decorator es especialmente útil cuando se necesita agregar funcionalidades de manera flexible y dinámica a objetos individuales sin modificar otras instancias de la misma clase. Es importante diseñar los decoradores de manera que sean intercambiables y que puedan ser aplicados en cualquier orden. También es fundamental asegurarse de que los decoradores no introduzcan efectos secundarios indeseados.
+
+Un ejemplo común del uso del patrón Decorator es en sistemas de interfaz de usuario donde diferentes elementos visuales necesitan ser decorados con bordes, colores, sombras, etc. Otro ejemplo es en aplicaciones de streaming donde se pueden aplicar diferentes filtros (decoradores) a los datos en tiempo real.
+
+

@@ -1,0 +1,23 @@
+== Libros
+
+. Deitel & Deitel. "Como programar en Java", 9na edición, Editorial Pearson, 2014.
+
+
+
+== En línea
+. Web: https://www.tutorialspoint.com/java/java_object_classes.htm[https://www.tutorialspoint.com/java/java_object_classes.htm]
+. Web: https://www.geeksforgeeks.org/java-objects-classes/[https://www.geeksforgeeks.org/java-objects-classes/]
+. Visual Studio Code. (n.d.). Retrieved from https://code.visualstudio.com/
+. IntelliJ IDEA. (n.d.). Retrieved from https://www.jetbrains.com/idea/
+. Oracle Java SE Downloads. (n.d.). Retrieved from https://www.oracle.com/java/technologies/javase-downloads.html
+. BeginnersBook. (2013). Java Virtual Machine (JVM). Retrieved from https://beginnersbook.com/2013/05/jvm/
+. Wikipedia. (n.d.). Java Virtual Machine. Retrieved from https://en.wikipedia.org/wiki/Java_virtual_machine
+. Wikipedia. (n.d.). Java (programming language). Retrieved from https://en.wikipedia.org/wiki/Java_(programming_language)
+. Wikipedia. (n.d.). Python (programming language). Retrieved from https://en.wikipedia.org/wiki/Python_(programming_language)
+. Wikipedia. (n.d.). C++ (programming language). Retrieved from https://en.wikipedia.org/wiki/C%2B%2B
+. Wikipedia. (n.d.). C Sharp (programming language). Retrieved from https://en.wikipedia.org/wiki/C_Sharp_(programming_language)
+. Wikipedia. (n.d.). Ruby (programming language). Retrieved from https://en.wikipedia.org/wiki/Ruby_(programming_language)
+. GeeksforGeeks. (n.d.). Why Java is the best programming language for banks? Retrieved from https://www.geeksforgeeks.org/why-java-is-the-best-programming-language-for-banks/
+. Oracle. (n.d.). Java Documentation. Retrieved from https://docs.oracle.com/javase/tutorial/
+. GeeksforGeeks. (n.d.). Java Basics. Retrieved from https://www.geeksforgeeks.org/java/
+. W3Schools. (n.d.). Java Tutorial. Retrieved from https://www.w3schools.com/java/

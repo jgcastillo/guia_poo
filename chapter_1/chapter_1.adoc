@@ -1,0 +1,31 @@
+:imagesdir: chapter_1/images/
+= Introducción
+ifndef::masterdoc[]
+include::../meta.adoc[]
+include::../attributes.adoc[]
+endif::masterdoc[]
+
+:leveloffset: +1
+
+include::section_1.adoc[]
+
+include::section_2.adoc[]
+
+include::section_3.adoc[]
+
+include::section_4.adoc[]
+
+include::section_5.adoc[]
+
+include::section_6.adoc[]
+
+
+ifdef::masterdoc[]
+[bibliography]
+= Referencias del capítulo
+
+include::biblio.adoc[]
+
+endif::masterdoc[]
+
+:leveloffset: -1

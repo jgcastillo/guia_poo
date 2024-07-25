@@ -1,0 +1,84 @@
+= Captura y Gestión de Excepciones
+
+El manejo de excepciones en Java implica la captura y gestión de eventos excepcionales que pueden ocurrir durante la ejecución de un programa. Este proceso permite a los desarrolladores controlar el flujo del programa y asegurar que se manejen adecuadamente las condiciones de error, manteniendo la robustez y estabilidad de la aplicación.
+
+== Captura de Excepciones
+
+Para capturar excepciones, se utiliza la estructura `try-catch`. El bloque `try` contiene el código que puede generar una excepción, mientras que uno o más bloques `catch` se utilizan para manejar las excepciones que puedan ser lanzadas en el bloque `try`. Por ejemplo:
+
+[source, java]
+----
+public class ManejoExcepciones {
+
+    public static void main(String[] args) {
+        try {
+            int division = 10 / 0; // Esto generará una ArithmeticException
+        } catch (ArithmeticException e) {
+            System.out.println("Error: División por cero.");
+        } catch (Exception e) {
+            System.out.println("Error: Excepción general.");
+        }
+    }
+}
+----
+
+En este ejemplo, el bloque `try` contiene una operación que genera una `ArithmeticException` debido a una división por cero. El primer bloque `catch` captura y maneja esta excepción específica. Si se lanzara cualquier otra excepción, el segundo bloque `catch` la capturaría como una excepción general.
+
+== Gestión de Excepciones
+
+La gestión de excepciones implica tomar medidas apropiadas una vez que se ha capturado una excepción. Esto puede incluir registrar el error, limpiar recursos, proporcionar mensajes informativos al usuario, o intentar una recuperación del error. ver ejemplo:
+
+[source, java]
+----
+public class GestionExcepciones {
+
+    public static void main(String[] args) {
+        try {
+            String cadena = null;
+            System.out.println(cadena.length()); // Esto generará una NullPointerException
+        } catch (NullPointerException e) {
+            System.out.println("Error: Se intentó acceder a un objeto nulo.");
+            // Registro del error
+            e.printStackTrace();
+        }
+    }
+}
+----
+
+En este ejemplo, una `NullPointerException` es capturada y manejada. Además de imprimir un mensaje de error, la excepción es registrada usando `printStackTrace()`, que proporciona información detallada sobre la excepción y su origen.
+
+== Uso de la Cláusula `finally`
+
+La cláusula `finally` se utiliza para ejecutar un bloque de código sin importar si una excepción fue lanzada o no. Esto es útil para liberar recursos como archivos o conexiones de base de datos, garantizando que se realicen las tareas de limpieza necesarias.
+
+[source, java]
+----
+import java.io.*;
+
+public class UsoFinally {
+
+    public static void main(String[] args) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("archivo.txt"));
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                System.out.println(linea);
+            }
+        } catch (IOException e) {
+            System.out.println("Error: Problema de E/S.");
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error: No se pudo cerrar el lector de archivos.");
+            }
+            System.out.println("El bloque finally siempre se ejecuta.");
+        }
+    }
+}
+----
+
+En este ejemplo, se utiliza un `BufferedReader` para leer un archivo. Independientemente de si se produce una `IOException`, el bloque `finally` garantiza que el lector de archivos se cierre correctamente, liberando los recursos utilizados.

@@ -1,0 +1,189 @@
+= La Clase `Thread` y la Interfaz `Runnable`
+
+La programación concurrente en Java se facilita mediante el uso de la clase `Thread` y la interfaz `Runnable`. Ambas proporcionan mecanismos para crear y gestionar hilos, pero tienen diferencias significativas en su implementación y uso.
+
+== La Clase `Thread`
+
+La clase `Thread` es una de las formas más directas de crear un hilo en Java. Al extender la clase `Thread`, se sobrescribe su método `run()`, donde se define el código que el hilo ejecutará. Esta clase también proporciona varios métodos para gestionar el ciclo de vida de los hilos, como `start()`, `sleep()`, `join()`, entre otros.
+
+=== Uso de la Clase `Thread`
+
+Para crear un hilo usando la clase `Thread`, se sigue generalmente el siguiente patrón:
+
+1. Extender la clase `Thread`.
+2. Sobrescribir el método `run()`.
+3. Crear una instancia de la subclase y llamar al método `start()` para iniciar el hilo.
+
+*Ejemplo*:
+
+[source,java]
+----
+public class MiHilo extends Thread {
+    @Override
+    public void run() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Hilo ejecutando iteración: " + i);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        MiHilo hilo = new MiHilo();
+        hilo.start();
+    }
+}
+----
+
+== La Interfaz `Runnable`
+
+La interfaz `Runnable` es una interfaz funcional que define un solo método, `run()`, el cual debe ser implementado para definir la tarea que ejecutará el hilo. La principal ventaja de usar `Runnable` es que permite separar la lógica del hilo de la implementación de la clase `Thread`, favoreciendo la composición sobre la herencia.
+
+=== Uso de la Interfaz `Runnable`
+
+Para crear un hilo usando la interfaz `Runnable`, se sigue generalmente el siguiente patrón:
+
+1. Implementar la interfaz `Runnable` en una clase.
+2. Implementar el método `run()`.
+3. Crear una instancia de `Thread` pasando una instancia de `Runnable` al constructor.
+4. Llamar al método `start()` para iniciar el hilo.
+
+=== Ejemplo Usando la Interfaz `Runnable`
+
+[source,java]
+----
+public class MiRunnable implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Runnable ejecutando iteración: " + i);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread hilo = new Thread(new MiRunnable());
+        hilo.start();
+    }
+}
+----
+
+== Importancia y Diferencias
+
+1. **Herencia y Composición**: 
+- La clase `Thread` utiliza herencia, lo cual puede ser una limitación si se desea extender otra clase, ya que Java no permite herencia múltiple. 
+- La interfaz `Runnable` utiliza composición, lo que permite implementar otras interfaces y extender otras clases simultáneamente.
+
+2. **Reutilización de Código**: Usar `Runnable` favorece la reutilización del código y la separación de la lógica del hilo de su gestión. Esto permite una mayor flexibilidad y claridad en el diseño del software.
+
+3. **Manejo de Tareas**: Con `Runnable`, se pueden pasar instancias de `Runnable` a varios objetos `Thread`, lo que facilita la reutilización de tareas definidas en `run()`.
+
+En la mayoría de los casos, implementar `Runnable` es la forma más práctica y recomendada para trabajar con hilos en Java. Esto se debe a las siguientes razones:
+
+- **Flexibilidad**: Permite que la clase que implementa `Runnable` pueda extender otras clases si es necesario.
+- **Separación de Responsabilidades**: Separa la lógica de la tarea de la gestión del hilo, haciendo el código más limpio y fácil de mantener.
+- **Reutilización**: Facilita la reutilización de tareas sin necesidad de crear nuevas subclases de `Thread`.
+
+No obstante, extender `Thread` puede ser útil en casos simples o cuando se necesita una subclase de `Thread` con comportamiento específico adicional.
+
+
+== El Método `run()`
+
+El método `run()` es una parte fundamental de la clase `Thread` y de la interfaz `Runnable` en Java. Es el punto de entrada de la ejecución del hilo, donde se define el código que se ejecutará en el contexto del hilo. Comprender su función y utilidad es fundamental para trabajar con hilos de manera efectiva.
+
+=== Función del Método `run()`
+
+El método `run()` contiene el código que se ejecutará cuando el hilo se inicie. Es el cuerpo del hilo y puede considerarse como el lugar donde se implementa la lógica que se desea ejecutar de manera concurrente. En la clase `Thread`, el método `run()` puede ser sobrescrito para definir el comportamiento del hilo, mientras que en la interfaz `Runnable`, se debe implementar este método para especificar qué hará el hilo cuando se ejecute.
+
+LA utilidad del método `run()` radica básicamente en lo siguiente:
+
+1. **Definición de la Tarea del Hilo**: El método `run()` encapsula la tarea que se desea ejecutar en un hilo separado. Cualquier lógica, como procesamiento de datos, operaciones de I/O, o cálculos complejos, se define dentro de este método.
+
+[source, java]
+----
+@Override
+public void run() {
+    System.out.println("Hilo está en ejecución.");
+    for (int i = 0; i < 5; i++) {
+        System.out.println("Hilo ejecutando iteración " + i);
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+----
+
+[start=2]
+. **Separación de la Lógica del Hilo**: Al utilizar la interfaz `Runnable`, se puede mantener la lógica del hilo separada de la implementación de la clase `Thread`, promoviendo una mejor organización del código y una mayor reutilización.
+    
+[source, java]
+----
+public class Tarea implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("Tarea ejecutándose en un hilo.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Thread hilo = new Thread(new Tarea());
+        hilo.start();
+    }
+}
+----
+
+[start= 3]
+. **Flexibilidad y Extensibilidad**: Sobrescribir el método `run()` en una clase que extiende `Thread` o implementa `Runnable` proporciona flexibilidad para definir comportamientos específicos del hilo según las necesidades de la aplicación.
+
+=== Diferencia entre `run()` y `start()`
+
+Es importante entender la diferencia entre  los métodos `run()` y `start()` a la hora de la ejecución de un hilo:
+
+- **`run()`**: Llamar directamente a `run()` ejecuta el método en el hilo actual, no en un nuevo hilo. Esto significa que no se crea un hilo separado.
+[source, java]
+----
+    hilo.run(); // Ejecuta en el hilo principal, no en un nuevo hilo
+----
+
+- **`start()`**: Al llamar a `start()`, se crea un nuevo hilo y se invoca el método `run()` en ese nuevo hilo, permitiendo la ejecución concurrente.
+[source, java]
+----
+    hilo.start(); // Crea un nuevo hilo y ejecuta run() en él
+----
+
+El siguiente ejemplo ilustra cómo definir y usar el método `run()` dentro de una clase que implementa `Runnable`:
+
+[source,java]
+----
+public class EjemploRunnable implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Ejecutando en el hilo: " + i);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread hilo = new Thread(new EjemploRunnable());
+        hilo.start();
+    }
+}
+----
+
+En este ejemplo, la clase `EjemploRunnable` implementa `Runnable` y sobrescribe el método `run()` para definir la tarea del hilo. Al crear un objeto `Thread` con una instancia de `EjemploRunnable` y llamar a `start()`, se inicia un nuevo hilo que ejecuta el método `run()`.
+

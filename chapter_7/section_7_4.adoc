@@ -1,0 +1,274 @@
+= Priorización de Hilos
+
+En la programación concurrente, la priorización de hilos es un mecanismo que permite al desarrollador influir en el orden en que los hilos se ejecutan. Cada hilo tiene una prioridad que indica su importancia relativa respecto a otros hilos. Las prioridades de los hilos son enteros que oscilan entre `MIN_PRIORITY` (1) y `MAX_PRIORITY` (10), con `NORM_PRIORITY` (5) como el valor predeterminado.
+
+La forma en como se define la prioridad de algún hilo es controlada por el planificador de hilos de hilos del sistema operativo, que utiliza estas prioridades de los hilos como una sugerencia para decidir cuál hilo ejecutar en un momento dado. En general, los hilos con mayor prioridad tienen más probabilidades de ser ejecutados antes que los hilos con menor prioridad. Sin embargo, esto no garantiza que un hilo de mayor prioridad siempre se ejecute antes que uno de menor prioridad.
+
+== Sincronización de Hilos
+
+La sincronización es crucial cuando múltiples hilos acceden a recursos compartidos. Sin la sincronización adecuada, los hilos pueden interferir entre sí y causar condiciones de carrera, corrupción de datos y otros problemas. Java proporciona varios mecanismos para sincronizar hilos, como el uso de bloques `synchronized` y objetos `Lock`.
+
+=== El Bloque `synchronized`
+
+El bloque `synchronized` se utiliza para definir una sección crítica del código que solo puede ser ejecutada por un hilo a la vez. Esto asegura que el acceso a los recursos compartidos sea seguro y evita que los hilos interfieran entre sí.
+
+En este ejemplo, se utiliza el bloque `synchronized` para sincronizar el acceso a un contador compartido:
+
+[source,java]
+----
+class Contador {
+    private int cuenta = 0;
+
+    public void incrementar() {
+        synchronized(this) {
+            cuenta++;
+            System.out.println(Thread.currentThread().getName() + " incrementa: " + cuenta);
+        }
+    }
+}
+
+class Hilo extends Thread {
+    private Contador contador;
+
+    public Hilo(Contador contador) {
+        this.contador = contador;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            contador.incrementar();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+public class SincronizacionEjemplo {
+    public static void main(String[] args) {
+        Contador contador = new Contador();
+
+        Hilo hilo1 = new Hilo(contador);
+        Hilo hilo2 = new Hilo(contador);
+
+        hilo1.start();
+        hilo2.start();
+    }
+}
+----
+
+*Explicación*:
+
+1. **Bloque `synchronized`**: La sección `synchronized(this)` asegura que solo un hilo puede ejecutar el bloque de código dentro de `incrementar()` al mismo tiempo.
+    [source, java]
+    ----
+    synchronized(this) {
+        cuenta++;
+        System.out.println(Thread.currentThread().getName() + " incrementa: " + cuenta);
+    }
+    ----
+
+2. **Acceso Seguro**: En el método `incrementar()` se asegura de que la variable `cuenta` se incremente de manera segura cuando varios hilos intentan acceder a ella simultáneamente.
+
+=== Objetos `Lock`
+
+Los objetos `Lock` proporcionan un control más flexible y sofisticado sobre la sincronización. La interfaz `Lock` define métodos como `lock()`, `unlock()` y `tryLock()`, que permiten una mayor precisión en el control de los hilos.
+
+En este ejemplo, se utiliza un objeto `Lock` para sincronizar el acceso a un contador compartido:
+
+[source,java]
+----
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class Contador {
+    private int cuenta = 0;
+    private final Lock bloqueo = new ReentrantLock();
+
+    public void incrementar() {
+        bloqueo.lock();
+        try {
+            cuenta++;
+            System.out.println(Thread.currentThread().getName() + " incrementa: " + cuenta);
+        } finally {
+            bloqueo.unlock();
+        }
+    }
+}
+
+class Hilo extends Thread {
+    private Contador contador;
+
+    public Hilo(Contador contador) {
+        this.contador = contador;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            contador.incrementar();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+public class LockEjemplo {
+    public static void main(String[] args) {
+        Contador contador = new Contador();
+
+        Hilo hilo1 = new Hilo(contador);
+        Hilo hilo2 = new Hilo(contador);
+
+        hilo1.start();
+        hilo2.start();
+    }
+}
+----
+
+*Explicación*:
+
+1. **Objeto `Lock`**: Se crea una instancia de `ReentrantLock` para manejar la sincronización.
+
+[source, java]
+----
+private final Lock bloqueo = new ReentrantLock();
+----
+
+La clase `ReentrantLock` es una implementación de la interfaz `Lock`` que proporciona un control más flexible y sofisticado sobre la sincronización de hilos que el bloque synchronized:
+
+* _Reentrant_: Permite que un hilo que ya posee el bloqueo lo adquiera de nuevo sin quedar bloqueado, lo que es útil en situaciones donde los métodos se llaman recursivamente.
+* _Métodos_: Proporciona métodos como lock(), unlock(), y tryLock() para gestionar manualmente la adquisición y liberación de bloqueos.
+* _Flexibilidad_ : Ofrece más opciones para manejar la sincronización, como tiempos de espera y condiciones.
+
+[start=2]
+. **Métodos `lock()` y `unlock()`**: El método `lock()` asegura que solo un hilo puede acceder a la sección crítica a la vez, y `unlock()` libera el bloqueo después de que el hilo ha terminado.
+
+[source, java]
+----
+bloqueo.lock();
+try {
+    cuenta++;
+    System.out.println(Thread.currentThread().getName() + " incrementa: " + cuenta);
+} finally {
+    bloqueo.unlock();
+}
+----
+
+[start=3]
+. **Precisión y Flexibilidad**: Los objetos `Lock` permiten un control más detallado sobre cuándo y cómo se adquieren y liberan los bloqueos, lo que puede ser útil en situaciones complejas.
+
+*Usando ReentrantLock*:
+
+[source, java]
+----
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class ReentrantLockExample {
+    private final Lock lock = new ReentrantLock();
+
+    public void sharedResource() {
+        lock.lock();
+        try {
+            // código que accede al recurso compartido
+            System.out.println("Recurso compartido accedido por " + Thread.currentThread().getName());
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+
+----
+En este ejemplo, `lock()` adquiere el bloqueo, asegurando que solo un hilo pueda ejecutar la sección crítica, y `unlock()`` libera el bloqueo después de que el hilo ha terminado.
+
+
+== Ejemplo de Priorización y Sincronización en Java
+
+A continuación se muestra un ejemploque ilustra cómo establecer prioridades de hilos y cómo sincronizar su acceso a un recurso compartido. Continuamos con el uspo
+
+[source,java]
+----
+class Contador {
+    private int cuenta = 0;
+
+    public synchronized void incrementar() {
+        cuenta++;
+        System.out.println(Thread.currentThread().getName() + " incrementa: " + cuenta);
+    }
+}
+
+class HiloPrioridad extends Thread {
+    private Contador contador;
+
+    public HiloPrioridad(String nombre, int prioridad, Contador contador) {
+        super(nombre);
+        setPriority(prioridad);
+        this.contador = contador;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            contador.incrementar();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+public class PrioridadHilos {
+    public static void main(String[] args) {
+        Contador contador = new Contador();
+
+        HiloPrioridad hilo1 = new HiloPrioridad("Hilo1", Thread.MIN_PRIORITY, contador);
+        HiloPrioridad hilo2 = new HiloPrioridad("Hilo2", Thread.NORM_PRIORITY, contador);
+        HiloPrioridad hilo3 = new HiloPrioridad("Hilo3", Thread.MAX_PRIORITY, contador);
+
+        hilo1.start();
+        hilo2.start();
+        hilo3.start();
+    }
+}
+----
+
+*Explicación*:
+
+1. **Clase Contador**: Define un recurso compartido con un método sincronizado `incrementar()` que incrementa y muestra el valor de `cuenta`.
+    ```java
+    public synchronized void incrementar() {
+        cuenta++;
+        System.out.println(Thread.currentThread().getName() + " incrementa: " + cuenta);
+    }
+    ```
+
+2. **Clase HiloPrioridad**: Extiende `Thread` y establece la prioridad del hilo en el constructor.
+    ```java
+    public HiloPrioridad(String nombre, int prioridad, Contador contador) {
+        super(nombre);
+        setPriority(prioridad);
+        this.contador = contador;
+    }
+    ```
+
+3. **Método main**: Crea y inicia tres hilos con diferentes prioridades.
+    ```java
+    HiloPrioridad hilo1 = new HiloPrioridad("Hilo1", Thread.MIN_PRIORITY, contador);
+    HiloPrioridad hilo2 = new HiloPrioridad("Hilo2", Thread.NORM_PRIORITY, contador);
+    HiloPrioridad hilo3 = new HiloPrioridad("Hilo3", Thread.MAX_PRIORITY, contador);
+
+    hilo1.start();
+    hilo2.start();
+    hilo3.start();
+    ```
+
+

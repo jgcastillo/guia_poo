@@ -1,0 +1,403 @@
+= Ejercicios de Refactorización de Código
+
+A continuación, se presentan algunos ejercicios en los que no se cumplen con las normas de código limpio. El objetivo es que se refactorice el código para mejorar su calidad. Al final se muestran algunas soluciones propuestas para que verifique que tu respuesta, sin embargo, como en anteriores capítulos, trata de no ver la solución antes de modificar el código presentado
+
+== Ejercicio 1
+
+[source,java]
+----
+public class Biblioteca {
+    public String nombreLibro;
+    public String autor;
+    public int numeroDePaginas;
+    public String correoElectronico;
+
+    public void agregarLibro(String nombre, String autor, int paginas) {
+        this.nombreLibro = nombre;
+        this.autor = autor;
+        this.numeroDePaginas = paginas;
+    }
+
+    public void enviarCorreo() {
+        System.out.println("Enviando correo a: " + correoElectronico);
+    }
+
+    public void mostrarDetalles() {
+        System.out.println("Libro: " + nombreLibro + " por " + autor + " (" + numeroDePaginas + " páginas)");
+    }
+}
+----
+
+== Ejercicio 2
+
+[source,java]
+----
+public class Calculadora {
+    public double valor1;
+    public double valor2;
+
+    public void sumar() {
+        System.out.println("Suma: " + (valor1 + valor2));
+    }
+
+    public void restar() {
+        System.out.println("Resta: " + (valor1 - valor2));
+    }
+
+    public void multiplicar() {
+        System.out.println("Multiplicación: " + (valor1 * valor2));
+    }
+
+    public void dividir() {
+        if (valor2 != 0) {
+            System.out.println("División: " + (valor1 / valor2));
+        } else {
+            System.out.println("Error: División por cero");
+        }
+    }
+
+    public void mostrarHistorial() {
+        System.out.println("Mostrando historial...");
+    }
+}
+----
+
+== Ejercicio 3
+
+[source,java]
+----
+public class Tienda {
+    public String nombreProducto;
+    public double precio;
+    public int stock;
+
+    public void agregarProducto(String nombre, double precio, int stock) {
+        this.nombreProducto = nombre;
+        this.precio = precio;
+        this.stock = stock;
+    }
+
+    public void procesarVenta(int cantidad) {
+        if (cantidad <= stock) {
+            stock -= cantidad;
+            System.out.println("Venta procesada: " + cantidad + " " + nombreProducto);
+        } else {
+            System.out.println("Stock insuficiente");
+        }
+    }
+
+    public void generarReporte() {
+        System.out.println("Producto: " + nombreProducto + ", Precio: $" + precio + ", Stock: " + stock);
+    }
+
+    public void enviarPromocion() {
+        System.out.println("Enviando promoción...");
+    }
+}
+----
+
+== Ejercicio 4
+
+[source,java]
+----
+public class Cliente {
+    public String nombre;
+    public String direccion;
+    public String numeroDeTelefono;
+
+    public void registrarCliente(String nombre, String direccion, String telefono) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.numeroDeTelefono = telefono;
+    }
+
+    public void realizarPedido(String producto, int cantidad) {
+        System.out.println("Pedido realizado: " + cantidad + " " + producto + " para " + nombre);
+    }
+
+    public void actualizarDatos(String nuevaDireccion, String nuevoTelefono) {
+        this.direccion = nuevaDireccion;
+        this.numeroDeTelefono = nuevoTelefono;
+    }
+
+    public void mostrarDatos() {
+        System.out.println("Cliente: " + nombre + ", Dirección: " + direccion + ", Teléfono: " + numeroDeTelefono);
+    }
+}
+----
+
+== Ejercicio 5
+
+[source,java]
+----
+public class Banco {
+    public String nombreCliente;
+    public double saldoCuenta;
+    public String tipoDeCuenta;
+
+    public void abrirCuenta(String nombre, double saldo, String tipo) {
+        this.nombreCliente = nombre;
+        this.saldoCuenta = saldo;
+        this.tipoDeCuenta = tipo;
+    }
+
+    public void depositar(double cantidad) {
+        saldoCuenta += cantidad;
+        System.out.println("Depósito realizado: $" + cantidad);
+    }
+
+    public void retirar(double cantidad) {
+        if (cantidad <= saldoCuenta) {
+            saldoCuenta -= cantidad;
+            System.out.println("Retiro realizado: $" + cantidad);
+        } else {
+            System.out.println("Fondos insuficientes");
+        }
+    }
+
+    public void mostrarSaldo() {
+        System.out.println("Saldo actual: $" + saldoCuenta);
+    }
+
+    public void generarReporte() {
+        System.out.println("Cliente: " + nombreCliente + ", Tipo de cuenta: " + tipoDeCuenta + ", Saldo: $" + saldoCuenta);
+    }
+}
+----
+
+== Soluciones propuestas
+
+=== Solución Ejercicio 1
+
+[source,java]
+----
+public class Libro {
+    private String nombre;
+    private String autor;
+    private int numeroDePaginas;
+
+    public Libro(String nombre, String autor, int numeroDePaginas) {
+        this.nombre = nombre;
+        this.autor = autor;
+        this.numeroDePaginas = numeroDePaginas;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public int getNumeroDePaginas() {
+        return numeroDePaginas;
+    }
+
+    public void mostrarDetalles() {
+        System.out.println("Libro: " + nombre + " por " + autor + " (" + numeroDePaginas + " páginas)");
+    }
+}
+
+public class Biblioteca {
+    private String correoElectronico;
+
+    public Biblioteca(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public void enviarCorreo() {
+        System.out.println("Enviando correo a: " + correoElectronico);
+    }
+}
+----
+
+=== Solución Ejercicio 2
+
+[source,java]
+----
+public class Calculadora {
+    public double sumar(double valor1, double valor2) {
+        return valor1 + valor2;
+    }
+
+    public double restar(double valor1, double valor2) {
+        return valor1 - valor2;
+    }
+
+    public double multiplicar(double valor1, double valor2) {
+        return valor1 * valor2;
+    }
+
+    public double dividir(double valor1, double valor2) {
+        if (valor2 == 0) {
+            throw new IllegalArgumentException("Error: División por cero");
+        }
+        return valor1 / valor2;
+    }
+}
+
+public class Historial {
+    public void mostrarHistorial() {
+        System.out.println("Mostrando historial...");
+    }
+}
+----
+
+=== Solución Ejercicio 3
+
+[source,java]
+----
+public class Producto {
+    private String nombre;
+    private double precio;
+    private int stock;
+
+    public Producto(String nombre, double precio, int stock) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.stock = stock;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void restarStock(int cantidad) {
+        if (cantidad <= stock) {
+            stock -= cantidad;
+        } else {
+            throw new IllegalArgumentException("Stock insuficiente");
+        }
+    }
+
+    public void generarReporte() {
+        System.out.println("Producto: " + nombre + ", Precio: $" + precio + ", Stock: " + stock);
+    }
+}
+
+public class Tienda {
+    public void procesarVenta(Producto producto, int cantidad) {
+        producto.restarStock(cantidad);
+        System.out.println("Venta procesada: " + cantidad + " " + producto.getNombre());
+    }
+
+    public void enviarPromocion() {
+        System.out.println("Enviando promoción...");
+    }
+}
+----
+
+=== Solución Ejercicio 4
+
+[source,java]
+----
+public class Cliente {
+    private String nombre;
+    private String direccion;
+    private String numeroDeTelefono;
+
+    public Cliente(String nombre, String direccion, String numeroDeTelefono) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.numeroDeTelefono = numeroDeTelefono;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getNumeroDeTelefono() {
+        return numeroDeTelefono;
+    }
+
+    public void actualizarDatos(String nuevaDireccion, String nuevoTelefono) {
+        this.direccion = nuevaDireccion;
+        this.numeroDeTelefono = nuevoTelefono;
+    }
+
+    public void mostrarDatos() {
+        System.out.println("Cliente: " + nombre + ", Dirección: " + direccion + ", Teléfono: " + numeroDeTelefono);
+    }
+}
+
+public class Pedido {
+    public void realizarPedido(Cliente cliente, String producto, int cantidad) {
+        System.out.println("Pedido realizado: " + cantidad + " " + producto + " para " + cliente.getNombre());
+    }
+}
+----
+
+=== Solución Ejercicio 5
+
+[source,java]
+----
+public class CuentaBancaria {
+    private String tipoDeCuenta;
+    private double saldo;
+
+    public CuentaBancaria(String tipoDeCuenta, double saldo) {
+        this.tipoDeCuenta = tipoDeCuenta;
+        this.saldo = saldo;
+    }
+
+    public String getTipoDeCuenta() {
+        return tipoDeCuenta;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void depositar(double cantidad) {
+        saldo += cantidad;
+    }
+
+    public void retirar(double cantidad) {
+        if (cantidad <= saldo) {
+            saldo -= cantidad;
+        } else {
+            // por el momento se tratará el error de esta manera
+            System.out.println("Fondos insuficientes");
+        }
+    }
+
+    public void mostrarSaldo() {
+        System.out.println("Saldo actual: $" + saldo);
+    }
+}
+
+public class Cliente {
+    private String nombre;
+
+    public Cliente(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+}
+
+public class Banco {
+    public void abrirCuenta(Cliente cliente, CuentaBancaria cuenta) {
+        System.out.println("Cuenta abierta para " + cliente.getNombre() + ", Tipo de cuenta: " + cuenta.getTipoDeCuenta() + ", Saldo: $" + cuenta.getSaldo());
+    }
+
+    public void generarReporte(Cliente cliente, CuentaBancaria cuenta) {
+        System.out.println("Cliente: " + cliente.getNombre() + ", Tipo de cuenta: " + cuenta.getTipoDeCuenta() + ", Saldo: $" + cuenta.getSaldo());
+    }
+}
+----

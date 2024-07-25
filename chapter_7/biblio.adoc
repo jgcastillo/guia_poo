@@ -1,0 +1,29 @@
+== Referencias del capítulo
+
+* Breshears, C. (2009). _The Art of Concurrency: A Thread Monkey's Guide to Writing Parallel Applications_. O'Reilly Media.
+
+* Bloch, J. (2018). _Effective Java (3rd ed.)_. Addison-Wesley Professional.
+
+* Goetz, B., Peierls, T., Bloch, J., Bowbeer, J., Holmes, D., & Lea, D. (2006). _Java Concurrency in Practice_. Addison-Wesley Professional.
+
+* Goetz, B., Peierls, T., Bloch, J., Bowbeer, J., Holmes, D., & Lea, D. (2006). _Java Concurrency in Practice_. Addison-Wesley Professional.
+
+* Kumar, S., & Agarwal, A. (2017). _Concurrent Programming: Algorithms, Principles, and Foundations_. Springer.
+
+* Reinders, J. (2007). _Intel Threading Building Blocks: Outfitting C++ for Multi-core Processor Parallelism_. O'Reilly Media.
+
+* Baeldung. (2023). _Java Concurrency_. Recuperado de https://www.baeldung.com/java-concurrency
+
+* Baeldung. (2024). _Life Cycle of a Thread in Java_. Recuperado de https://www.baeldung.com/java-thread-lifecycle
+
+* Baeldung. (2024). _wait and notify() Methods in Java_. Recuperado de https://www.baeldung.com/java-wait-notify
+
+* Baeldung. (2024). _Difference Between Wait and Sleep in Java_. Recuperado de https://www.baeldung.com/java-wait-and-sleep
+
+* Baeldung. (2024). _Implementing a Runnable vs Extending a Thread_. Recuperado de https://www.baeldung.com/java-runnable-vs-extending-thread 
+
+* Oracle. (n.d.). _Thread States_. Recuperado de https://docs.oracle.com/javase/tutorial/essential/concurrency/interrupt.html
+
+* Oracle. (n.d.). _Thread and Runnable_. Recuperado de https://docs.oracle.com/javase/tutorial/essential/concurrency/runthread.html
+
+* Oracle. (n.d.). _Thread Priorities_. Recuperado de https://docs.oracle.com/javase/tutorial/essential/concurrency/priority.html

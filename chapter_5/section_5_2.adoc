@@ -1,0 +1,138 @@
+= El Lenguaje UML
+
+El Lenguaje Unificado de Modelado (UML) es una notación estándar para el modelado de sistemas de software. UML proporciona un conjunto de herramientas y diagramas que permiten a los desarrolladores y arquitectos de software visualizar, especificar, construir y documentar los artefactos de los sistemas de software de manera comprensible y estructurada.
+
+== ¿Qué es UML?
+
+UML es un lenguaje de modelado orientado a objetos que combina las mejores prácticas de técnicas de modelado que se han desarrollado a lo largo de los años. UML no es un lenguaje de programación; en cambio, es un lenguaje de especificación que proporciona una representación visual de los elementos de un sistema de software y sus relaciones. Su objetivo es facilitar la comunicación y la comprensión del diseño del sistema entre los diferentes miembros del equipo de desarrollo, así como con otros stakeholders no técnicos.
+
+== ¿Cómo se usa UML?
+
+UML se utiliza principalmente para modelar sistemas de software complejos. Los diagramas UML permiten a los desarrolladores y arquitectos de software representar visualmente la estructura y el comportamiento de un sistema. UML se puede utilizar en todas las etapas del ciclo de vida del desarrollo del software, desde la conceptualización y el análisis hasta el diseño, la implementación y el mantenimiento.
+
+UML se compone de una serie de diagramas que se dividen en dos categorías principales: diagramas estructurales y diagramas de comportamiento. Cada tipo de diagrama proporciona una perspectiva diferente del sistema y permite a los desarrolladores centrarse en aspectos específicos del diseño.
+
+== UML: conceptos básicos
+El Lenguaje Unificado de Modelado (UML) es conocido por algunos como el lenguaje común entre los diferentes lenguajes de modelado. Como se mencionó anteriormente, UML visualiza los estados y las interacciones entre los objetos dentro de un sistema. Su amplia popularidad probablemente se deba a la fuerte influencia de los miembros del OMG (IBM, Microsoft y HP, entre otros). La semántica estructurada también contribuye significativamente a su adopción. Los diagramas UML se utilizan para representar los siguientes componentes del sistema:
+
+* Objetos individuales (elementos básicos)
+* Clases (combina elementos con las mismas propiedades)
+* Relaciones entre objetos (jerarquía y comportamiento/comunicación entre objetos)
+* Actividad (combinación compleja de acciones/módulos de comportamiento)
+* Interacciones entre objetos e interfaces
+
+=== Unidades lingüísticas
+UML (nivel M2) define las reglas de su propia semántica. Las unidades de lenguaje son términos definidos en la superestructura UML 2.0. Esto permite una representación formal que todos los participantes pueden entender. Las unidades lingüísticas, en inglés __language units__, abstraen objetos y procesos de estructura y funcionamiento similares y les dan una forma visualmente representable. Según el nivel jerárquico dentro del modelo, los elementos asumen tareas más especializadas o definen más estrechamente otros elementos.
+
+*Clase*: como unidad lingüística, las clases son un aspecto central de UML. Definen lo que constituye una clase y cómo las clases interactúan entre sí. Esta __language unit__ tiene cuatro niveles, que van desde elementos simples hasta relaciones más complejas:
+
+* Núcleo (describe elementos de la infraestructura UML 2.0 como paquetes, espacios de nombres, atributos, etc.)
+* __AssociationClasses__ (define clases de asociación)
+* Interfaces (define las interfaces)
+* __Powertypes__ (clase cuyas instancias son subclases dentro de esta clase)
+
+*Componente*: los componentes son elementos que separan su contenido del sistema externo. Solo existe una conexión con el exterior a través de interfaces o puertos. Un conector de composición establece una conexión con otro componente a través de la interfaz. El conector de delegación une los elementos interiores con una interfaz en el borde exterior. Los componentes son modulares e intercambiables.
+
+*Estructura de la composición*: la estructura de la composición de la unidad de lenguaje describe los elementos, que están blindados como componentes hacia adentro y hacia afuera. Solo los puertos conectan el contenido con el sistema externo. Los llamados clasificadores encapsulados consisten en elementos llamados partes. Las piezas se comunican a través de conectores.
+
+*Perfil*: un perfil configura UML 2.0 para necesidades específicas. Los términos abstractos como actividad u objeto deben ser especificados para algunos proyectos con el fin de aumentar la comprensión. La semántica y las notaciones que están colocadas en lugares sueltos se pueden adaptar con un perfil.
+
+*Modelo*: el modelo comprende todos los elementos necesarios para presentar una visión específica de la estructura o el comportamiento de un sistema. Esto también incluye las influencias externas, como los actores.
+
+*Acción*: cuando se trata de representar el comportamiento, las acciones son de importancia central. Los valores se aceptan a través de los pines de entrada y se envían a los pines de salida. Estos son los grupos temáticos que UML define para las acciones:
+
+* Manipular objetos
+* Manipular relaciones de objetos
+* Manipular características estructurales
+* Acciones de llamada
+* Generar valores
+* Acciones sobre objetos
+* Recibir eventos
+
+**Comportamiento**: la unidad de lenguaje Comportamiento se refiere a la modelización de aspectos dinámicos dentro de un sistema. Consta de tres especificaciones:
+
+* **Actividad**: las acciones interactúan a través flujos de datos y control. Esto resulta en un sistema complejo de comportamientos, las actividades.
+* **Interacción**: este metamodelo describe cómo se intercambian los flujos de mensajes entre objetos, cuándo se envía un mensaje a qué objeto y qué otros elementos se ven afectados por él.
+* **Estado de las máquinas**: en un diagrama de estado, este modelo de metamodelo muestra tanto estados (situaciones con propiedades inmutables) como semiestados (estados sin asignación de valor) y sus transiciones. Los objetos de un estado pueden asignarse a acciones o actividades.
+
+**Distribución**: una red está formada por objetos que están conectados entre sí en mallas. Se da un caso especial de uso si estos elementos representan software ejecutable o artefactos. Estos artefactos se ejecutan en entornos de ejecución o dispositivos clasificados como nodos por UML 2.0. Por lo tanto, el artefacto depende del nodo. La distribución representa esta relación de dependencia que surge durante la instalación.
+
+**Aplicación**: el caso de uso (como unidad de idioma) representa los requisitos del sistema. El actor (una persona o un sistema) es un elemento que describe quién o qué debe realizar una actividad concreta utilizando el sistema. El sistema también puede ser una clase o un componente y, por lo tanto, se describe como un tema. El caso de uso (como elemento modelo) simplemente indica que se espera un comportamiento que sea visible para el mundo exterior, pero no suele representar qué acciones concretamente. Dentro de una descripción de comportamiento, el modelado asigna los requisitos detallados al caso de uso.
+
+**Flujos de información**: esta unidad de lenguaje UML describe los elementos unidad de información y flujo de información. Estos elementos del modelo son técnicas abstractas de descripción del comportamiento que pueden estar muy orientadas al detalle, como actividades o interacciones. Esta representación simplificada permite el uso universal de estos elementos de modelado en todos los tipos de diagramas UML. Por lo tanto, a diferencia de la clase, la unidad de información nunca se describe con más detalle por atributos ni se incluye en los métodos. Por lo tanto, el flujo de información también conecta todos los elementos posibles que intercambian cualquier tipo de información entre sí.
+
+== Diagramas UML: campos de aplicación
+
+El lenguaje de modelado define 14 tipos de diagramas que se dividen en dos categorías. Las principales categorías de **estructura** y **comportamiento** representan los conceptos básicos representados por los diagramas UML. Dentro del grupo de diagramas de comportamiento, UML especifica la subcategoría de **diagramas de interacción**. 
+
+=== Diagramas Estructurales
+
+Los diagramas de estructura representan los elementos individuales de un sistema. Por lo tanto, son especialmente adecuados para la representación de la arquitectura de software. La representación estática no representa un cambio, sino estados y dependencias en un momento determinado. Los elementos individuales u objetos están relacionados entre sí. Por ejemplo, un objeto pertenece a una clase. Otros componentes son nodos de ordenador o artefactos –un artefacto representa un resultado, por ejemplo, un archivo de script terminado.
+
+Los diagramas UML de esta categoría representan un sistema completo o una subestructura. Esto último ayuda, por ejemplo, a clarificar la estructura en detalle. En UML 2.x, el lenguaje asigna siete tipos de diagramas a la categoría Estructura:
+Los diagramas estructurales se utilizan para representar la estructura estática de un sistema. Los principales incluyen:
+
+* **Diagrama de Clases**: Muestra las clases del sistema y sus relaciones. si los objetos tienen un comportamiento común o la misma estructura, pueden clasificarse (asignarse a una clase). La clase es, por tanto, un elemento simplificador (abstracción) para la representación visual. Las clases y los objetos están conectados entre sí mediante interfaces. El diagrama de clase muestra todos estos componentes y sus interrelaciones. Una clase representa el diagrama con un rectángulo. Contiene el nombre de la clase en negrita
+* **Diagrama de Componentes**: Representa los componentes del sistema y sus interacciones. Un componente es un módulo que está aislado del sistema externo e interactúa con otros componentes mediante interfaces definidas. Es un subformulario de la clase. Por lo tanto, las características estructurales, como las operaciones y los atributos, definen el componente con mayor precisión. El componente contiene varios componentes. Estos pueden ser de nuevo componentes, pero también clases, subsistemas o partes. Hay dos opciones de visualización diferentes para el modelado: **Black Box** o caja negra (el contenido está oculto) y **White Box** o caja blanca (el contenido es visible).
+* **Diagrama de Objetos**: Muestra instancias de clases en un momento específico. El diagrama de objetos tiene una estructura similar a la del diagrama de clases. Cuando el nombre aparece en el diagrama de clase, el diagrama de objeto especifica el nombre de la instancia junto con el nombre del clasificador/categoría. De acuerdo con el pliego de condiciones, se subraya lo siguiente.
+* **Diagrama de Distribución**: Representa la distribución física de los artefactos de software en nodos de hardware. el diagrama de distribución modela la distribución física de los artefactos en nodos. Los *nodos* pueden ser hardware (device nodes), que puede proporcionar memoria, o software (execution environment nodes), que proporciona un entorno para ejecutar procesos. Se representan como cuboides tridimensionales. Los *artefactos* se dibujan como rectángulos conteniendo el nombre del archivo. Para distinguirlo de una clase, se añade el estereotipo \<<artefact>>. El diagrama es adecuado para visualizar dependencias entre nodos y artefactos, las llamadas *relaciones de distribución*.
+* **Diagrama de paquete**: un paquete agrupa elementos como interfaces o clases en un espacio de nombres. Los paquetes (packages) también pueden fusionarse con otros paquetes (fusión de paquetes), importarlos (importación de paquetes) o contener otros paquetes (subpaquetes). Los paquetes *estructuran el contenido del diagrama jerárquicamente* como en un diagrama de árbol. En los sistemas de software representa las subáreas de forma *modular*. Según la especificación, un paquete consta de una cabecera y un área de contenido.
+* **Diagrama de estructura compositiva**: los objetos pertenecen a clases. Estos, a su vez, también pueden clasificarse. Estas metaclases se denominan *clasificadores* en UML. El diagrama de estructura de la composición representa las partes y conectores de un clasificador. Las partes son siempre parte del todo, incluso si no son necesarias para completar el clasificador. Los conectores son las conexiones entre las partes. Las características o servicios que requieren componentes externos al clasificador envían las piezas a través de una interfaz.
+
+=== Diagramas de Comportamiento
+
+Los diagramas de comportamiento se utilizan para representar la dinámica de un sistema. A diferencia de los diagramas estructurales, no son estáticos, sino que representan procesos y situaciones dinámicas. Los diagramas de comportamiento también incluyen los diagramas de interacción. Incluyen:
+
+* **Diagrama de Casos de Uso**: Muestra las interacciones entre los actores externos y el sistema. El diagrama de casos de uso muestra el comportamiento que se esperará de un sistema más adelante. Este modelo no solo es adecuado para sistemas de software, sino también, por ejemplo, para procesos esperados en las relaciones comerciales. El caso de uso involucra a un *actor* (humano o sistema) con un objetivo. El diagrama normalmente tiene como nombre el objetivo. Los diferentes casos de uso dentro del sistema cumplen el objetivo del actor.
+
+El diagrama del caso de uso representa a UML con un rectángulo con la etiqueta _use case_. El remitente es el actor (esto se representa como una figura de palo, como en el caso anterior, incluso si se trata de un sistema). El actor está conectado por una *relación de dependencia* (representada como un guion) con el caso de uso (elipse con etiqueta) dentro de un *sistema* (rectángulo con etiqueta \<<sistema>> y nombre del sistema).
+
+* **Diagrama de Secuencia**: Representa la interacción entre objetos en el tiempo.Como diagrama de interacción, el diagrama de secuencia representa el intercambio de mensajes entre objetos. El tipo de diagrama UML modela estos objetos como las llamadas líneas de vida. En este sentido, es similar a otros diagramas de comportamiento como el diagrama de actividad. Sin embargo, a diferencia de estos, el diagrama de secuencia no se utiliza para obtener una visión general del comportamiento de un sistema, sino para presentar un posible comportamiento entre muchos otros en detalle. Prescribe una cronología. Una línea discontinua representa el curso del tiempo.
+
+UML 2.0 muestra mensajes síncronos (UML: flecha con la punta llena) y mensajes asíncronos (UML: flecha con la punta abierta). Los mensajes síncronos son aquellos que bloquean un canal hasta que reciben una respuesta del objeto de destino. Determinan las características de comportamiento en forma de operaciones sincrónicas. Los mensajes asincrónicos controlan el objeto fuente de llamada. Éstas incluyen tanto las operaciones asíncronas como las señales (paquetes de datos enviados entre acciones).
+
+* **Diagrama de Actividades**: Muestra el flujo de control de una actividad a otra. Las actividades consisten en una red de acciones que se relacionan entre sí mediante flujos de datos y de control. Mientras que el Diagrama de casos de uso muestra los requisitos del sistema, el Diagrama de actividades muestra *cómo funcionan estos casos de uso*. En este tipo de diagrama, por ejemplo, el token juega un papel importante: en los procesos paralelos, es un marcador para el cual se priorizan los procesos y, por lo tanto, se reciben los recursos (por ejemplo, la memoria de trabajo).
+* **Diagrama de Estados**: Representa los estados de un objeto y las transiciones entre ellos. Una máquina de estados, también llamada autómata finito, representa un conjunto finito de estados en un sistema. Si se cumple una condición *definida en el sistema* (se detona un desencadenante), se produce una *situación* correspondiente. Esto puede incluir actividades o interacciones. Bajo UML 2.0, un estado representa esta *situación*. Los estados se consideran como nodos (inglés: vértices) y se muestran como rectángulos con esquinas redondeadas. Además, el diagrama de máquina de estados modela las transiciones de un estado (nodo fuente) a otro (nodo destino). Los modelos UML presentan las transiciones de estado como bordes. Las acciones son la última piedra angular. Se asignan especificaciones de comportamiento al estado.
+
+El comportamiento está ligado a ciertas situaciones o eventos. El diagrama de máquina de estados UML tiene 4 especificaciones:
+
+* Comportamiento de entrada (__entry behavior__)
+* Comportamiento en el estado (_doActivity_)
+* Comportamiento que ocurre en caso de un evento (_event behavior_)
+* Comportamiento de salida (_exit behavior_)
+
+Además, un estado puede ser interrumpido y continuado en el mismo punto. Esta propiedad se llama estado de la historia.
+
+UML permite a los desarrolladores crear estos diagramas utilizando un conjunto de notaciones estándar, lo que asegura que los diagramas sean comprensibles y consistentes independientemente del contexto del proyecto o la organización.
+
+===Diagramas UML: una visión general
+El siguiente resumen muestra las categorías superiores y las posibles aplicaciones de los tipos de diagrama individuales en forma abreviada. Si deseas representar visualmente un sistema de software orientado a modelos, un caso de uso en la economía, etc., debes seleccionar uno de los tipos de diagrama UML de antemano de acuerdo con la recomendación del Grupo de Trabajo de UML. Solo entonces vale la pena elegir una de las muchas herramientas UML, ya que estos a menudo prescriben un cierto método. A continuación, crea el diagrama UML.
+
+|===
+|Categoría | Tipo de diagrama | Aplicación
+|Estructura	| Diagrama de clases | Visualizar clases
+|  	|Diagrama de objetos	| Estado del sistema en un momento dado
+|  	|Diagrama de componentes |Estructurar componentes y mostrar relaciones
+| 	|Diagrama de estructura compositiva	|Divide los componentes o clases en sus componentes y aclara sus relaciones.
+|  	|Diagrama de paquete	|Agrupa las clases en paquetes, muestra la jerarquía y la estructura de los paquetes.
+| 	|Diagrama de distribución	|Distribución de componentes a los nodos informáticos
+| 	|Gráfica de perfil	|Ilustra contextos de uso a través de estereotipos, condiciones límite, etc.
+|Comportamiento	|Diagrama de casos de uso	|Representa varias aplicaciones
+|  	|Diagrama de actividades	|Describe el comportamiento de diferentes procesos (paralelos) en un sistema.
+| 	|Diagrama de estados	|Documenta cómo un objeto es movido de un estado a otro por un evento.
+|Comportamiento: interacción	|Diagrama secuencial	|Secuencia temporal de las interacciones entre objetos
+| 	|Diagrama de comunicación	|Distribución de roles de los objetos dentro de una interacción
+| 	|Diagrama de tiempos	|Limitación de tiempo para los acontecimientos que conducen a un cambio de estado
+| 	|Diagrama de interacción	|Secuencias y actividades interactivas
+|===
+
+== Ventajas de Usar UML
+
+El uso de UML ofrece varias ventajas importantes en el desarrollo de software:
+
+* **Visualización Clara**: UML proporciona una representación visual clara del sistema, facilitando la comprensión y comunicación entre los miembros del equipo.
+* **Estandarización**: UML es un estándar de la industria, lo que significa que los diagramas UML son consistentes y pueden ser entendidos por desarrolladores en diferentes proyectos y organizaciones.
+* **Documentación**: UML facilita la documentación del sistema, lo que es crucial para el mantenimiento y evolución del software.
+* **Análisis y Diseño**: UML ayuda en las etapas de análisis y diseño, permitiendo a los desarrolladores identificar y resolver problemas antes de que se traduzcan en código.
+* **Flexibilidad**: UML es extensible y puede adaptarse a las necesidades específicas de un proyecto o una organización.
+

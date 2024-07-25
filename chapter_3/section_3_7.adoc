@@ -1,0 +1,259 @@
+= Extras: LA clase Optional y el operador ::
+
+== La clase Optional
+
+La clase `Optional` de Java es una clase contenedora que puede contener o no un valor no nulo. Se introdujo en Java 8 como una solución para manejar valores opcionales y evitar el uso de `null`, que a menudo conduce a errores como el `NullPointerException`. La clase `Optional` proporciona métodos para manipular y gestionar valores opcionales de manera segura y predecible.
+
+La definición formal de `Optional` es la siguiente:
+
+[source,java]
+----
+public final class Optional<T> {
+    // Definición de la clase
+}
+----
+
+Donde `T` es el tipo del valor contenido en el `Optional`.
+
+=== Usos de `Optional`
+
+La clase `Optional` se utiliza en varios escenarios para manejar valores opcionales de manera segura:
+
+1. **Retornos de Métodos**: Utilizar `Optional` como tipo de retorno de métodos que pueden devolver un valor o no. Esto hace explícito el hecho de que un valor puede estar presente o ausente, en lugar de devolver `null`.
+
+2. **Parámetros de Métodos**: Aunque es menos común, se puede usar `Optional` como parámetro de un método para indicar que el argumento es opcional.
+
+3. **Campos de Clase**: Utilizar `Optional` como tipo de campo de una clase para representar que un valor puede estar presente o no.
+
+4. **Evitación de `null`**: Al utilizar `Optional`, se pueden evitar los errores de `NullPointerException` y las verificaciones de `null` dispersas por el código.
+
+=== Importancia de `Optional`
+
+La importancia de `Optional` en Java radica en varias áreas clave:
+
+1. **Seguridad del Código**: Al usar `Optional`, se puede evitar el uso de `null` y los errores asociados. Esto mejora la seguridad del código, haciendo que sea más robusto y menos propenso a fallos inesperados.
+
+2. **Legibilidad del Código**: `Optional` hace explícito cuándo un valor puede estar presente o ausente, mejorando la legibilidad y la claridad del código. Los desarrolladores pueden entender rápidamente las expectativas de los métodos y los datos.
+
+3. **Mantenimiento del Código**: Al evitar `null` y usar `Optional`, el código es más fácil de mantener y extender. Los métodos que devuelven `Optional` hacen que las operaciones sean más predecibles y manejables.
+
+4. **Composición de Funciones**: `Optional` permite la composición de funciones y el encadenamiento de operaciones, facilitando la construcción de flujos de trabajo complejos de manera segura.
+
+=== Métodos Principales de `Optional`
+
+La clase `Optional` proporciona varios métodos útiles para manipular valores opcionales:
+
+. **Creación de `Optional`**:
+   - `Optional.of(T value)`: Crea un `Optional` que contiene el valor dado, que no puede ser `null`.
+   - `Optional.ofNullable(T value)`: Crea un `Optional` que puede contener un valor no nulo o estar vacío si el valor es `null`.
+   - `Optional.empty()`: Crea un `Optional` vacío.
+
+[source,java]
+----
+Optional<String> opt1 = Optional.of("Valor");
+Optional<String> opt2 = Optional.ofNullable(null);
+Optional<String> opt3 = Optional.empty();
+----
+
+[start=2]
+. **Comprobación de Presencia de Valor**:
+   - `boolean isPresent()`: Devuelve `true` si el valor está presente, de lo contrario `false`.
+   - `boolean isEmpty()`: Devuelve `true` si el valor está ausente, de lo contrario `false` (disponible desde Java 11).
+
+[source,java]
+----
+if (opt1.isPresent()) {
+    System.out.println("El valor está presente");
+} else {
+    System.out.println("El valor está ausente");
+}
+----
+
+[start=3]
+. **Acceso al Valor**:
+   - `T get()`: Devuelve el valor si está presente, de lo contrario lanza `NoSuchElementException`.
+   - `T orElse(T other)`: Devuelve el valor si está presente, de lo contrario devuelve el valor alternativo dado.
+   - `T orElseGet(Supplier<? extends T> supplier)`: Devuelve el valor si está presente, de lo contrario invoca el `Supplier` y devuelve su resultado.
+   - `T orElseThrow()`: Devuelve el valor si está presente, de lo contrario lanza `NoSuchElementException`.
+   - `T orElseThrow(Supplier<? extends X> exceptionSupplier)`: Devuelve el valor si está presente, de lo contrario lanza una excepción creada por el `Supplier`.
+
+[source,java]
+----
+String valor1 = opt1.get();
+String valor2 = opt2.orElse("Valor alternativo");
+String valor3 = opt2.orElseGet(() -> "Valor alternativo generado");
+----
+
+[start=4]
+. **Transformación del Valor**:
+   - `<U> Optional<U> map(Function<? super T, ? extends U> mapper)`: Aplica la función dada al valor si está presente y devuelve un `Optional` que contiene el resultado.
+   - `<U> Optional<U> flatMap(Function<? super T, Optional<U>> mapper)`: Aplica la función dada que devuelve un `Optional` y aplanar el resultado.
+
+[source,java]
+----
+Optional<Integer> longitud = opt1.map(String::length);
+Optional<String> mayusculas = opt1.flatMap(valor -> Optional.of(valor.toUpperCase()));
+----
+
+[start=5]
+. **Acción sobre el Valor**:
+   - `void ifPresent(Consumer<? super T> action)`: Ejecuta la acción dada si el valor está presente.
+   - `void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)`: Ejecuta la acción dada si el valor está presente, de lo contrario ejecuta la acción vacía (disponible desde Java 9).
+
+[source,java]
+----
+opt1.ifPresent(valor -> System.out.println("Valor presente: " + valor));
+opt2.ifPresentOrElse(
+    valor -> System.out.println("Valor presente: " + valor),
+    () -> System.out.println("Valor ausente")
+);
+----
+
+== Uso de la Notación `::` en Java
+
+Abras notado qeu en algunos ejemplos anteriores se usa el operador `::` y te preguntaras que hace. A continuación vamos a hacer una eplicación para que lo tengas claro
+
+La notación `::`, también conocida como el operador de referencia a método, es una característica introducida en Java 8 que permite referenciar métodos o constructores directamente de manera compacta y legible. Este operador facilita el uso de métodos como argumentos para otras funciones, especialmente en el contexto de programación funcional con lambdas y streams.
+
+=== Definición y Uso
+
+El operador `::` se utiliza para hacer referencia a métodos estáticos, métodos de instancia y constructores de clases. Es una forma concisa de expresar una lambda que llama a un método existente. La notación `::` puede ser utilizada en diferentes contextos:
+
+1. **Métodos Estáticos**
+2. **Métodos de Instancia**
+3. **Constructores**
+
+=== Referencia a Métodos Estáticos
+
+Para referenciar un método estático, se utiliza la siguiente sintaxis:
+
+[source,java]
+----
+Clase::metodoEstatico
+----
+
+Por ejemplo, si tenemos una clase `MathUtils` con un método estático `doblar`, podemos referenciarlo de esta manera:
+
+[source,java]
+----
+import java.util.function.Function;
+
+public class ReferenciaMetodosEstaticos {
+    public static void main(String[] args) {
+        Function<Integer, Integer> doblar = MathUtils::doblar;
+        int resultado = doblar.apply(5);
+        System.out.println("Resultado: " + resultado); // Resultado: 10
+    }
+}
+
+class MathUtils {
+    public static int doblar(int valor) {
+        return valor * 2;
+    }
+}
+----
+
+En este ejemplo, `MathUtils::doblar` es una referencia al método estático `doblar` de la clase `MathUtils`.
+
+=== Referencia a Métodos de Instancia
+
+Para referenciar un método de instancia de un objeto específico, se utiliza la siguiente sintaxis:
+
+[source,java]
+----
+objeto::metodoInstancia
+----
+
+Por ejemplo, si tenemos una clase `String` y queremos referenciar su método `toUpperCase`:
+
+[source,java]
+----
+import java.util.function.Supplier;
+
+public class ReferenciaMetodosInstancia {
+    public static void main(String[] args) {
+        String mensaje = "hola";
+        Supplier<String> supplier = mensaje::toUpperCase;
+        System.out.println("Mensaje en mayúsculas: " + supplier.get()); // Mensaje en mayúsculas: HOLA
+    }
+}
+----
+
+En este ejemplo, `mensaje::toUpperCase` es una referencia al método de instancia `toUpperCase` del objeto `mensaje` de tipo `String`.
+
+Para referenciar un método de instancia de una clase (no de un objeto específico), se utiliza la siguiente sintaxis:
+
+[source,java]
+----
+Clase::metodoInstancia
+----
+
+Por ejemplo, para referenciar el método `compareTo` de la clase `String`:
+
+[source,java]
+----
+import java.util.function.BiFunction;
+
+public class ReferenciaMetodoInstanciaClase {
+    public static void main(String[] args) {
+        BiFunction<String, String, Integer> comparar = String::compareTo;
+        int resultado = comparar.apply("hola", "mundo");
+        System.out.println("Resultado de la comparación: " + resultado);
+    }
+}
+----
+
+En este ejemplo, `String::compareTo` es una referencia al método de instancia `compareTo` de la clase `String`.
+
+=== Referencia a Constructores
+
+Para referenciar un constructor, se utiliza la siguiente sintaxis:
+
+[source,java]
+----
+Clase::new
+----
+
+Por ejemplo, si tenemos una clase `Persona` con un constructor que toma un solo argumento `String`:
+
+[source,java]
+----
+import java.util.function.Function;
+
+public class ReferenciaConstructores {
+    public static void main(String[] args) {
+        Function<String, Persona> crearPersona = Persona::new;
+        Persona persona = crearPersona.apply("Juan");
+        System.out.println("Persona: " + persona.getNombre()); // Persona: Juan
+    }
+}
+
+class Persona {
+    private String nombre;
+
+    public Persona(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+}
+----
+
+En este ejemplo, `Persona::new` es una referencia al constructor de la clase `Persona` que toma un `String` como argumento.
+
+=== Beneficios del Uso del Operador `::`
+
+El uso del operador `::` en Java ofrece varios beneficios:
+
+1. **Concisión**: Reduce la verbosidad del código al evitar la necesidad de definir lambdas explícitas cuando ya existe un método que realiza la operación deseada.
+2. **Legibilidad**: Mejora la legibilidad del código al hacer explícito qué método o constructor se está utilizando.
+3. **Reutilización de Código**: Facilita la reutilización de métodos y constructores existentes sin necesidad de duplicar lógica en lambdas.
+
+
+
+
+
+
+

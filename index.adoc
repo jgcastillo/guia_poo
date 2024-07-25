@@ -1,0 +1,28 @@
+= Programación Orientada a Objetos
+:docinfo1:
+include::meta.adoc[]
+:doctype: book
+:toc: left
+:toc-title: Contenido
+:sectanchors:
+:sectlinks:
+:sectnums:
+:masterdoc: // sections are integrated in the master document
+include::attributes.adoc[]
+
+
+:leveloffset: +1
+
+include::copyright/title_page.adoc[]
+include::chapter_1/chapter_1.adoc[]
+include::chapter_2/chapter_2.adoc[]
+include::chapter_3/chapter_3.adoc[]
+include::chapter_4/chapter_4.adoc[]
+include::chapter_5/chapter_5.adoc[]
+include::chapter_6/chapter_6.adoc[]
+include::chapter_7/chapter_7.adoc[]
+include::chapter_8/chapter_8.adoc[]
+include::chapter_9/chapter_9.adoc[]
+
+:leveloffset: -1
+
