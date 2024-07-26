@@ -1,4 +1,4 @@
-= Extras: LA clase Optional y el operador ::
+= Extras: La clase Optional y el operador ::
 
 == La clase Optional
 

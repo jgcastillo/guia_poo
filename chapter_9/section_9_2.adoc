@@ -13,6 +13,7 @@ Los patrones de diseño se agrupan generalmente en tres categorías principales:
 
 == Patrones de Diseño
 
+.Patrones de diseño de software
 [cols="1,1,3", options="header"]
 |===
 | Categoría

@@ -42,7 +42,7 @@ Similar a los atributos, es común simplificar los métodos indicando solo el no
 
 Un ejemplo de clase podría ser el siguiente:
 
-image::ejemplo_clase.png[Clase]
+image::ejemplo_clase.png["Diagrama de clase", reftext= "Figura {figure}", title="Diagrama de clase"]
 
 En caso de que un atributo o función sea estático, se representa en el diagrama subrayando su nombre.
 
@@ -74,7 +74,7 @@ class B {
 
 Un ejemplo de asociación de clase es tal como se muestra en la figura:
 
-image::clase_asociacion.png[]
+image::clase_asociacion.png["Asociación de clase", reftext="Figura {figure}", title="Asociación de clase"]
 
 ==== Agregación
 
@@ -91,7 +91,7 @@ class Empleado {
 
 Un ejemplo de agregación de clase es tal como se muestra en la figura:
 
-image::clase_agregacion.png[]
+image::clase_agregacion.png["Agregación de clases", reftext="Figura {figure}", title="Agregación de clases"]
 
 ==== Composición
 
@@ -108,7 +108,7 @@ class Habitacion {
 
 Un ejemplo de composición de clase es tal como se muestra en la figura:
 
-image::clase_composicion.png[]
+image::clase_composicion.png["Composición de clases", reftext="Figura {figure}", title="Composición de clases"]
 
 ==== Generalización (Herencia)
 
@@ -131,7 +131,7 @@ class Perro extends Animal {
 
 Un ejemplo de una relación de generalización es tal como se muestra en la figura:
 
-image::clase_generalizacion.png[]
+image::clase_generalizacion.png["Generalización de clases", reftext="Figura {figure}", title="Generalización de clases"]
 
 ==== Dependencia
 
@@ -150,7 +150,7 @@ class Pedido {
 
 Un ejemplo de una relación dependencia es tal como se muestra en la figura:
 
-image::clase_dependencia.png[]
+image::clase_dependencia.png["Dependencia de clases", reftext="Figura {figure}", title="Dependencia de clases"]
 
 === Cardinalidad
 
@@ -172,4 +172,4 @@ class Producto {
 
 En el ejemplo anterior, un `Pedido` puede tener uno o muchos `Productos`. Y su diagrama se podría expresar como en la figura siguiente:
 
-image::clase_cardinalidad.png[]
+image::clase_cardinalidad.png["Cardinalidad de clases", reftext="Figura {figure}", title="Cardinalidad de clases"]

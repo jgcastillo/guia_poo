@@ -31,7 +31,7 @@ La Máquina Virtual de Java (JVM) es una pieza clave de la plataforma Java que p
 
 === Arquitectura de la JVM
 
-image::jvm_architecture.jpg["Arquitectura de la JVM", reftext="Figura {figure}", title="Arquitectura de la JVM (fuente: https://beginnersbook.com/2013/05/jvm/)", align=center, title-align=center]
+image::jvm_architecture.png["Arquitectura de la JVM", reftext="Figura {figure}", title="Arquitectura de la JVM (fuente: https://beginnersbook.com/2013/05/jvm/)", align=center, title-align=center]
 
 La JVM está compuesta por varios componentes principales que trabajan juntos para ejecutar aplicaciones Java:
 

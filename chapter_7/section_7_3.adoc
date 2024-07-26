@@ -1,6 +1,6 @@
 = Ciclo de Vida de un Hilo
 
-image::Life_cycle_of_a_Thread_in_Java.jpg[]
+image::Life_cycle_of_a_Thread_in_Java.png["Ciclo de vida de un hilo", reftext="Figura {figure}", title="Ciclo de vida de un hilo", align=center, title-align=center]
 
 El ciclo de vida de un hilo en Java es un concepto fundamental para entender cómo funcionan los hilos dentro de un programa concurrente. Un hilo pasa por varios estados desde su creación hasta su terminación. Estos estados incluyen:
 

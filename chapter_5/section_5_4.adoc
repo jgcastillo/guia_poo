@@ -50,7 +50,7 @@ class Producto {
 
 A continuación como luciría el diagrama de secuencia:
 
-image::secuencia_1.png[]
+image::secuencia_1.png["Ejemplo de un diagrama de secuencia", reftext="Figura {figure}", title="Ejemplo de un diagrama de secuencia"]
 
 **Explicación**:
 
@@ -122,7 +122,7 @@ class Pedido {
 
 A continuación como luciría el diagrama de colaboración:
 
-image::colaboracion_1.png[]
+image::colaboracion_1.png["Ejemplo de un diagrama de colaboración", reftext="Figura {figure}", title="Ejemplo de un diagrama de colaboración"]
 
 *Explicación*:
 
@@ -146,8 +146,9 @@ image::colaboracion_1.png[]
 * Los enlaces entre los objetos muestran las asociaciones necesarias para completar la tarea.
 * Los mensajes están numerados para indicar el orden de las interacciones y la secuencia de eventos.
 
-Como habras notado lols diagrams de Secuencia y de Colaboración tienen algunas similitudes y al principio te podrían confundir, de manera de abordar esas posibles dudas a continuación se muestra una tabla comparativa de ambos diagramas y así facilitar su uso correcto:
+Como habras notado los diagrams de Secuencia y de Colaboración tienen algunas similitudes y al principio te podrían confundir, de manera de abordar esas posibles dudas a continuación se muestra una tabla comparativa de ambos diagramas y así facilitar su uso correcto:
 
+.Comparación diagramas de Secuencia y Colaboración
 [cols="1,1,1", options="header"]
 |===
 | Característica | Diagrama de Secuencia | Diagrama de Colaboración

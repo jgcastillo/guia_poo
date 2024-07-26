@@ -4,6 +4,7 @@
 :prog-lang: all
 //:sourcedir: ../examples/
 :figure-caption: Figura
+:table-caption: Tabla
 :source-highlighter: highlightjs
 :revealjs_theme: black
 :revealjs_slideNumber: true

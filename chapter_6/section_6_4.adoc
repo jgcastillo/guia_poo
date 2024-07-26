@@ -4,7 +4,7 @@
 
 En Java, la jerarquía de clases de excepciones es un sistema bien estructurado que permite a los desarrolladores manejar errores de manera organizada y específica. Todas las excepciones derivan de la clase base `Throwable`, que tiene dos subclases principales: `Error` y `Exception`.
 
-image::exceptions_throwable.gif[]
+image::exceptions_hierarchy.png["Jerarquía de clases de Throwable", reftext="Figura {figure}", title="Jerarquía de clases de Throwable", align=center, title-align=center]
 
 La clase `Throwable` es la clase raíz para todos los objetos que pueden ser "lanzados" (thrown) mediante la palabra clave `throw`. Esta clase tiene dos subclases directas: `Error` y `Exception`.
 

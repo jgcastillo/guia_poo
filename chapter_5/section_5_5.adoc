@@ -2,7 +2,7 @@
 
 El diagrama de casos de uso es uno de los diagramas de comportamiento más utilizados en UML. Un diagrama de casos de uso proporciona una representación visual de las interacciones entre los actores externos y el sistema, destacando los diferentes casos de uso o funcionalidades que el sistema proporciona.
 
-image::use_case_7_demo.png[]
+image::use_case_7_demo.png["Diagrama de Casos de Uso", reftext="Figura {figure}", title="Diagrama de casos de uso"]
 
 == Artefactos
 
@@ -38,31 +38,31 @@ Existen varios tipos de relaciones en los diagramas de casos de uso:
 
 La relación de inclusión se denota con una línea discontinua y una flecha con la etiqueta `\<<include>>`.
 
-image::use_case_2.png[]
+image::use_case_2.png["Inclusión en un diagrama de casos de uso", reftext="Figura {figure}", title="Inclusión en un diagrama de casos de uso"]
 
 ==== Extensión
 
 La relación de extensión se denota con una línea discontinua y una flecha con la etiqueta `\<<extend>>`.
 
-image::use_case_6_extends.png[]
+image::use_case_6_extends.png["Extensión en un diagrama de casos de uso", reftext="Figura {figure}", title="Extensión en un diagrama de casos de uso"]
 
 ==== Generalización
 
 La relación de generalización se denota con una línea continua y una flecha con un triángulo vacío.
 
-image::use_case_3.png[]
+image::use_case_3.png["Generalización en un diagrama de casos de uso", reftext="Figura {figure}", title="Inclusión en un diagrama de casos de uso"]
 
 === Ejemplos de Diagramas de Casos de Uso
 
 ==== Caso de Uso de Sistema de Biblioteca
 
-image::use_case_4.png[]
+image::use_case_4.png["Diagrama de casos de uso para un sistema de biblioteca", reftext="Figura {figure}", title="Diagrama de casos de uso para un sistema de biblioteca"]
 
 En este ejemplo, los actores `Usuario` y `Bibliotecario` interactúan con el sistema de biblioteca. El usuario puede buscar y reservar libros, mientras que el bibliotecario puede registrar préstamos y devoluciones. La relación `\<<include>>` indica que el caso de uso "Reservar Libro" incluye el comportamiento del caso de uso "Buscar Libro".
 
 ==== Caso de Uso de Sistema de Ventas
 
-image::use_case_5.png[]
+image::use_case_5.png["Diagrama de casos de uso para un sistema de ventas", reftext="Figura {figure}", title="Diagrama de casos de uso para un sistema de ventas"]
 
 En este ejemplo, los actores `Cliente` y `Cajero` interactúan con el sistema de ventas. El cliente puede comprar y consultar productos, mientras que el cajero puede procesar ventas y anular ventas. La relación `\<<include>>` indica que el caso de uso "Comprar Producto" incluye el comportamiento del caso de uso "Consultar Producto". La relación `\<<extend>>` indica que el caso de uso "Anular Venta" extiende el comportamiento del caso de uso "Procesar Venta" bajo ciertas condiciones.
 
@@ -81,13 +81,13 @@ Identificados los casos de uso, tenemos:
 
 El diagrama de casos de uso lo vamos a repetir aquí, para que lo tengas presente
 
-image::use_case_4.png[]
+image::use_case_4.png["Diagrama de casos de uso para un sistema de biblioteca", reftext="Figura {figure}", title="Diagrama de casos de uso para un sistema de biblioteca"]
 
 En el diagrama, los actores `Usuario` y `Bibliotecario` interactúan con el sistema de biblioteca. Los usuarios pueden buscar y reservar libros, mientras que los bibliotecarios pueden registrar préstamos y devoluciones. La relación `\<<include>>` entre "Reservar Libro" y "Buscar Libro" indica que el proceso de reserva de libros incluye la búsqueda de libros.
 
 === Diagrama de Secuencia para "Reservar Libro"
 
-image::complete_secuencia_1.png[]
+image::complete_secuencia_1.png["Diagrama de secuencia para 'Reservar Libro'", reftext="Figura {figure}", title="Diagrama de secuencia para 'Reservar Libro'"]
 
 Detallando el diagramos tenemos que:
 
@@ -200,13 +200,13 @@ Para este ejemplo, definiremos los siguientes casos de uso para un sistema de ge
 
 === Diagrama de Casos de Uso
 
-image::ejemplo_2_1.png[]
+image::ejemplo_2_1.png["Diagrama de casos de uso para un sistema de gestión de pedidos", reftext="Figura {figure}", title="Diagrama de casos de uso para un sistema de gestión de pedidos"]
 
 En el diagrama, el actor `Usuario` interactúa con el "Sistema de Gestión de Pedidos". Los usuarios pueden crear, actualizar, eliminar y ver pedidos. Cada uno de estos casos de uso representa una funcionalidad que el sistema proporciona al usuario.
 
 === Diagrama de Secuencia para "Crear Pedido"
 
-image::ejemplo_2_2.png[]
+image::ejemplo_2_2.png["Diagrama de secuencia para 'Crear Pedido'", reftext="Figura {figure}", title="Diagrama de secuencia para 'Crear Pedido'"]
 
 Analicemos lo que se hace aqui:
 

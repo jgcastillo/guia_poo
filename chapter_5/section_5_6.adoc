@@ -79,20 +79,20 @@ public class Libro {
 
 === Solución Ejercicio 1: Diagrama de Clases
 
-image::sol_ejercicio_1.png[]
+image::sol_ejercicio_1.png["Solución ejercicio 1", reftext="Figura {figure}", title="Solución ejercicio 1"]
 
 === Solución Ejercicio 2: Diagrama de Casos de Uso
 
-image::sol_ejercicio_2.png[]
+image::sol_ejercicio_2.png["Solución ejercicio 2", reftext="Figura {figure}", title="Solución ejercicio 2"]
 
 === Solución Ejercicio 3: Diagrama de Secuencia
 
-image::sol_ejercicio_3.png[]
+image::sol_ejercicio_3.png["Solución ejercicio 3", reftext="Figura {figure}", title="Solución ejercicio 3"]
 
 === Solución Ejercicio 4: Diagrama de Colaboración
 
-image::sol_ejercicio_4.png[]
+image::sol_ejercicio_4.png["Solución ejercicio 4", reftext="Figura {figure}", title="Solución ejercicio 4"]
 
 === Solución Ejercicio 5: Desde el Código Java al Diagrama de Clases
 
-image::sol_ejercicio_5.png[]
+image::sol_ejercicio_5.png["Solución ejercicio 5", reftext="Figura {figure}", title="Solución ejercicio 5"]

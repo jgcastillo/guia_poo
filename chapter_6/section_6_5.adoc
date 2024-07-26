@@ -8,7 +8,7 @@ Cuando una excepción se lanza dentro de un método y no es capturada por un blo
 
 Este proceso se muestra en la siguiente imagen:
 
-image::propagacion_excepcion.png[]
+image::propagacion_excepcion.png["Propagación de excepciones", reftext="Figura {figure}", title="Propagación de excepciones", align=center, title-align=center]
 
 
 Consideremos un ejemplo simple donde una excepción se lanza en un método y se propaga a través de varios niveles de la pila de llamadas.

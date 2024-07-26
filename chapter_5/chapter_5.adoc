@@ -12,6 +12,7 @@ include::section_5_2.adoc[]
 include::section_5_3.adoc[]
 include::section_5_4.adoc[]
 include::section_5_5.adoc[]
+include::section_5_6.adoc[]
 
 
 ifdef::masterdoc[]

@@ -14,7 +14,8 @@ Otra diferencia importante radica en el uso del modificador `default` en las int
 
 A continuación, se presenta una tabla que resume las diferencias entre clases abstractas e interfaces en Java:
 
-[cols="1,1,1", options="header"]
+.Diferencias entre clases abstractas e interfaces
+[%autowidth]
 |===
 | Característica | Clases Abstractas | Interfaces
 

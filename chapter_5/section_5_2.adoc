@@ -105,9 +105,10 @@ Además, un estado puede ser interrumpido y continuado en el mismo punto. Esta p
 
 UML permite a los desarrolladores crear estos diagramas utilizando un conjunto de notaciones estándar, lo que asegura que los diagramas sean comprensibles y consistentes independientemente del contexto del proyecto o la organización.
 
-===Diagramas UML: una visión general
-El siguiente resumen muestra las categorías superiores y las posibles aplicaciones de los tipos de diagrama individuales en forma abreviada. Si deseas representar visualmente un sistema de software orientado a modelos, un caso de uso en la economía, etc., debes seleccionar uno de los tipos de diagrama UML de antemano de acuerdo con la recomendación del Grupo de Trabajo de UML. Solo entonces vale la pena elegir una de las muchas herramientas UML, ya que estos a menudo prescriben un cierto método. A continuación, crea el diagrama UML.
+=== Diagramas UML: una visión general
+El siguiente resumen muestra las categorías superiores y las posibles aplicaciones de los tipos de diagrama individuales en forma abreviada. Si deseas representar visualmente un sistema de software orientado a modelos, un caso de uso en la economía, etc., debes seleccionar uno de los tipos de diagrama UML de antemano de acuerdo con la recomendación del Grupo de Trabajo de UML. Solo entonces vale la pena elegir una de las muchas herramientas UML, ya que estos a menudo prescriben un cierto método. A continuación presentamos uuna tabla resumen.
 
+.Resumen de los diferentes diagramas UML y su aplicación
 |===
 |Categoría | Tipo de diagrama | Aplicación
 |Estructura	| Diagrama de clases | Visualizar clases
